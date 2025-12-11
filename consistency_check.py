@@ -9,8 +9,8 @@ import os
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Chinese_Grammar_Error_Correction")
-    parser.add_argument("--model_name", type=str, default="qwen/qwen3-235b-a22b:free", help="Model name")
-    parser.add_argument("--base_url", type=str, default="https://openrouter.ai/api/v1", help="Base URL")
+    parser.add_argument("--model_name", type=str, default="qwen-plus", help="Model name")
+    parser.add_argument("--base_url", type=str, default="https://dashscope.aliyuncs.com/compatible-mode/v1", help="Base URL")
     parser.add_argument("--docx_data", type=str, default="./dataset/test.docx", help="Docs Dataset path")
     parser.add_argument("--pdf_data", type=str, default="./dataset/test.pdf", help="PDF Dataset path")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")
@@ -24,7 +24,7 @@ def logging_config(args):
     log_file = os.path.join(log_dir, "consistency_check.log")
 
     # 配置 logging
-    logger = logging.getLogger("consistency_check_logger")
+    logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)  # 可设置为 DEBUG/INFO 等
 
     # 控制台 Handler
@@ -48,30 +48,38 @@ def logging_config(args):
     return logger
 
 def main(args, **kwargs):
-    logger = kwargs.get("logger", logging.getLogger("consistency_check_logger"))
+    logger = kwargs.get("logger")
     # chain获取
     entity_extract_chain = get_entity_extract_chain(args.model_name, args.base_url)
     entity_consistency_check_chain = get_entity_consistency_check_chain(args.model_name, args.base_url)
     # 文档读取
+    logger.info(f"读取文档: {args.docx_data}")
     text = extract_text_from_docx(args.docx_data)
     # chunking
     chunks = text.split("\n")
     # chunking后，保留上下文提取实体
     ent_store = EntityStore()
     previous_memory = ""
-    for chunk in chunks:
-        #chunk_input = f"前文要点总结:{previous_memory}\n当前输入文本:{chunk}" if previous_memory else chunk
-        # 提出本chunk的实体
-        ents = extract_entities(entity_extract_chain, chunk)
-        for ent in ents:
-            ent_store.add_entity(ent)
-        logger.info(f"当前chunk实体: {ents}")
-        # 更新memory，用于下一chunk
-        #previous_memory = summarize_entity_memory(entity_consistency_check_chain, ent_store)
-        #logger.info(f"当前chunk实体内存总结: {previous_memory}")
+    # for chunk in chunks:
+    #     #chunk_input = f"前文要点总结:{previous_memory}\n当前输入文本:{chunk}" if previous_memory else chunk
+    #     # 提出本chunk的实体
+    #     ents = extract_entities(entity_extract_chain, chunk)
+    #     for ent in ents:
+    #         ent_store.add_entity(ent)
+    #     logger.info(f"当前chunk实体: {ents}")
+    #     # 更新memory，用于下一chunk
+    #     #previous_memory = summarize_entity_memory(entity_consistency_check_chain, ent_store)
+    #     #logger.info(f"当前chunk实体内存总结: {previous_memory}")
+
+    # 不chunking，直接提取所有实体
+    logger.info("开始提取所有实体")
+    ents = extract_entities(entity_extract_chain, text)
+    for ent in ents:
+        ent_store.add_entity(ent)
+    logger.info(f"所有实体: {ents}")
 
     # 冲突检测
-    for ent in ent_store.entities:
+    for ent in ent_store.all_entities():
         res = check_entity_consistency(entity_consistency_check_chain, ent)
         logger.info(f"对于实体 {ent.entity_id} 的冲突分析: {res}")
 

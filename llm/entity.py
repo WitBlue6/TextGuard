@@ -2,6 +2,9 @@ from pydantic import BaseModel, Field
 from typing import Dict, Any, List, Optional
 import json
 import uuid
+import logging
+logger = logging.getLogger(__name__)
+
 
 # 实体定义
 class UIEntity(BaseModel):
@@ -78,11 +81,13 @@ def extract_entities(chain, text: str) -> List[UIEntity]:
                           ).content
     try:
         raw_entities = json.loads(result)
+        #logger.info(f"原始实体提取结果: {raw_entities}")
+
         # 转化为 UIEntity 列表
         entities = [UIEntity(entity_id=str(uuid.uuid4()), **entity) for entity in raw_entities]
     except Exception as e:
-        print(f"实体提取失败: {e}")
-        print("llm_response:", result)
+        logger.error(f"实体提取失败: {e}")
+        logger.debug("llm_response:", result)
         entities = []
     return entities 
 
@@ -93,7 +98,14 @@ def check_entity_consistency(chain, entity: UIEntity) -> Dict[str, Any]:
     :param entity: 待检查的实体
     :return: 检查结果
     """
-    result = chain.invoke({"new_message": entity.model_dump_json()}).content
+    try:
+        input = entity.model_dump_json()
+    except Exception as e:
+        logger.error(f"实体序列化失败: {e}")
+        logger.debug("entity类型:", type(entity))
+        logger.debug("entity:", entity)
+        return {}
+    result = chain.invoke({"new_message": input}).content
     return json.loads(result)
 
 def summarize_entity_memory(chain, store: EntityStore) -> str:
