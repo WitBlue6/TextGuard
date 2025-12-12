@@ -11,10 +11,25 @@ if __name__ == "__main__":
     pdf_file = "./dataset/test.pdf"
     docx_file = "./dataset/test.docx"
 
-    print("\nPDF File:", pdf_file)
+    print("\nPDF File:\n", pdf_file)
     pdf_text = extract_text_from_pdf(pdf_file)
-    print("\nPDF Text:", pdf_text)
+    print("\nPDF Text:\n", pdf_text)
+    print("\nPDF Length:", len(pdf_text))
 
-    print("\nDOCX File:", docx_file)
+    print("\nDOCX File:\n", docx_file)
     docx_text = extract_text_from_docx(docx_file)
-    print("\nDOCX Text:", docx_text)
+    print("\nDOCX Text:\n", docx_text)
+    print("\nDOCX Length:", len(docx_text))
+
+    pdf_file = "./dataset/test_long.pdf"
+    docx_file = "./dataset/test_long.docx"
+
+    print("\nPDF File:\n", pdf_file)
+    pdf_text = extract_text_from_pdf(pdf_file)
+    print("\nPDF Text:\n", pdf_text)
+    print("\nPDF Length:", len(pdf_text))
+
+    print("\nDOCX File:\n", docx_file)
+    docx_text = extract_text_from_docx(docx_file)
+    print("\nDOCX Text:\n", docx_text)
+    print("\nDOCX Length:", len(docx_text))

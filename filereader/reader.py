@@ -24,3 +24,12 @@ def extract_text_from_docx(path):
         logger.debug("docx_file:", path)
         text = ""
     return text
+
+def chunking(text, chunk_size=1024):
+    """
+    将文本切分成指定大小的块
+    """
+    chunks = []
+    for i in range(0, len(text), chunk_size):
+        chunks.append(text[i:i+chunk_size])
+    return chunks

@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from .prompt import GRAMMAR_CHECK_PROMPT, ENTITY_EXTRACT_PROMPT, ENTITY_CONSISTENCY_CHECK_PROMPT, ENTITY_MEMORY_SUMMARY_PROMPT
+from .prompt import GRAMMAR_CHECK_PROMPT, ENTITY_EXTRACT_PROMPT, ENTITY_CONSISTENCY_CHECK_PROMPT, MEMORY_SUMMARY_PROMPT
 from .memory import SimpleMemory
 
 memory_store = {}
@@ -89,20 +89,20 @@ def get_entity_consistency_check_chain(model_name: str ="gpt-4o-mini-2024-07-18"
     entity_consistency_check_chain = entity_consistency_check_prompt | entity_consistency_check_model
     return entity_consistency_check_chain
 
-def get_entity_memory_summary_chain(model_name: str ="gpt-4o-mini-2024-07-18", base_url: str ="https://free.v36.cm/v1"):
-    entity_memory_summary_prompt = ChatPromptTemplate.from_messages([
-        ("system", ENTITY_MEMORY_SUMMARY_PROMPT),
+def get_memory_summary_chain(model_name: str ="gpt-4o-mini-2024-07-18", base_url: str ="https://free.v36.cm/v1"):
+    memory_summary_prompt = ChatPromptTemplate.from_messages([
+        ("system", MEMORY_SUMMARY_PROMPT),
         ("human", "{new_message}"),
     ])
-    entity_memory_summary_model = ChatOpenAI(
+    memory_summary_model = ChatOpenAI(
         model_name=model_name,
         temperature=0.7,
         max_tokens=1024,
         base_url=base_url,
         api_key=os.getenv("OPENAI_API_KEY"),
     )
-    entity_memory_summary_chain = entity_memory_summary_prompt | entity_memory_summary_model
-    return entity_memory_summary_chain
+    memory_summary_chain = memory_summary_prompt | memory_summary_model
+    return memory_summary_chain
 
 
 

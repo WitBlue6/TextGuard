@@ -108,14 +108,12 @@ def check_entity_consistency(chain, entity: UIEntity) -> Dict[str, Any]:
     result = chain.invoke({"new_message": input}).content
     return json.loads(result)
 
-def summarize_entity_memory(chain, store: EntityStore) -> str:
+def summarize_entity_memory(chain, chunk: str) -> str:
     """
-    对实体列表进行总结。
+    对输入chunking后的实体列表进行总结。
     :param chain: 实体内存总结链
-    :param entities: 实体列表
+    :param chunk: 输入的文本chunk
     :return: 总结文本
     """
-    entities = [e.dict() for e in store.all_entities()]
-
-    result = chain.invoke({"new_message": json.dumps(entities, ensure_ascii=False, indent=2)}).content
+    result = chain.invoke({"new_message": chunk}).content
     return result
