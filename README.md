@@ -11,6 +11,7 @@
 - **实时通信**：基于WebSocket的实时检测进度反馈
 - **友好界面**：现代化的Web界面，操作简单直观
 
+![alt text](raw/images/1.png)
 ## 技术栈
 
 - **后端框架**：FastAPI
