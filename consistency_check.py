@@ -47,7 +47,7 @@ def logging_config(args):
     logger.addHandler(file_handler)
     return logger
 
-def main(args, **kwargs):
+def check_consistency(args, **kwargs):
     logger = kwargs.get("logger")
 
     # chain获取
@@ -85,14 +85,17 @@ def main(args, **kwargs):
     # logger.info(f"所有实体: {ents}")
 
     # 冲突检测
+    consistency_results = []
     logger.info(f"提取出的所有实体: {ent_store.all_entities()}")
     logger.info("开始检测实体冲突")
     for ent in ent_store.all_entities():
         res = check_entity_consistency(entity_consistency_check_chain, ent)
         logger.info(f"对于实体 {ent.entity_id} 的冲突分析: {res}")
+        consistency_results.append(res)
+    return consistency_results
 
 if __name__ == "__main__":
     args = parse_args()
     logger = logging_config(args)
     logger.info(f"开始运行一致性检查，模型: {args.model_name}, 数据集: {args.docx_data}")
-    main(args, logger=logger)
+    check_consistency(args, logger=logger)

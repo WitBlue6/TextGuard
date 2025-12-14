@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>文本一致性检测</title>
+<style>
+#log { border:1px solid #ccc; height:200px; overflow-y:scroll; padding:5px; background:#f9f9f9; }
+#reply { margin-top:10px; white-space:pre-wrap; }
+</style>
+</head>
+<body>
+<textarea id="message" rows="5" cols="60" placeholder="输入文本"></textarea><br>
+<input type="file" id="file"><br>
+<button id="sendBtn">发送</button>
+
+<h4>日志</h4>
+<div id="log"></div>
+<h4>结果</h4>
+<div id="reply"></div>
+
+<script>
+document.getElementById("sendBtn").onclick = async () => {
+    let message = document.getElementById("message").value;
+    let fileInput = document.getElementById("file");
+    let formData = new FormData();
+    formData.append("message", message);
+    if(fileInput.files.length > 0){
+        formData.append("file", fileInput.files[0]);
+    }
+
+    // 1. 发起任务
+    let resp = await fetch("/start_task", { method:"POST", body: formData });
+    let data = await resp.json();
+    if(data.error){
+        alert(data.error);
+        return;
+    }
+    let task_id = data.task_id;
+
+    // 2. 轮询日志和结果
+    let logDiv = document.getElementById("log");
+    let replyDiv = document.getElementById("reply");
+    let interval = setInterval(async () => {
+        let statusResp = await fetch(`/task_status/${task_id}`);
+        let statusData = await statusResp.json();
+        logDiv.innerText = statusData.logs.join("\n");
+        logDiv.scrollTop = logDiv.scrollHeight;
+        if(statusData.done){
+            replyDiv.innerText = JSON.stringify(statusData.result, null, 2);
+            clearInterval(interval);
+        }
+    }, 500);
+};
+</script>
+</body>
+</html>

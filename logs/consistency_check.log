@@ -1619,3 +1619,731 @@
 2025-12-12 23:04:21 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '9766e516-be9b-4b99-995b-44953323f91b', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '3523', 'req-arrive-time': '1765551860188', 'resp-start-time': '1765551863712', 'x-envoy-upstream-service-time': '3521', 'content-encoding': 'gzip', 'date': 'Fri, 12 Dec 2025 15:04:23 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
 2025-12-12 23:04:21 [DEBUG] _base_client.py:1024 - request_id: 9766e516-be9b-4b99-995b-44953323f91b
 2025-12-12 23:04:21 [INFO] consistency_check.py:92 - 对于实体 9ca19a6d-d5a9-46be-8129-7872972b9c65 的冲突分析: {'entity_name': '腔压控制性能', 'has_conflict': False, 'conflicts': [], 'explanation': '该实体为‘发动机运行指标’类型，所有属性、事件和关系之间无明显矛盾。测试条件明确为100%推力下持续运行170秒，压力波动范围（±1.2%）在设计允许范围（±2.5%）之内，且评价指出实际控制精度优于设计要求，逻辑一致。关联事件‘长程稳态测试成功’描述了在满推力下腔压稳定，与测试条件和评价相符。关系上，该性能体现于‘晨星-III 型液氧甲烷发动机’，并由‘发动机主控（ECU）’实现控制，关系合理。整体信息自洽，无属性、类型、时间或语义冲突。'}
+2025-12-14 15:19:13 [INFO] main.py:52 - 启动一致性检测服务
+2025-12-14 15:19:13 [INFO] main.py:53 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:19:13 [INFO] main.py:71 - FastAPI 初始化完成
+2025-12-14 15:22:45 [INFO] main.py:52 - 启动一致性检测服务
+2025-12-14 15:22:45 [INFO] main.py:53 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:22:45 [INFO] main.py:71 - FastAPI 初始化完成
+2025-12-14 15:23:12 [INFO] main.py:52 - 启动一致性检测服务
+2025-12-14 15:23:12 [INFO] main.py:53 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:23:12 [INFO] main.py:71 - FastAPI 初始化完成
+2025-12-14 15:23:13 [INFO] main.py:52 - 启动一致性检测服务
+2025-12-14 15:23:13 [INFO] main.py:53 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:23:13 [INFO] main.py:71 - FastAPI 初始化完成
+2025-12-14 15:23:13 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:28:10 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:28:10 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:28:10 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:28:11 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:28:11 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:28:11 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:28:11 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:29:57 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:29:57 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:29:57 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:29:57 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:29:57 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:29:57 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:29:57 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:31:32 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:31:32 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:31:32 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:31:32 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:31:32 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:31:32 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:31:32 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 15:31:57 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 15:31:57 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 15:31:57 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 15:31:57 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:31:57 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 15:31:57 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 15:31:57 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 15:31:57 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 15:32:23 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:32:23 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:32:23 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:32:23 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:32:23 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:32:23 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:32:23 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 15:32:42 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 15:32:42 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 15:32:42 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 15:32:42 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:32:42 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 15:32:42 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 15:32:42 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 15:32:42 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 15:39:59 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:39:59 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:39:59 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:39:59 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:39:59 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:39:59 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:39:59 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 15:40:06 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 15:40:06 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 15:40:06 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 15:40:06 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:40:06 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 15:40:06 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 15:40:06 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 15:40:06 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 15:40:06 [INFO] web.py:16 - 开始运行pipeline，模型: qwen-plus
+2025-12-14 15:40:06 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-7355f4bd-4cab-44bd-be8a-3fb8725c3fd9', 'json_data': {'messages': [{'content': '\n你是一个通用信息抽取模型（Universal Entity Extractor）。\n你的任务是从任意类型文档中抽取“实体”（Entity）。\n\n实体不限类别，可以是：\n- 物体（例：航天级柴油发动机、GPU显卡）\n- 人物（例：张三）\n- 组织机构（例：NASA、清华大学）\n- 概念（例：量子纠缠、风险偏好）\n- 地点（例：泰国、北京昌平）\n- 技术术语（例：Transformer模型）\n- 事件（例：发射失败、软件更新）\n- 法规条文（例：GDPR第5条）\n- 统计数据（例：“GDP：3.2%” 也可作为实体形式的属性）\n\n请遵守以下原则：\n\n1. **实体类型（type）必须由你归纳，而不是固定分类。**\n2. **所有属性用 attributes 字典形式表示，不限制字段名。**\n3. **如果文本中有事件，也应与该实体关联存入 events 列表。**\n4. **如果实体与其他实体存在关系（因果、引用、隶属等），存入 relations。**\n5. **保持抽象但不遗漏信息。**\n6. **允许抽取多个实体。**\n7. **每个实体必须包含 name 字段。**如果文本中没有明确名称，不可省略 name 字段，请生成一个描述性名称，例如：\n- “某未具名人物”\n- “文中提到的那位同学”\n- “该发动机部件”\n\n最终输出为一个 UIEntity 的列表。\n\n', 'role': 'system'}, {'content': '当前对话历史:\n[]', 'role': 'system'}, {'content': '在北城中学，高一（3）班最近来了一个转学生，名叫林晓。他刚到学校时，老师向全班介绍说他来自南方的一座小城，父母都是医生，因此林晓对医学特别感兴趣。\n不过在后面的自我介绍里，林晓却说自己从未离开过北城，父母也只是普通的工厂工人，对医学一窍不通。他还强调自己讨厌看病，连医院都尽量不去。\n在体育课上，林晓告诉同学们自己从小就接受专业的篮球训练，已经连续三年担任当地少年队的主力控卫。但当体育老师让他带领大家做热身时，他连最基本的投篮动作都做得极不标准，还说自己其实不会任何球类运动，因为小时候受过手伤，医生叮嘱他不要进行剧烈运动。\n更奇怪的是，在数学课上，老师请林晓解答一道简单的方程。他在黑板上轻松写出了完整步骤，讲解得逻辑清晰，让全班以为他是数学天才。可下一节课的随堂测验里，他连最基础的一元一次方程都算错了，还向同桌抱怨自己从小最讨厌的就是数学，几乎每次考试都不及格。\n午休时，同学们听他说自己最喜欢的动物是猫，家里养了三只。他甚至详细描述了每只猫的性格和名字。然而下午的班会课上，班主任让学生们介绍自己的宠物时，林晓却说自己从来不喜欢动物，尤其是猫，因为小时候被猫抓伤过一次，现在光看到猫的照片都觉得害怕。\n此外，林晓在一天内说了两种完全不同的生日日期。早上他说自己是 2007 年 10 月出生，还拿出学生证给大家看。但是下午又告诉体育老师，他其实是 2006 年 3 月出生，只是“学生证可能印错了”，并坚持自己已经满 19 岁，不可能只有 17 岁。\n更让人无法理解的是，他上午说自己住在学校附近，步行五分钟就能回家；中午又跟同学解释自己每天得坐一个小时公交才能到家；放学时，他又告诉班主任自己是住校生，平时根本不回家。\n到了最后一节历史课，他向老师保证自己从未参加过任何竞赛，并且不喜欢公开演讲。在班会课时却又展示了一张自己获得全市演讲比赛一等奖的奖状，并说自己从小学就是辩论队队长，最喜欢在大庭广众下发言。\n但当同学们问他要不要加入学校的演讲队时，他却说自己一上台就会紧张得说不出话，从来不敢参加这类活动。\n', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 15:40:06 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10c43abf0>
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'CONNECT']>
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'CONNECT']>
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'CONNECT']>
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x10b85c9c0> server_hostname='dashscope.aliyuncs.com' timeout=None
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10c43ac20>
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:40:06 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'1014990b-0144-4c04-ba5e-109824bdbeab'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'26003'), (b'req-arrive-time', b'1765698006867'), (b'resp-start-time', b'1765698032870'), (b'x-envoy-upstream-service-time', b'26002'), (b'set-cookie', b'acw_tc=1014990b-0144-4c04-ba5e-109824bdbeabd0b5661aee49eaf4a28df9af6c033cf6;path=/;HttpOnly;Max-Age=1800'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 07:40:32 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 15:40:32 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 15:40:32 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '1014990b-0144-4c04-ba5e-109824bdbeab', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '26003', 'req-arrive-time': '1765698006867', 'resp-start-time': '1765698032870', 'x-envoy-upstream-service-time': '26002', 'set-cookie': 'acw_tc=1014990b-0144-4c04-ba5e-109824bdbeabd0b5661aee49eaf4a28df9af6c033cf6;path=/;HttpOnly;Max-Age=1800', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 07:40:32 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 15:40:32 [DEBUG] _base_client.py:1024 - request_id: 1014990b-0144-4c04-ba5e-109824bdbeab
+2025-12-14 15:40:32 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-19aa9433-7f39-4b55-ad3a-34570ac11950', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"66e7513b-aaac-481a-849c-381dd188f656","name":"林晓","type":"人物","attributes":{"身份":"北城中学高一（3）班转学生","年龄说法1":"2007年10月出生，约17岁","年龄说法2":"2006年3月出生，自称已满19岁","家庭背景说法1":"父母均为医生，来自南方小城","家庭背景说法2":"父母为工厂工人，从未离开北城","医学态度说法1":"对医学特别感兴趣","医学态度说法2":"讨厌看病，害怕医院","运动经历说法1":"接受专业篮球训练，少年队主力控卫","运动经历说法2":"因手伤不能进行剧烈运动，不会球类","数学能力说法1":"能清晰解答方程，逻辑能力强","数学能力说法2":"基础方程出错，自称数学不及格","宠物情况说法1":"家中养三只猫，描述详细","宠物情况说法2":"不喜欢动物，尤其怕猫，曾被猫抓伤","居住方式说法1":"住学校附近，步行五分钟回家","居住方式说法2":"每天坐一小时公交上学","居住方式说法3":"住校生，平时不回家","竞赛与演讲说法1":"未参加过竞赛，不喜欢公开演讲","竞赛与演讲说法2":"获全市演讲比赛一等奖，曾任辩论队队长","竞赛与演讲说法3":"上台紧张说不出话，不敢参加活动"},"events":[{"事件":"转学进入北城中学高一（3）班","时间":"最近"},{"事件":"在自我介绍中提供与老师介绍矛盾的背景信息","时间":"刚到学校时"},{"事件":"在体育课展示篮球技能后又否认运动能力","时间":"体育课"},{"事件":"在数学课表现优异但在测验中犯基础错误","时间":"数学课及随堂测验"},{"事件":"午休谈论养猫，班会课却表示害怕猫","时间":"午休至班会课"},{"事件":"提供两种不同出生日期和年龄说法","时间":"一天内"},{"事件":"陈述三种不同的居住方式","时间":"上午至放学"},{"事件":"展示演讲获奖证明后又否认相关经历与兴趣","时间":"历史课至班会课"}],"relations":[{"对象":"北城中学","关系":"就读于"},{"对象":"高一（3）班","关系":"所属班级"},{"对象":"班主任","关系":"师生"},{"对象":"体育老师","关系":"师生"},{"对象":"数学老师","关系":"师生"},{"对象":"历史老师","关系":"师生"},{"对象":"同学","关系":"同班"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 15:40:32 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:40:32 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'0bea92cc-999f-4591-aa0d-2b0b434ea7e1'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'13588'), (b'req-arrive-time', b'1765698032915'), (b'resp-start-time', b'1765698046503'), (b'x-envoy-upstream-service-time', b'13587'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 07:40:46 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 15:40:46 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 15:40:46 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '0bea92cc-999f-4591-aa0d-2b0b434ea7e1', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '13588', 'req-arrive-time': '1765698032915', 'resp-start-time': '1765698046503', 'x-envoy-upstream-service-time': '13587', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 07:40:46 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 15:40:46 [DEBUG] _base_client.py:1024 - request_id: 0bea92cc-999f-4591-aa0d-2b0b434ea7e1
+2025-12-14 15:40:46 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-2257004f-f0d6-4080-a9bf-52b66528dcfb', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"e030e3be-c0f9-4530-bfc7-6741dde37961","name":"北城中学","type":"教育机构","attributes":{"年级设置":"包含高中一年级","班级编号方式":"采用‘高一（X）班’形式","课程安排":"开设数学、历史、体育、班会等课程"},"events":[],"relations":[{"对象":"林晓","关系":"林晓的就读学校"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 15:40:46 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:40:46 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'2193498a-bd0f-4482-b23d-828e6b5aeaa6'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'2619'), (b'req-arrive-time', b'1765698046526'), (b'resp-start-time', b'1765698049146'), (b'x-envoy-upstream-service-time', b'2619'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 07:40:49 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 15:40:49 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 15:40:49 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '2193498a-bd0f-4482-b23d-828e6b5aeaa6', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '2619', 'req-arrive-time': '1765698046526', 'resp-start-time': '1765698049146', 'x-envoy-upstream-service-time': '2619', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 07:40:49 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 15:40:49 [DEBUG] _base_client.py:1024 - request_id: 2193498a-bd0f-4482-b23d-828e6b5aeaa6
+2025-12-14 15:40:49 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-5d496f59-caa6-4962-a268-f614c6991769', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"d83698a6-a731-4fdf-bac9-4268cee9f7bd","name":"高一（3）班","type":"班级组织","attributes":{"所属学校":"北城中学","年级":"高一","班级编号":"3"},"events":[],"relations":[{"对象":"林晓","关系":"林晓所在班级"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 15:40:49 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:40:49 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'70bb4171-f51b-4311-8707-2192e04102b0'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'2832'), (b'req-arrive-time', b'1765698049168'), (b'resp-start-time', b'1765698052001'), (b'x-envoy-upstream-service-time', b'2831'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 07:40:51 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 15:40:51 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 15:40:51 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '70bb4171-f51b-4311-8707-2192e04102b0', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '2832', 'req-arrive-time': '1765698049168', 'resp-start-time': '1765698052001', 'x-envoy-upstream-service-time': '2831', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 07:40:51 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 15:40:51 [DEBUG] _base_client.py:1024 - request_id: 70bb4171-f51b-4311-8707-2192e04102b0
+2025-12-14 15:40:51 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-5c526509-3e75-416d-bc59-88b75e369e19', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"9ef868db-bc95-4590-8ddf-6ddc9bb7fc0d","name":"林晓的生日矛盾","type":"信息冲突事件","attributes":{"说法1":"2007年10月出生，约17岁","说法2":"2006年3月出生，自称19岁","证据来源":["学生证显示2007年10月","向体育老师声称出生日期印错"]},"events":[],"relations":[{"对象":"林晓","关系":"涉及主体"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 15:40:51 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:40:51 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'9cb6b92d-de6c-4804-9a7a-cc9b895e0891'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'10390'), (b'req-arrive-time', b'1765698052021'), (b'resp-start-time', b'1765698062411'), (b'x-envoy-upstream-service-time', b'10389'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 07:41:02 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 15:41:02 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 15:41:02 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '9cb6b92d-de6c-4804-9a7a-cc9b895e0891', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '10390', 'req-arrive-time': '1765698052021', 'resp-start-time': '1765698062411', 'x-envoy-upstream-service-time': '10389', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 07:41:02 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 15:41:02 [DEBUG] _base_client.py:1024 - request_id: 9cb6b92d-de6c-4804-9a7a-cc9b895e0891
+2025-12-14 15:41:02 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-25a619ca-d637-4e7d-a3d9-a0a057329036', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"9eb0c68d-1ecb-40ed-9002-9812bba668b7","name":"林晓的居住地矛盾","type":"信息冲突事件","attributes":{"说法1":"住学校附近，步行5分钟回家","说法2":"每天乘公交1小时上学","说法3":"住校生，平时不回家"},"events":[],"relations":[{"对象":"林晓","关系":"涉及主体"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 15:41:02 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:41:02 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'd3fe3f69-132b-4748-b7e3-b6b04f3bce1a'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'8597'), (b'req-arrive-time', b'1765698062430'), (b'resp-start-time', b'1765698071028'), (b'x-envoy-upstream-service-time', b'8596'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 07:41:10 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 15:41:11 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 15:41:11 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': 'd3fe3f69-132b-4748-b7e3-b6b04f3bce1a', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '8597', 'req-arrive-time': '1765698062430', 'resp-start-time': '1765698071028', 'x-envoy-upstream-service-time': '8596', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 07:41:10 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 15:41:11 [DEBUG] _base_client.py:1024 - request_id: d3fe3f69-132b-4748-b7e3-b6b04f3bce1a
+2025-12-14 15:41:11 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-89390973-189b-4303-b48e-7bf0124b62d9', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"d775dfe0-ac9d-4f64-9940-a47ecea26ef0","name":"林晓的演讲经历矛盾","type":"信息冲突事件","attributes":{"正面陈述":"获得全市演讲比赛一等奖，曾任辩论队队长","负面陈述":"从未参赛、害怕上台、一发言就紧张","物证":"展示过一张演讲比赛一等奖奖状"},"events":[],"relations":[{"对象":"林晓","关系":"涉及主体"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 15:41:11 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:41:11 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 15:41:21 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'8bdf8bf1-3cd0-40c7-9553-83c1ff338ce3'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'10122'), (b'req-arrive-time', b'1765698071049'), (b'resp-start-time', b'1765698081171'), (b'x-envoy-upstream-service-time', b'10121'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 07:41:21 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 15:41:21 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 15:41:21 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 15:41:21 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 15:41:21 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 15:41:21 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 15:41:21 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '8bdf8bf1-3cd0-40c7-9553-83c1ff338ce3', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '10122', 'req-arrive-time': '1765698071049', 'resp-start-time': '1765698081171', 'x-envoy-upstream-service-time': '10121', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 07:41:21 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 15:41:21 [DEBUG] _base_client.py:1024 - request_id: 8bdf8bf1-3cd0-40c7-9553-83c1ff338ce3
+2025-12-14 15:42:05 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:42:05 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:42:05 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:42:05 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:42:05 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:42:05 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:42:05 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:50:17 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:50:17 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:50:17 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:50:17 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:50:17 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:50:17 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:50:17 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 15:50:27 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 15:50:27 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 15:50:27 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 15:50:27 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:50:27 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 15:50:27 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 15:50:27 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 15:50:27 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 15:50:28 [INFO] web.py:19 - 开始运行pipeline，模型: qwen-plus
+2025-12-14 15:50:28 [INFO] web.py:19 - 文本长度: 861
+2025-12-14 15:50:28 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-7f4aca70-7d19-4ba0-82ae-84c3087fce15', 'json_data': {'messages': [{'content': '\n你是一个通用信息抽取模型（Universal Entity Extractor）。\n你的任务是从任意类型文档中抽取“实体”（Entity）。\n\n实体不限类别，可以是：\n- 物体（例：航天级柴油发动机、GPU显卡）\n- 人物（例：张三）\n- 组织机构（例：NASA、清华大学）\n- 概念（例：量子纠缠、风险偏好）\n- 地点（例：泰国、北京昌平）\n- 技术术语（例：Transformer模型）\n- 事件（例：发射失败、软件更新）\n- 法规条文（例：GDPR第5条）\n- 统计数据（例：“GDP：3.2%” 也可作为实体形式的属性）\n\n请遵守以下原则：\n\n1. **实体类型（type）必须由你归纳，而不是固定分类。**\n2. **所有属性用 attributes 字典形式表示，不限制字段名。**\n3. **如果文本中有事件，也应与该实体关联存入 events 列表。**\n4. **如果实体与其他实体存在关系（因果、引用、隶属等），存入 relations。**\n5. **保持抽象但不遗漏信息。**\n6. **允许抽取多个实体。**\n7. **每个实体必须包含 name 字段。**如果文本中没有明确名称，不可省略 name 字段，请生成一个描述性名称，例如：\n- “某未具名人物”\n- “文中提到的那位同学”\n- “该发动机部件”\n\n最终输出为一个 UIEntity 的列表。\n\n', 'role': 'system'}, {'content': '当前对话历史:\n[]', 'role': 'system'}, {'content': '在北城中学，高一（3）班最近来了一个转学生，名叫林晓。他刚到学校时，老师向全班介绍说他来自南方的一座小城，父母都是医生，因此林晓对医学特别感兴趣。\n不过在后面的自我介绍里，林晓却说自己从未离开过北城，父母也只是普通的工厂工人，对医学一窍不通。他还强调自己讨厌看病，连医院都尽量不去。\n在体育课上，林晓告诉同学们自己从小就接受专业的篮球训练，已经连续三年担任当地少年队的主力控卫。但当体育老师让他带领大家做热身时，他连最基本的投篮动作都做得极不标准，还说自己其实不会任何球类运动，因为小时候受过手伤，医生叮嘱他不要进行剧烈运动。\n更奇怪的是，在数学课上，老师请林晓解答一道简单的方程。他在黑板上轻松写出了完整步骤，讲解得逻辑清晰，让全班以为他是数学天才。可下一节课的随堂测验里，他连最基础的一元一次方程都算错了，还向同桌抱怨自己从小最讨厌的就是数学，几乎每次考试都不及格。\n午休时，同学们听他说自己最喜欢的动物是猫，家里养了三只。他甚至详细描述了每只猫的性格和名字。然而下午的班会课上，班主任让学生们介绍自己的宠物时，林晓却说自己从来不喜欢动物，尤其是猫，因为小时候被猫抓伤过一次，现在光看到猫的照片都觉得害怕。\n此外，林晓在一天内说了两种完全不同的生日日期。早上他说自己是 2007 年 10 月出生，还拿出学生证给大家看。但是下午又告诉体育老师，他其实是 2006 年 3 月出生，只是“学生证可能印错了”，并坚持自己已经满 19 岁，不可能只有 17 岁。\n更让人无法理解的是，他上午说自己住在学校附近，步行五分钟就能回家；中午又跟同学解释自己每天得坐一个小时公交才能到家；放学时，他又告诉班主任自己是住校生，平时根本不回家。\n到了最后一节历史课，他向老师保证自己从未参加过任何竞赛，并且不喜欢公开演讲。在班会课时却又展示了一张自己获得全市演讲比赛一等奖的奖状，并说自己从小学就是辩论队队长，最喜欢在大庭广众下发言。\n但当同学们问他要不要加入学校的演讲队时，他却说自己一上台就会紧张得说不出话，从来不敢参加这类活动。\n', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 15:50:28 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10a0ab0a0>
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'CONNECT']>
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'CONNECT']>
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'CONNECT']>
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x10943e940> server_hostname='dashscope.aliyuncs.com' timeout=None
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10a0ab0d0>
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:50:28 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'bf3b7374-b68b-4ee6-8aeb-e1e118089eeb'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'39961'), (b'req-arrive-time', b'1765698628186'), (b'resp-start-time', b'1765698668148'), (b'x-envoy-upstream-service-time', b'39960'), (b'set-cookie', b'acw_tc=bf3b7374-b68b-4ee6-8aeb-e1e118089eeb41b6db66ce74fdf0b390d6f31cb9ffb8;path=/;HttpOnly;Max-Age=1800'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 07:51:08 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 15:51:08 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 15:51:08 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': 'bf3b7374-b68b-4ee6-8aeb-e1e118089eeb', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '39961', 'req-arrive-time': '1765698628186', 'resp-start-time': '1765698668148', 'x-envoy-upstream-service-time': '39960', 'set-cookie': 'acw_tc=bf3b7374-b68b-4ee6-8aeb-e1e118089eeb41b6db66ce74fdf0b390d6f31cb9ffb8;path=/;HttpOnly;Max-Age=1800', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 07:51:08 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 15:51:08 [DEBUG] _base_client.py:1024 - request_id: bf3b7374-b68b-4ee6-8aeb-e1e118089eeb
+2025-12-14 15:51:08 [INFO] web.py:19 - 第 1 个 chunk 提取实体: [UIEntity(entity_id='9814a2e1-ddf2-4823-8fb2-dce8b25234d5', name='林晓', type='人物', attributes={'身份': '北城中学高一（3）班转学生', '年龄说法1': '2007年10月出生（声称17岁）', '年龄说法2': '2006年3月出生（声称已满19岁）', '居住情况说法1': '住校生，平时不回家', '居住情况说法2': '步行五分钟到家', '居住情况说法3': '每天坐一小时公交上学', '家庭背景说法1': '父母均为医生，来自南方小城', '家庭背景说法2': '父母为普通工厂工人，从未离开北城', '兴趣爱好说法1': '对医学感兴趣', '兴趣爱好说法2': '讨厌看病，害怕医院', '运动经历说法1': '接受专业篮球训练，少年队主力控卫', '运动经历说法2': '因手伤不能进行剧烈运动，不会球类运动', '学术能力说法1': '数学逻辑清晰，能轻松解题', '学术能力说法2': '数学考试常不及格，讨厌数学', '宠物说法1': '家中养三只猫，描述具体性格和名字', '宠物说法2': '不喜欢动物，尤其怕猫，曾被猫抓伤', '竞赛与演讲说法1': '获得全市演讲比赛一等奖，曾任辩论队队长', '竞赛与演讲说法2': '害怕公开演讲，上台紧张说不出话，从未参赛'}, events=[{'事件': '自我介绍矛盾', '描述': '在老师介绍其来自南方医生家庭后，林晓否认该背景，称自己从未离开北城，父母是工厂工人'}, {'事件': '体育课言行矛盾', '描述': '自称是专业篮球运动员，但实际动作不标准，并解释自己因伤不能运动'}, {'事件': '数学表现前后不一', '描述': '课堂展示出色解题能力，随堂测验却犯基础错误并抱怨数学差'}, {'事件': '关于宠物猫的说法冲突', '描述': '午间详细描述养猫经历，班会时却称害怕猫且无宠物'}, {'事件': '提供两个不同出生日期', '描述': '上午出示学生证称生于2007年10月，下午改称实际为2006年3月，已满19岁'}, {'事件': '三种不同通勤方式陈述', '描述': '分别声称步行、公交、住校三种完全不同的居住与通勤模式'}, {'事件': '演讲经历自相矛盾', '描述': '先展示获奖证书称热衷演讲，后拒绝加入演讲队称极度恐惧上台'}], relations=[{'目标实体': '北城中学', '关系类型': '隶属关系', '描述': '目前就读于该校高一（3）班'}, {'目标实体': '高一（3）班', '关系类型': '所属班级', '描述': '作为转学生加入此班级'}]), UIEntity(entity_id='a1199548-ab0a-4cd1-8966-cb12ca1ce271', name='北城中学', type='教育机构', attributes={'年级设置': '包含高中一年级', '班级结构': '设有高一（3）班'}, events=[], relations=[{'目标实体': '林晓', '关系类型': '就读关系', '描述': '林晓为其新转入的学生'}, {'目标实体': '高一（3）班', '关系类型': '组织隶属', '描述': '是该校的一个教学班级'}]), UIEntity(entity_id='27a79328-c14f-4c9d-a790-e744fb237d30', name='高一（3）班', type='教学班级', attributes={'年级': '高一', '序号': '3班', '近期变化': '接收了一名行为异常的转学生'}, events=[], relations=[{'目标实体': '林晓', '关系类型': '所在班级', '描述': '林晓在此班级中出现并引发多起言行矛盾事件'}, {'目标实体': '北城中学', '关系类型': '隶属于', '描述': '属于北城中学的教学单位之一'}]), UIEntity(entity_id='7b72b645-3705-4d13-a679-7e1ae8cebb49', name='林晓的生日信息矛盾', type='信息冲突事件', attributes={'说法一': '出生于2007年10月，当前17岁', '说法二': '出生于2006年3月，坚称已满19岁', '证据来源': ['学生证显示2007年10月', '口头声称出生年份为2006年'], '矛盾点': '两种说法无法同时成立，且年龄跨度涉及是否成年'}, events=[], relations=[{'目标实体': '林晓', '关系类型': '主体涉及', '描述': '该冲突直接来源于林晓本人的不同陈述'}]), UIEntity(entity_id='fe1eb8cf-415f-4f97-89e5-5b3e97316e53', name='林晓的居住地多重叙述', type='空间信息矛盾', attributes={'说法一': '住在学校附近，步行5分钟可达', '说法二': '每日乘坐公交1小时上下学', '说法三': '实为住校生，平时不住家'}, events=[], relations=[{'目标实体': '林晓', '关系类型': '陈述主体', '描述': '以上三种相互排斥的居住状态均由其提出'}]), UIEntity(entity_id='367bf4e0-929f-4d24-899d-207cc8f3555a', name='林晓对猫的态度反转', type='情感态度矛盾', attributes={'正面描述时间': '午休期间', '内容': '害怕猫，曾被猫抓伤，看到照片都恐惧', '负面描述时间': '下午班会课'}, events=[], relations=[{'目标实体': '林晓', '关系类型': '态度持有者', '描述': '在同一日对同一对象表达完全相反的情感'}]), UIEntity(entity_id='6da639fc-0654-4f62-bf8a-9657cf4acf47', name='林晓的数学能力表现分裂', type='认知能力矛盾', attributes={'积极表现': '课堂上清晰解答方程题，逻辑严密', '消极表现': '随堂测验中计算错误，自称数学极差'}, events=[], relations=[{'目标实体': '林晓', '关系类型': '能力体现主体', '描述': '在短时间内展现出截然不同的学术水平'}]), UIEntity(entity_id='12114c9b-60a8-4814-a464-f9791f5470ad', name='林晓的体育经历自我否定', type='身体活动履历矛盾', attributes={'宣称经历': '长期接受专业篮球训练，担任少年队主力控卫', '实际表现与解释': '投篮动作不规范，称因手伤禁止剧烈运动'}, events=[], relations=[{'目标实体': '林晓', '关系类型': '经历陈述者', '描述': '既构建又推翻自己的运动背景'}]), UIEntity(entity_id='a0c1229c-b376-4a01-a7b7-b01168c141d5', name='林晓的演讲竞赛历史冲突', type='成就真实性争议', attributes={'证明材料': '展示全市演讲比赛一等奖奖状', '后续否认': '拒绝参与演讲队，称上台紧张说不出话', '早期声明': '曾表示从未参加任何竞赛'}, events=[], relations=[{'目标实体': '林晓', '关系类型': '荣誉与否认主体', '描述': '一方面出示奖项，另一方面否认相关能力和意愿'}])]
+2025-12-14 15:51:08 [INFO] web.py:19 - 实体总数: 9
+2025-12-14 15:51:08 [INFO] web.py:19 - 开始检查实体一致性
+2025-12-14 15:51:08 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-d1478e53-b01b-4799-8f25-ae9e76b2d859', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"9814a2e1-ddf2-4823-8fb2-dce8b25234d5","name":"林晓","type":"人物","attributes":{"身份":"北城中学高一（3）班转学生","年龄说法1":"2007年10月出生（声称17岁）","年龄说法2":"2006年3月出生（声称已满19岁）","居住情况说法1":"住校生，平时不回家","居住情况说法2":"步行五分钟到家","居住情况说法3":"每天坐一小时公交上学","家庭背景说法1":"父母均为医生，来自南方小城","家庭背景说法2":"父母为普通工厂工人，从未离开北城","兴趣爱好说法1":"对医学感兴趣","兴趣爱好说法2":"讨厌看病，害怕医院","运动经历说法1":"接受专业篮球训练，少年队主力控卫","运动经历说法2":"因手伤不能进行剧烈运动，不会球类运动","学术能力说法1":"数学逻辑清晰，能轻松解题","学术能力说法2":"数学考试常不及格，讨厌数学","宠物说法1":"家中养三只猫，描述具体性格和名字","宠物说法2":"不喜欢动物，尤其怕猫，曾被猫抓伤","竞赛与演讲说法1":"获得全市演讲比赛一等奖，曾任辩论队队长","竞赛与演讲说法2":"害怕公开演讲，上台紧张说不出话，从未参赛"},"events":[{"事件":"自我介绍矛盾","描述":"在老师介绍其来自南方医生家庭后，林晓否认该背景，称自己从未离开北城，父母是工厂工人"},{"事件":"体育课言行矛盾","描述":"自称是专业篮球运动员，但实际动作不标准，并解释自己因伤不能运动"},{"事件":"数学表现前后不一","描述":"课堂展示出色解题能力，随堂测验却犯基础错误并抱怨数学差"},{"事件":"关于宠物猫的说法冲突","描述":"午间详细描述养猫经历，班会时却称害怕猫且无宠物"},{"事件":"提供两个不同出生日期","描述":"上午出示学生证称生于2007年10月，下午改称实际为2006年3月，已满19岁"},{"事件":"三种不同通勤方式陈述","描述":"分别声称步行、公交、住校三种完全不同的居住与通勤模式"},{"事件":"演讲经历自相矛盾","描述":"先展示获奖证书称热衷演讲，后拒绝加入演讲队称极度恐惧上台"}],"relations":[{"目标实体":"北城中学","关系类型":"隶属关系","描述":"目前就读于该校高一（3）班"},{"目标实体":"高一（3）班","关系类型":"所属班级","描述":"作为转学生加入此班级"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 15:51:08 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 15:51:08 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 15:51:22 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'5c00e11d-757e-4078-89cd-b9d315ea7da5'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'14102'), (b'req-arrive-time', b'1765698668201'), (b'resp-start-time', b'1765698682303'), (b'x-envoy-upstream-service-time', b'14101'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 07:51:22 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 15:51:22 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 15:51:22 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 15:51:22 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 15:51:22 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 15:51:22 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 15:51:22 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '5c00e11d-757e-4078-89cd-b9d315ea7da5', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '14102', 'req-arrive-time': '1765698668201', 'resp-start-time': '1765698682303', 'x-envoy-upstream-service-time': '14101', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 07:51:22 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 15:51:22 [DEBUG] _base_client.py:1024 - request_id: 5c00e11d-757e-4078-89cd-b9d315ea7da5
+2025-12-14 15:54:49 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:54:49 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:54:49 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:54:49 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:56:46 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:56:46 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:56:46 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:56:46 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:56:53 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:56:53 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:56:53 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:56:53 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:58:58 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:58:58 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:58:58 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:58:58 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 15:59:21 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 15:59:21 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 15:59:21 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 15:59:21 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:05:22 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:05:22 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:05:22 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:05:23 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:05:23 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:05:23 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:05:23 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:06:47 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:06:47 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:06:47 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:06:47 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:06:47 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:06:47 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:06:47 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:08:08 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:08:08 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:08:08 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:08:08 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:08:08 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:08:08 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:08:08 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:11:48 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:11:48 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:11:48 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:11:48 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:11:48 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:11:48 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:11:48 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:12:27 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:12:27 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:12:27 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:12:27 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:12:27 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:12:27 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:12:27 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:18:56 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:18:56 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:18:56 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:18:56 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:18:56 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:18:56 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:18:56 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:19:01 [ERROR] reader.py:67 - 未提供消息或文件
+2025-12-14 16:19:11 [ERROR] reader.py:67 - 未提供消息或文件
+2025-12-14 16:19:19 [ERROR] web.py:128 - WebSocket error: (1001, '')
+2025-12-14 16:19:20 [ERROR] web.py:128 - WebSocket error: (1012, None)
+2025-12-14 16:22:51 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:22:51 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:22:51 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:22:51 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:22:51 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:22:51 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:22:51 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:22:57 [ERROR] reader.py:67 - 未提供消息或文件
+2025-12-14 16:23:04 [ERROR] reader.py:67 - 未提供消息或文件
+2025-12-14 16:23:08 [ERROR] web.py:130 - WebSocket error: (1001, '')
+2025-12-14 16:23:09 [ERROR] web.py:130 - WebSocket error: (1012, None)
+2025-12-14 16:26:32 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:26:32 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:26:32 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:26:33 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:26:33 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:26:33 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:26:33 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:26:41 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 16:26:41 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:26:41 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 16:26:41 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:26:41 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 16:26:41 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:26:41 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:26:41 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 16:28:01 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:28:01 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:28:01 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:28:02 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:28:02 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:28:02 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:28:02 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:28:10 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 16:28:10 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:28:10 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 16:28:10 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:28:10 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 16:28:10 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:28:10 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:28:10 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 16:28:52 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:28:52 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:28:52 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:28:52 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:28:52 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:28:52 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:28:52 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:29:01 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 16:29:01 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:29:01 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 16:29:01 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:29:01 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 16:29:01 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:29:01 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:29:01 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 16:29:01 [ERROR] base_events.py:1758 - Task exception was never retrieved
+future: <Task finished name='Task-5' coro=<run_pipeline() done, defined at /Users/kerman/university/毕设/CGEC/web.py:14> exception=AttributeError("'str' object has no attribute 'model_name'")>
+Traceback (most recent call last):
+  File "/Users/kerman/university/毕设/CGEC/web.py", line 16, in run_pipeline
+    grammar_check_with_memory = get_grammar_check_chain_with_memory(args.model_name, args.base_url)
+AttributeError: 'str' object has no attribute 'model_name'
+2025-12-14 16:32:06 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:32:06 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:32:06 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:32:06 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:32:06 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:32:06 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:32:06 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:32:15 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 16:32:15 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:32:15 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 16:32:15 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:32:15 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 16:32:15 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:32:15 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:32:15 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 16:32:15 [ERROR] base_events.py:1758 - Task exception was never retrieved
+future: <Task finished name='Task-13' coro=<run_pipeline() done, defined at /Users/kerman/university/毕设/CGEC/web.py:14> exception=AttributeError("'str' object has no attribute 'model_name'")>
+Traceback (most recent call last):
+  File "/Users/kerman/university/毕设/CGEC/web.py", line 16, in run_pipeline
+    grammar_check_with_memory = get_grammar_check_chain_with_memory(args.model_name, args.base_url)
+AttributeError: 'str' object has no attribute 'model_name'
+2025-12-14 16:34:20 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:34:20 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:34:20 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:34:21 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:34:21 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:34:21 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:34:21 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:34:27 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 16:34:27 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:34:27 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 16:34:27 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:34:27 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 16:34:27 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:34:27 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:34:27 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 16:34:45 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:34:45 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:34:45 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:34:45 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:34:53 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:34:53 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:34:53 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:34:53 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:35:48 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:35:48 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:35:48 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:35:48 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:35:52 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:35:52 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:35:52 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:35:53 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:35:53 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:35:53 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:35:53 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:35:59 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 16:35:59 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:35:59 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 16:35:59 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:35:59 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 16:35:59 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:35:59 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:35:59 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 16:35:59 [INFO] web.py:24 - 开始运行pipeline，模型: qwen-plus
+2025-12-14 16:35:59 [ERROR] base_events.py:1758 - Task exception was never retrieved
+future: <Task finished name='Task-7' coro=<run_pipeline() done, defined at /Users/kerman/university/毕设/CGEC/web.py:14> exception=KeyError('在北城中学，高一（3）班最近来了一个转学生，名叫林晓。他刚到学校时，老师向全班介绍说他来自南方的一座小城，父母都是医生，因此林晓对医学特别感兴趣。\n不过在后面的自我介绍里，林晓却说自己从未离开过北城，父母也只是普通的工厂工人，对医学一窍不通。他还强调自己讨厌看病，连医院都尽量不去。\n在体育课上，林晓告诉同学们自己从小就接受专业的篮球训练，已经连续三年担任当地少年队的主力控卫。但当体育老师让他带领大家做热身时，他连最基本的投篮动作都做得极不标准，还说自己其实不会任何球类运动，因为小时候受过手伤，医生叮嘱他不要进行剧烈运动。\n更奇怪的是，在数学课上，老师请林晓解答一道简单的方程。他在黑板上轻松写出了完整步骤，讲解得逻辑清晰，让全班以为他是数学天才。可下一节课的随堂测验里，他连最基础的一元一次方程都算错了，还向同桌抱怨自己从小最讨厌的就是数学，几乎每次考试都不及格。\n午休时，同学们听他说自己最喜欢的动物是猫，家里养了三只。他甚至详细描述了每只猫的性格和名字。然而下午的班会课上，班主任让学生们介绍自己的宠物时，林晓却说自己从来不喜欢动物，尤其是猫，因为小时候被猫抓伤过一次，现在光看到猫的照片都觉得害怕。\n此外，林晓在一天内说了两种完全不同的生日日期。早上他说自己是 2007 年 10 月出生，还拿出学生证给大家看。但是下午又告诉体育老师，他其实是 2006 年 3 月出生，只是“学生证可能印错了”，并坚持自己已经满 19 岁，不可能只有 17 岁。\n更让人无法理解的是，他上午说自己住在学校附近，步行五分钟就能回家；中午又跟同学解释自己每天得坐一个小时公交才能到家；放学时，他又告诉班主任自己是住校生，平时根本不回家。\n到了最后一节历史课，他向老师保证自己从未参加过任何竞赛，并且不喜欢公开演讲。在班会课时却又展示了一张自己获得全市演讲比赛一等奖的奖状，并说自己从小学就是辩论队队长，最喜欢在大庭广众下发言。\n但当同学们问他要不要加入学校的演讲队时，他却说自己一上台就会紧张得说不出话，从来不敢参加这类活动。\n')>
+Traceback (most recent call last):
+  File "/Users/kerman/university/毕设/CGEC/web.py", line 27, in run_pipeline
+    log(f"开始运行pipeline，模型: {args.model_name}")
+  File "/Users/kerman/university/毕设/CGEC/web.py", line 25, in log
+    TASKS[task_id]["logs"].append(msg)
+KeyError: '在北城中学，高一（3）班最近来了一个转学生，名叫林晓。他刚到学校时，老师向全班介绍说他来自南方的一座小城，父母都是医生，因此林晓对医学特别感兴趣。\n不过在后面的自我介绍里，林晓却说自己从未离开过北城，父母也只是普通的工厂工人，对医学一窍不通。他还强调自己讨厌看病，连医院都尽量不去。\n在体育课上，林晓告诉同学们自己从小就接受专业的篮球训练，已经连续三年担任当地少年队的主力控卫。但当体育老师让他带领大家做热身时，他连最基本的投篮动作都做得极不标准，还说自己其实不会任何球类运动，因为小时候受过手伤，医生叮嘱他不要进行剧烈运动。\n更奇怪的是，在数学课上，老师请林晓解答一道简单的方程。他在黑板上轻松写出了完整步骤，讲解得逻辑清晰，让全班以为他是数学天才。可下一节课的随堂测验里，他连最基础的一元一次方程都算错了，还向同桌抱怨自己从小最讨厌的就是数学，几乎每次考试都不及格。\n午休时，同学们听他说自己最喜欢的动物是猫，家里养了三只。他甚至详细描述了每只猫的性格和名字。然而下午的班会课上，班主任让学生们介绍自己的宠物时，林晓却说自己从来不喜欢动物，尤其是猫，因为小时候被猫抓伤过一次，现在光看到猫的照片都觉得害怕。\n此外，林晓在一天内说了两种完全不同的生日日期。早上他说自己是 2007 年 10 月出生，还拿出学生证给大家看。但是下午又告诉体育老师，他其实是 2006 年 3 月出生，只是“学生证可能印错了”，并坚持自己已经满 19 岁，不可能只有 17 岁。\n更让人无法理解的是，他上午说自己住在学校附近，步行五分钟就能回家；中午又跟同学解释自己每天得坐一个小时公交才能到家；放学时，他又告诉班主任自己是住校生，平时根本不回家。\n到了最后一节历史课，他向老师保证自己从未参加过任何竞赛，并且不喜欢公开演讲。在班会课时却又展示了一张自己获得全市演讲比赛一等奖的奖状，并说自己从小学就是辩论队队长，最喜欢在大庭广众下发言。\n但当同学们问他要不要加入学校的演讲队时，他却说自己一上台就会紧张得说不出话，从来不敢参加这类活动。\n'
+2025-12-14 16:41:31 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:41:31 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:41:31 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:41:31 [INFO] main.py:53 - 启动一致性检测服务
+2025-12-14 16:41:31 [INFO] main.py:54 - 模型配置加载完成: model=qwen-plus
+2025-12-14 16:41:31 [INFO] main.py:74 - FastAPI 初始化完成
+2025-12-14 16:41:31 [DEBUG] selector_events.py:54 - Using selector: KqueueSelector
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:41:40 [DEBUG] multipart.py:625 - Calling on_header_field with data[42:61]
+2025-12-14 16:41:40 [DEBUG] multipart.py:625 - Calling on_header_value with data[63:88]
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_part_begin with no data
+2025-12-14 16:41:40 [DEBUG] multipart.py:625 - Calling on_header_field with data[136:155]
+2025-12-14 16:41:40 [DEBUG] multipart.py:625 - Calling on_header_value with data[157:201]
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:41:40 [DEBUG] multipart.py:625 - Calling on_header_field with data[203:215]
+2025-12-14 16:41:40 [DEBUG] multipart.py:625 - Calling on_header_value with data[217:288]
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_header_end with no data
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_headers_finished with no data
+2025-12-14 16:41:40 [DEBUG] multipart.py:625 - Calling on_part_data with data[292:15497]
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_part_end with no data
+2025-12-14 16:41:40 [DEBUG] multipart.py:628 - Calling on_end with no data
+2025-12-14 16:41:40 [INFO] web.py:24 - 开始运行pipeline，模型: qwen-plus
+2025-12-14 16:41:40 [INFO] web.py:24 - 文本长度: 861
+2025-12-14 16:41:40 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-298c1e5e-9618-4b10-808e-136506126b91', 'json_data': {'messages': [{'content': '\n你是一个通用信息抽取模型（Universal Entity Extractor）。\n你的任务是从任意类型文档中抽取“实体”（Entity）。\n\n实体不限类别，可以是：\n- 物体（例：航天级柴油发动机、GPU显卡）\n- 人物（例：张三）\n- 组织机构（例：NASA、清华大学）\n- 概念（例：量子纠缠、风险偏好）\n- 地点（例：泰国、北京昌平）\n- 技术术语（例：Transformer模型）\n- 事件（例：发射失败、软件更新）\n- 法规条文（例：GDPR第5条）\n- 统计数据（例：“GDP：3.2%” 也可作为实体形式的属性）\n\n请遵守以下原则：\n\n1. **实体类型（type）必须由你归纳，而不是固定分类。**\n2. **所有属性用 attributes 字典形式表示，不限制字段名。**\n3. **如果文本中有事件，也应与该实体关联存入 events 列表。**\n4. **如果实体与其他实体存在关系（因果、引用、隶属等），存入 relations。**\n5. **保持抽象但不遗漏信息。**\n6. **允许抽取多个实体。**\n7. **每个实体必须包含 name 字段。**如果文本中没有明确名称，不可省略 name 字段，请生成一个描述性名称，例如：\n- “某未具名人物”\n- “文中提到的那位同学”\n- “该发动机部件”\n\n最终输出为一个 UIEntity 的列表。\n\n', 'role': 'system'}, {'content': '当前对话历史:\n[]', 'role': 'system'}, {'content': '在北城中学，高一（3）班最近来了一个转学生，名叫林晓。他刚到学校时，老师向全班介绍说他来自南方的一座小城，父母都是医生，因此林晓对医学特别感兴趣。\n不过在后面的自我介绍里，林晓却说自己从未离开过北城，父母也只是普通的工厂工人，对医学一窍不通。他还强调自己讨厌看病，连医院都尽量不去。\n在体育课上，林晓告诉同学们自己从小就接受专业的篮球训练，已经连续三年担任当地少年队的主力控卫。但当体育老师让他带领大家做热身时，他连最基本的投篮动作都做得极不标准，还说自己其实不会任何球类运动，因为小时候受过手伤，医生叮嘱他不要进行剧烈运动。\n更奇怪的是，在数学课上，老师请林晓解答一道简单的方程。他在黑板上轻松写出了完整步骤，讲解得逻辑清晰，让全班以为他是数学天才。可下一节课的随堂测验里，他连最基础的一元一次方程都算错了，还向同桌抱怨自己从小最讨厌的就是数学，几乎每次考试都不及格。\n午休时，同学们听他说自己最喜欢的动物是猫，家里养了三只。他甚至详细描述了每只猫的性格和名字。然而下午的班会课上，班主任让学生们介绍自己的宠物时，林晓却说自己从来不喜欢动物，尤其是猫，因为小时候被猫抓伤过一次，现在光看到猫的照片都觉得害怕。\n此外，林晓在一天内说了两种完全不同的生日日期。早上他说自己是 2007 年 10 月出生，还拿出学生证给大家看。但是下午又告诉体育老师，他其实是 2006 年 3 月出生，只是“学生证可能印错了”，并坚持自己已经满 19 岁，不可能只有 17 岁。\n更让人无法理解的是，他上午说自己住在学校附近，步行五分钟就能回家；中午又跟同学解释自己每天得坐一个小时公交才能到家；放学时，他又告诉班主任自己是住校生，平时根本不回家。\n到了最后一节历史课，他向老师保证自己从未参加过任何竞赛，并且不喜欢公开演讲。在班会课时却又展示了一张自己获得全市演讲比赛一等奖的奖状，并说自己从小学就是辩论队队长，最喜欢在大庭广众下发言。\n但当同学们问他要不要加入学校的演讲队时，他却说自己一上台就会紧张得说不出话，从来不敢参加这类活动。\n', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 16:41:40 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - connect_tcp.started host='127.0.0.1' port=7890 local_address=None timeout=None socket_options=None
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10c6c4ee0>
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'CONNECT']>
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'CONNECT']>
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'CONNECT']>
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'Connection established', [])
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - start_tls.started ssl_context=<ssl.SSLContext object at 0x10baa6040> server_hostname='dashscope.aliyuncs.com' timeout=None
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x10c6c4f10>
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:41:40 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'098d2004-3358-4a8b-8e70-0ce9b17e195d'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'36497'), (b'req-arrive-time', b'1765701700420'), (b'resp-start-time', b'1765701736918'), (b'x-envoy-upstream-service-time', b'36497'), (b'set-cookie', b'acw_tc=098d2004-3358-4a8b-8e70-0ce9b17e195d9e502c1cdf0e715e629733d8d3b5bc08;path=/;HttpOnly;Max-Age=1800'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 08:42:16 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 16:42:16 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 16:42:16 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '098d2004-3358-4a8b-8e70-0ce9b17e195d', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '36497', 'req-arrive-time': '1765701700420', 'resp-start-time': '1765701736918', 'x-envoy-upstream-service-time': '36497', 'set-cookie': 'acw_tc=098d2004-3358-4a8b-8e70-0ce9b17e195d9e502c1cdf0e715e629733d8d3b5bc08;path=/;HttpOnly;Max-Age=1800', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 08:42:16 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 16:42:16 [DEBUG] _base_client.py:1024 - request_id: 098d2004-3358-4a8b-8e70-0ce9b17e195d
+2025-12-14 16:42:16 [INFO] web.py:24 - 第 1 个 chunk 提取实体: [UIEntity(entity_id='267e2cff-6584-4502-b43a-4fd2a0e4c4fb', name='林晓', type='人物', attributes={'身份': '北城中学高一（3）班转学生', '年龄说法不一': ['自称2007年10月出生（约17岁）', '又称2006年3月出生，已满19岁'], '家庭背景矛盾': ['老师介绍：父母均为医生，来自南方小城', '自我陈述：父母为工厂工人，从未离开北城'], '居住情况多变': ['上午称住学校附近，步行5分钟回家', '中午称每天乘公交1小时到校', '放学时称是住校生，平时不回家'], '兴趣与能力冲突': ['自称从小接受专业篮球训练，担任少年队主力控卫', '实际投篮动作极不标准，称因手伤不能进行剧烈运动', '数学课表现优异但随堂测验出错，自称最讨厌数学且成绩差', '声称喜欢猫并养三只，后又说害怕猫、从不喜动物', '展示演讲比赛一等奖奖状，曾为辩论队队长', '却又表示上台紧张、不敢参加公开活动'], '健康相关说法': ['称小时候受过手伤，医生禁止剧烈运动', '称曾被猫抓伤，因此惧怕猫']}, events=[{'event': '转入北城中学高一（3）班', 'time': '最近', 'description': '作为转学生进入班级，引发后续一系列言行矛盾'}, {'event': '在数学课解答方程表现突出', 'time': '某节数学课', 'description': '在黑板上清晰推导方程解法，逻辑严谨'}, {'event': '随堂测验中犯基础数学错误', 'time': '下一节数学课', 'description': '连一元一次方程都计算错误，抱怨自己数学差'}, {'event': '体育课展示篮球经历但动作失准', 'time': '体育课', 'description': '声称是主力控卫，但基本技能缺失'}, {'event': '午休谈论养猫细节', 'time': '午休时间', 'description': '描述三只猫的名字和性格'}, {'event': '班会课否认喜欢猫', 'time': '下午班会课', 'description': '称因童年被猫抓伤而恐惧猫'}, {'event': '出示演讲比赛一等奖奖状', 'time': '班会课', 'description': '展示获奖证据，自称长期参与辩论'}], relations=[{'related_entity': '北城中学', 'relation_type': '隶属关系', 'description': '目前就读学校'}, {'related_entity': '高一（3）班', 'relation_type': '所属班级', 'description': '所在行政班级'}, {'related_entity': '班主任', 'relation_type': '师生关系', 'description': '多次向其提供相互矛盾的信息'}, {'related_entity': '体育老师', 'relation_type': '师生关系', 'description': '告知不同生日与居住信息'}, {'related_entity': '同班同学', 'relation_type': '同学关系', 'description': '在多个场合讲述不同版本的个人经历'}]), UIEntity(entity_id='f72bcc6a-fb0a-4f2f-8fc5-8dae23e09b86', name='北城中学', type='教育机构', attributes={'类型': '中学', '年级设置': '包含高中一年级', '班级示例': '高一（3）班'}, events=[], relations=[{'related_entity': '林晓', 'relation_type': '所属关系', 'description': '林晓当前注册就读的学校'}, {'related_entity': '高一（3）班', 'relation_type': '组织结构', 'description': '该校的一个教学班级'}]), UIEntity(entity_id='d82a1e47-6008-4a25-bcb2-d4375d1da5be', name='高一（3）班', type='班级单位', attributes={'年级': '高中一年级', '班级编号': '3班', '成员特征': '包含原生学生与转学生林晓'}, events=[], relations=[{'related_entity': '林晓', 'relation_type': '学生归属', 'description': '林晓被分配至该班级'}, {'related_entity': '班主任', 'relation_type': '管理关系', 'description': '由班主任负责班级日常管理'}]), UIEntity(entity_id='5a609af5-d6cc-4584-bf9a-486f680a0624', name='林晓的父母', type='家庭成员', attributes={'职业说法冲突': ['据老师介绍：均为医生', '据林晓自述：普通工厂工人'], '居住地差异': ['老师称来自南方小城', '林晓称从未离开北城']}, events=[], relations=[{'related_entity': '林晓', 'relation_type': '亲子关系', 'description': '林晓所提及或虚构的父母形象'}]), UIEntity(entity_id='96a00e40-618f-4da5-b802-d45f073df984', name='林晓的手伤', type='健康事件', attributes={'描述来源': '林晓自述', '影响': '导致无法进行球类运动，需遵医嘱避免剧烈活动'}, events=[], relations=[{'related_entity': '林晓', 'relation_type': '身体状况归属', 'description': '林晓用来解释体育能力缺失的理由'}]), UIEntity(entity_id='96f2ad5d-ae8e-4060-9cb7-b9eac9224645', name='林晓被猫抓伤的经历', type='创伤记忆', attributes={'描述时间': '童年时期', '后果': '对猫产生恐惧，甚至看到照片都会害怕', '矛盾点': '与其先前声称喜爱猫咪并饲养三只相冲突'}, events=[], relations=[{'related_entity': '林晓', 'relation_type': '心理影响来源', 'description': '用以解释为何后来否认喜欢猫'}]), UIEntity(entity_id='ea6651db-5cc7-45b1-b08a-13a7cff81681', name='林晓的学生证', type='证件', attributes={'显示信息': '出生日期为2007年10月', '争议点': '林晓称可能印错，坚称真实生日为2006年3月'}, events=[], relations=[{'related_entity': '林晓', 'relation_type': '持有关系', 'description': '用于支持其某一版本年龄说法，但又被本人质疑准确性'}]), UIEntity(entity_id='465dd35a-91d6-464d-b7f7-ebe004f2bfd2', name='全市演讲比赛一等奖奖状', type='荣誉证明', attributes={'奖项名称': '全市演讲比赛一等奖', '持有者': '林晓', '出现场景': '班会课展示', '矛盾行为': '虽有获奖经历，却拒绝加入演讲队，称上台紧张'}, events=[], relations=[{'related_entity': '林晓', 'relation_type': '成就归属', 'description': '证明其曾参与并赢得公共演讲竞赛'}])]
+2025-12-14 16:42:16 [INFO] web.py:24 - 实体总数: 8
+2025-12-14 16:42:16 [INFO] web.py:24 - 开始检查实体一致性
+2025-12-14 16:42:16 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-5c90dd48-ca83-450b-b850-4d44b4e66645', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"267e2cff-6584-4502-b43a-4fd2a0e4c4fb","name":"林晓","type":"人物","attributes":{"身份":"北城中学高一（3）班转学生","年龄说法不一":["自称2007年10月出生（约17岁）","又称2006年3月出生，已满19岁"],"家庭背景矛盾":["老师介绍：父母均为医生，来自南方小城","自我陈述：父母为工厂工人，从未离开北城"],"居住情况多变":["上午称住学校附近，步行5分钟回家","中午称每天乘公交1小时到校","放学时称是住校生，平时不回家"],"兴趣与能力冲突":["自称从小接受专业篮球训练，担任少年队主力控卫","实际投篮动作极不标准，称因手伤不能进行剧烈运动","数学课表现优异但随堂测验出错，自称最讨厌数学且成绩差","声称喜欢猫并养三只，后又说害怕猫、从不喜动物","展示演讲比赛一等奖奖状，曾为辩论队队长","却又表示上台紧张、不敢参加公开活动"],"健康相关说法":["称小时候受过手伤，医生禁止剧烈运动","称曾被猫抓伤，因此惧怕猫"]},"events":[{"event":"转入北城中学高一（3）班","time":"最近","description":"作为转学生进入班级，引发后续一系列言行矛盾"},{"event":"在数学课解答方程表现突出","time":"某节数学课","description":"在黑板上清晰推导方程解法，逻辑严谨"},{"event":"随堂测验中犯基础数学错误","time":"下一节数学课","description":"连一元一次方程都计算错误，抱怨自己数学差"},{"event":"体育课展示篮球经历但动作失准","time":"体育课","description":"声称是主力控卫，但基本技能缺失"},{"event":"午休谈论养猫细节","time":"午休时间","description":"描述三只猫的名字和性格"},{"event":"班会课否认喜欢猫","time":"下午班会课","description":"称因童年被猫抓伤而恐惧猫"},{"event":"出示演讲比赛一等奖奖状","time":"班会课","description":"展示获奖证据，自称长期参与辩论"}],"relations":[{"related_entity":"北城中学","relation_type":"隶属关系","description":"目前就读学校"},{"related_entity":"高一（3）班","relation_type":"所属班级","description":"所在行政班级"},{"related_entity":"班主任","relation_type":"师生关系","description":"多次向其提供相互矛盾的信息"},{"related_entity":"体育老师","relation_type":"师生关系","description":"告知不同生日与居住信息"},{"related_entity":"同班同学","relation_type":"同学关系","description":"在多个场合讲述不同版本的个人经历"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 16:42:16 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:42:16 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'4335b3a8-93bf-48d6-bb05-dcbe22e8955f'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'20021'), (b'req-arrive-time', b'1765701736954'), (b'resp-start-time', b'1765701756976'), (b'x-envoy-upstream-service-time', b'20021'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 08:42:36 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 16:42:37 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 16:42:37 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '4335b3a8-93bf-48d6-bb05-dcbe22e8955f', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '20021', 'req-arrive-time': '1765701736954', 'resp-start-time': '1765701756976', 'x-envoy-upstream-service-time': '20021', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 08:42:36 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 16:42:37 [DEBUG] _base_client.py:1024 - request_id: 4335b3a8-93bf-48d6-bb05-dcbe22e8955f
+2025-12-14 16:42:37 [INFO] web.py:24 - 检查实体 267e2cff-6584-4502-b43a-4fd2a0e4c4fb 一致性: {'entity_name': '林晓', 'has_conflict': True, 'conflicts': [{'type': '属性冲突', 'attribute': '年龄说法不一', 'details': ['自称2007年10月出生（约17岁）', '又称2006年3月出生，已满19岁'], 'explanation': '两个出生日期相差超过一年半，导致年龄从17岁到19岁不等，存在明显矛盾。'}, {'type': '属性冲突', 'attribute': '家庭背景矛盾', 'details': ['老师介绍：父母均为医生，来自南方小城', '自我陈述：父母为工厂工人，从未离开北城'], 'explanation': '职业、籍贯和居住历史完全不符，且涉及第三方（老师）的正式记录与本人说法冲突。'}, {'type': '属性冲突', 'attribute': '居住情况多变', 'details': ['上午称住学校附近，步行5分钟回家', '中午称每天乘公交1小时到校', '放学时称是住校生，平时不回家'], 'explanation': '三种互斥的居住模式同时存在——走读近距、走读远距、住校，逻辑上无法共存。'}, {'type': '能力与行为冲突', 'attribute': '篮球经历与实际表现', 'details': ['自称从小接受专业篮球训练，担任少年队主力控卫', '体育课投篮动作极不标准，基本技能缺失', '称因手伤不能进行剧烈运动'], 'explanation': '专业训练背景与实际技能严重不符；‘手伤’解释部分合理但无法完全抵消技术空白带来的矛盾。'}, {'type': '学业表现冲突', 'attribute': '数学能力不一致', 'details': ['数学课解答方程表现突出，逻辑严谨', '随堂测验中犯基础错误，自称最讨厌数学且成绩差'], 'explanation': '短时间内在相同知识领域表现出极高与极低水平的能力，缺乏合理过渡或情境解释。'}, {'type': '兴趣偏好冲突', 'attribute': '对猫的态度矛盾', 'details': ['声称喜欢猫并养三只，描述名字和性格', '后又说害怕猫、从不喜动物，因被猫抓伤而恐惧'], 'explanation': '情感态度从喜爱饲养转变为恐惧厌恶，且理由（被抓伤）用于否定先前所述的亲密关系。'}, {'type': '社会活动冲突', 'attribute': '公开演讲经历与心理状态', 'details': ['展示演讲比赛一等奖奖状，曾为辩论队队长', '表示上台紧张、不敢参加公开活动'], 'explanation': '拥有高级别竞赛成就却声称无法承受公开表达的心理压力，虽可能共存，但在同一时间段内难以自洽。'}, {'type': '健康陈述冲突', 'attribute': '手伤与猫抓伤的用途', 'details': ['称小时候受过手伤，医生禁止剧烈运动', '又称曾被猫抓伤，因此惧怕猫', '但此前又声称养猫'], 'explanation': '‘猫抓伤’既作为惧猫的理由，又与‘养三只猫’的经历直接冲突；‘手伤’解释运动限制，但无佐证支持。'}], 'explanation': '林晓这一人物在年龄、家庭背景、居住状况、能力表现、兴趣爱好及健康史等多个核心属性上存在系统性、多维度的矛盾。这些矛盾不仅体现在不同时间点的言行不一，还涉及与外部实体（如老师、课程表现）之间的事实冲突。其提供的信息呈现出高度不稳定的人格特征或身份建构意图，整体一致性极低。'}
+2025-12-14 16:42:37 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-a84f3793-adfd-4acf-901b-f603e1364281', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"f72bcc6a-fb0a-4f2f-8fc5-8dae23e09b86","name":"北城中学","type":"教育机构","attributes":{"类型":"中学","年级设置":"包含高中一年级","班级示例":"高一（3）班"},"events":[],"relations":[{"related_entity":"林晓","relation_type":"所属关系","description":"林晓当前注册就读的学校"},{"related_entity":"高一（3）班","relation_type":"组织结构","description":"该校的一个教学班级"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 16:42:37 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:42:37 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'9fa384ef-73ff-49bf-b437-afff3baa2a9d'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'2536'), (b'req-arrive-time', b'1765701757072'), (b'resp-start-time', b'1765701759609'), (b'x-envoy-upstream-service-time', b'2535'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 08:42:39 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 16:42:39 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 16:42:39 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '9fa384ef-73ff-49bf-b437-afff3baa2a9d', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '2536', 'req-arrive-time': '1765701757072', 'resp-start-time': '1765701759609', 'x-envoy-upstream-service-time': '2535', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 08:42:39 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 16:42:39 [DEBUG] _base_client.py:1024 - request_id: 9fa384ef-73ff-49bf-b437-afff3baa2a9d
+2025-12-14 16:42:39 [INFO] web.py:24 - 检查实体 f72bcc6a-fb0a-4f2f-8fc5-8dae23e09b86 一致性: {'entity_name': '北城中学', 'has_conflict': False, 'conflicts': [], 'explanation': '实体‘北城中学’为一所包含高中一年级的中学，其属性与关系一致：班级‘高一（3）班’是该校的组织结构之一，学生‘林晓’注册就读于该校，符合中学教育机构的设定。所有属性、事件和关系之间无冲突。'}
+2025-12-14 16:42:39 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-55867a19-4364-4ec4-81e5-dd0302a067fe', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"d82a1e47-6008-4a25-bcb2-d4375d1da5be","name":"高一（3）班","type":"班级单位","attributes":{"年级":"高中一年级","班级编号":"3班","成员特征":"包含原生学生与转学生林晓"},"events":[],"relations":[{"related_entity":"林晓","relation_type":"学生归属","description":"林晓被分配至该班级"},{"related_entity":"班主任","relation_type":"管理关系","description":"由班主任负责班级日常管理"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 16:42:39 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:42:39 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'cbd629e5-526f-48e8-a7e5-e9c183e6e1ed'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'3320'), (b'req-arrive-time', b'1765701759620'), (b'resp-start-time', b'1765701762941'), (b'x-envoy-upstream-service-time', b'3320'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 08:42:42 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 16:42:42 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 16:42:42 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': 'cbd629e5-526f-48e8-a7e5-e9c183e6e1ed', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '3320', 'req-arrive-time': '1765701759620', 'resp-start-time': '1765701762941', 'x-envoy-upstream-service-time': '3320', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 08:42:42 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 16:42:42 [DEBUG] _base_client.py:1024 - request_id: cbd629e5-526f-48e8-a7e5-e9c183e6e1ed
+2025-12-14 16:42:42 [INFO] web.py:24 - 检查实体 d82a1e47-6008-4a25-bcb2-d4375d1da5be 一致性: {'entity_name': '高一（3）班', 'has_conflict': False, 'conflicts': [], 'explanation': '该实体为‘班级单位’，其属性包括年级为高中一年级、班级编号为3班，与名称‘高一（3）班’一致；成员特征提及包含原生学生与转学生林晓，与其和‘林晓’之间的‘学生归属’关系相符；同时存在与‘班主任’的管理关系，符合班级单位的常规设定。目前所有属性、事件和关系之间无明显矛盾。'}
+2025-12-14 16:42:42 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-909f00a3-dcfa-46e6-8fde-87637c8f1d61', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"5a609af5-d6cc-4584-bf9a-486f680a0624","name":"林晓的父母","type":"家庭成员","attributes":{"职业说法冲突":["据老师介绍：均为医生","据林晓自述：普通工厂工人"],"居住地差异":["老师称来自南方小城","林晓称从未离开北城"]},"events":[],"relations":[{"related_entity":"林晓","relation_type":"亲子关系","description":"林晓所提及或虚构的父母形象"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 16:42:42 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:42:42 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'0f279413-953b-4872-bd00-fad52c0ac3d5'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'8483'), (b'req-arrive-time', b'1765701762954'), (b'resp-start-time', b'1765701771438'), (b'x-envoy-upstream-service-time', b'8482'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 08:42:51 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 16:42:51 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 16:42:51 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '0f279413-953b-4872-bd00-fad52c0ac3d5', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '8483', 'req-arrive-time': '1765701762954', 'resp-start-time': '1765701771438', 'x-envoy-upstream-service-time': '8482', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 08:42:51 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 16:42:51 [DEBUG] _base_client.py:1024 - request_id: 0f279413-953b-4872-bd00-fad52c0ac3d5
+2025-12-14 16:42:51 [INFO] web.py:24 - 检查实体 5a609af5-d6cc-4584-bf9a-486f680a0624 一致性: {'entity_name': '林晓的父母', 'has_conflict': True, 'conflicts': [{'type': '属性冲突', 'attribute': '职业说法冲突', 'details': ['据老师介绍：均为医生', '据林晓自述：普通工厂工人'], 'explanation': '关于林晓父母的职业存在明显矛盾。老师称其父母均为医生，属于专业技术人员，而林晓自称父母是普通工厂工人，属于体力劳动者，两者社会职业背景差异显著，无法同时成立。'}, {'type': '属性冲突', 'attribute': '居住地差异', 'details': ['老师称来自南方小城', '林晓称从未离开北城'], 'explanation': '关于林晓及其父母的居住地存在地理矛盾。老师称他们来自南方小城，意味着家庭原居地位于中国南方；但林晓声称自己从未离开北城，暗示其长期生活在北方城市。若从未离开北城，则不可能来自南方小城，二者在空间轨迹上不一致。'}], 'explanation': '林晓的父母这一实体在职业和居住地两个关键属性上存在来源不同的矛盾描述。这些矛盾可能反映信息传递误差、记忆偏差，或暗示林晓对家庭背景的隐瞒或虚构，与其‘所提及或虚构的父母形象’的关系描述相符，表明该实体可能具有非真实性或心理投射成分。'}
+2025-12-14 16:42:51 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-1d87f1b9-7a5b-465e-99d2-815adb402026', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"96a00e40-618f-4da5-b802-d45f073df984","name":"林晓的手伤","type":"健康事件","attributes":{"描述来源":"林晓自述","影响":"导致无法进行球类运动，需遵医嘱避免剧烈活动"},"events":[],"relations":[{"related_entity":"林晓","relation_type":"身体状况归属","description":"林晓用来解释体育能力缺失的理由"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 16:42:51 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:42:51 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'fed10dd2-0037-4489-8270-4a9e43a6b7da'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'3065'), (b'req-arrive-time', b'1765701771449'), (b'resp-start-time', b'1765701774514'), (b'x-envoy-upstream-service-time', b'3064'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 08:42:54 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 16:42:54 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 16:42:54 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': 'fed10dd2-0037-4489-8270-4a9e43a6b7da', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '3065', 'req-arrive-time': '1765701771449', 'resp-start-time': '1765701774514', 'x-envoy-upstream-service-time': '3064', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 08:42:54 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 16:42:54 [DEBUG] _base_client.py:1024 - request_id: fed10dd2-0037-4489-8270-4a9e43a6b7da
+2025-12-14 16:42:54 [INFO] web.py:24 - 检查实体 96a00e40-618f-4da5-b802-d45f073df984 一致性: {'entity_name': '林晓的手伤', 'has_conflict': False, 'conflicts': [], 'explanation': '该实体为‘健康事件’，属性和关系均一致：描述来源于林晓自述，影响为无法进行球类运动并需避免剧烈活动，与其归属人物‘林晓’的身体状况相符；关系‘身体状况归属’逻辑合理，无属性、类型、时间线或事件描述上的矛盾。目前信息下无冲突。'}
+2025-12-14 16:42:54 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-69f7c3b0-47e9-4d31-8af0-2fd1f51dab6c', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"96f2ad5d-ae8e-4060-9cb7-b9eac9224645","name":"林晓被猫抓伤的经历","type":"创伤记忆","attributes":{"描述时间":"童年时期","后果":"对猫产生恐惧，甚至看到照片都会害怕","矛盾点":"与其先前声称喜爱猫咪并饲养三只相冲突"},"events":[],"relations":[{"related_entity":"林晓","relation_type":"心理影响来源","description":"用以解释为何后来否认喜欢猫"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 16:42:54 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:42:54 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'2d04edfa-d3b1-4808-b298-71355f58478a'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'11693'), (b'req-arrive-time', b'1765701774526'), (b'resp-start-time', b'1765701786220'), (b'x-envoy-upstream-service-time', b'11693'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 08:43:06 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 16:43:06 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 16:43:06 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '2d04edfa-d3b1-4808-b298-71355f58478a', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '11693', 'req-arrive-time': '1765701774526', 'resp-start-time': '1765701786220', 'x-envoy-upstream-service-time': '11693', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 08:43:06 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 16:43:06 [DEBUG] _base_client.py:1024 - request_id: 2d04edfa-d3b1-4808-b298-71355f58478a
+2025-12-14 16:43:06 [INFO] web.py:24 - 检查实体 96f2ad5d-ae8e-4060-9cb7-b9eac9224645 一致性: {'entity_name': '林晓被猫抓伤的经历', 'has_conflict': True, 'conflicts': [{'type': '属性冲突', 'attribute': '后果', 'value': '对猫产生恐惧，甚至看到照片都会害怕', 'conflicting_with': '林晓先前声称喜爱猫咪并饲养三只', 'description': '创伤记忆的后果表明林晓因被抓伤而对猫产生强烈恐惧，这与她此前表达的喜爱猫咪并实际饲养三只的行为和情感状态相矛盾。通常，持续饲养多只猫需要一定程度的喜爱与耐受，难以与‘看到猫照片都会害怕’共存。'}, {'type': '心理一致性冲突', 'attribute': '矛盾点', 'value': '与其先前声称喜爱猫咪并饲养三只相冲突', 'conflicting_with': '心理影响来源用于解释为何后来否认喜欢猫', 'description': '该记忆被用作解释林晓‘后来否认喜欢猫’的心理动因，但若她确实曾喜爱并饲养三只猫，则早年情感应为真实喜爱，而非否认；因此，创伤记忆试图同时解释态度转变，却未能合理衔接从喜爱到恐惧再到否认的全过程，存在逻辑断层。'}], 'explanation': '‘林晓被猫抓伤的经历’作为一项导致对猫恐惧的创伤记忆，与其过去喜爱猫咪并饲养三只的事实存在显著矛盾。一个人在童年时期因猫受伤后发展出长期恐惧，可能解释回避行为，但难以与主动饲养多只猫的行为兼容。除非该经历发生在饲养之前且其后果被克服，否则无法解释其后的养猫行为。此外，此记忆被用来支撑‘后来否认喜欢猫’的心理动机，但若曾经真实喜爱并投入照顾猫咪，则‘否认’更可能源于其他心理机制（如压抑、否认创伤等），而非单纯的恐惧形成。整体上，时间线、行为表现与心理后果之间缺乏一致的因果链条，构成实质性冲突。'}
+2025-12-14 16:43:06 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-4a805388-d778-4a72-9c44-9fecb0d638c4', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"ea6651db-5cc7-45b1-b08a-13a7cff81681","name":"林晓的学生证","type":"证件","attributes":{"显示信息":"出生日期为2007年10月","争议点":"林晓称可能印错，坚称真实生日为2006年3月"},"events":[],"relations":[{"related_entity":"林晓","relation_type":"持有关系","description":"用于支持其某一版本年龄说法，但又被本人质疑准确性"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 16:43:06 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:43:06 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'68f53318-09c8-40d8-903f-cff1be2ee969'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'4756'), (b'req-arrive-time', b'1765701786232'), (b'resp-start-time', b'1765701790988'), (b'x-envoy-upstream-service-time', b'4754'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 08:43:10 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 16:43:10 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 16:43:10 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '68f53318-09c8-40d8-903f-cff1be2ee969', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '4756', 'req-arrive-time': '1765701786232', 'resp-start-time': '1765701790988', 'x-envoy-upstream-service-time': '4754', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 08:43:10 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 16:43:10 [DEBUG] _base_client.py:1024 - request_id: 68f53318-09c8-40d8-903f-cff1be2ee969
+2025-12-14 16:43:10 [INFO] web.py:24 - 检查实体 ea6651db-5cc7-45b1-b08a-13a7cff81681 一致性: {'entity_name': '林晓的学生证', 'has_conflict': True, 'conflicts': [{'type': '属性冲突', 'details': '学生证上显示的出生日期为2007年10月，但林晓坚称其真实生日为2006年3月，两者在出生日期这一关键属性上存在明显矛盾。'}, {'type': '可信度冲突', 'details': '作为官方证件，学生证本应具有较高权威性，但持有人林晓本人质疑其准确性，称‘可能印错’，导致该证件的可信度与功能目的（证明身份信息）发生冲突。'}], 'explanation': '林晓的学生证在出生日期信息上与其本人声称的真实生日不一致，且由本人提出可能存在印刷错误，造成证件信息与个人主张之间的直接矛盾。这不仅构成属性层面的事实冲突，也削弱了证件作为身份凭证的功能一致性。'}
+2025-12-14 16:43:10 [DEBUG] _base_client.py:482 - Request options: {'method': 'post', 'url': '/chat/completions', 'headers': {'X-Stainless-Raw-Response': 'true'}, 'files': None, 'idempotency_key': 'stainless-python-retry-80ae3c4d-2bd1-4873-b465-e47de5705653', 'json_data': {'messages': [{'content': '\n你是一个实体一致性分析器（Entity Consistency Checker）。\n你的任务是分析一个实体的所有属性、事件和关系是否存在矛盾。\n\n矛盾包括但不限于：\n- 属性冲突（如：产地=日本 vs 产地=中国）\n- 类型冲突（如：发动机 vs 软件组件）\n- 状态反转（罪犯 vs 卧底警察）\n- 时间线冲突（2019发布 vs 2020才设计）\n- 事件描述矛盾\n- 与其他实体的关系冲突\n\n请输出：\n{\n  "entity_name": "",\n  "has_conflict": true/false,\n  "conflicts": [ ... ],\n  "explanation": ""\n}\n', 'role': 'system'}, {'content': '{"entity_id":"465dd35a-91d6-464d-b7f7-ebe004f2bfd2","name":"全市演讲比赛一等奖奖状","type":"荣誉证明","attributes":{"奖项名称":"全市演讲比赛一等奖","持有者":"林晓","出现场景":"班会课展示","矛盾行为":"虽有获奖经历，却拒绝加入演讲队，称上台紧张"},"events":[],"relations":[{"related_entity":"林晓","relation_type":"成就归属","description":"证明其曾参与并赢得公共演讲竞赛"}]}', 'role': 'user'}], 'model': 'qwen-plus', 'max_completion_tokens': 1024, 'stream': False, 'temperature': 0.7}}
+2025-12-14 16:43:10 [DEBUG] _base_client.py:978 - Sending HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - send_request_headers.started request=<Request [b'POST']>
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - send_request_headers.complete
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - send_request_body.started request=<Request [b'POST']>
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - send_request_body.complete
+2025-12-14 16:43:10 [DEBUG] _trace.py:47 - receive_response_headers.started request=<Request [b'POST']>
+2025-12-14 16:43:17 [DEBUG] _trace.py:47 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'vary', b'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding'), (b'x-request-id', b'2d581645-85df-45d7-ae6b-3582abc4d7cc'), (b'x-dashscope-call-gateway', b'true'), (b'content-type', b'application/json'), (b'req-cost-time', b'6350'), (b'req-arrive-time', b'1765701790999'), (b'resp-start-time', b'1765701797350'), (b'x-envoy-upstream-service-time', b'6350'), (b'content-encoding', b'gzip'), (b'date', b'Sun, 14 Dec 2025 08:43:17 GMT'), (b'server', b'istio-envoy'), (b'transfer-encoding', b'chunked')])
+2025-12-14 16:43:17 [INFO] _client.py:1025 - HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2025-12-14 16:43:17 [DEBUG] _trace.py:47 - receive_response_body.started request=<Request [b'POST']>
+2025-12-14 16:43:17 [DEBUG] _trace.py:47 - receive_response_body.complete
+2025-12-14 16:43:17 [DEBUG] _trace.py:47 - response_closed.started
+2025-12-14 16:43:17 [DEBUG] _trace.py:47 - response_closed.complete
+2025-12-14 16:43:17 [DEBUG] _base_client.py:1016 - HTTP Response: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "200 OK" Headers({'vary': 'Origin,Access-Control-Request-Method,Access-Control-Request-Headers, Accept-Encoding', 'x-request-id': '2d581645-85df-45d7-ae6b-3582abc4d7cc', 'x-dashscope-call-gateway': 'true', 'content-type': 'application/json', 'req-cost-time': '6350', 'req-arrive-time': '1765701790999', 'resp-start-time': '1765701797350', 'x-envoy-upstream-service-time': '6350', 'content-encoding': 'gzip', 'date': 'Sun, 14 Dec 2025 08:43:17 GMT', 'server': 'istio-envoy', 'transfer-encoding': 'chunked'})
+2025-12-14 16:43:17 [DEBUG] _base_client.py:1024 - request_id: 2d581645-85df-45d7-ae6b-3582abc4d7cc
+2025-12-14 16:43:17 [INFO] web.py:24 - 检查实体 465dd35a-91d6-464d-b7f7-ebe004f2bfd2 一致性: {'entity_name': '全市演讲比赛一等奖奖状', 'has_conflict': True, 'conflicts': [{'type': '行为矛盾', 'attribute': '矛盾行为', 'value': '虽有获奖经历，却拒绝加入演讲队，称上台紧张', 'explanation': '该奖状证明林晓曾在全市演讲比赛中获得一等奖，表明其具备公开演讲的能力和经验，且在高压场合成功表现。然而，其当前行为是拒绝加入演讲队，并以‘上台紧张’为由回避类似活动，与其曾获高级别奖项的经历存在明显行为与心理状态上的矛盾：通常能赢得全市比赛的个体应具备较强的舞台适应能力，难以合理解释为何会因紧张而彻底回避同类活动。'}], 'explanation': '尽管个体心理状态可能随时间变化（如后期产生舞台恐惧），但缺乏过渡性事件说明的情况下，从‘赢得全市演讲比赛’到‘因紧张拒绝参与’之间存在显著的行为反差，构成对该荣誉所隐含能力持续性的质疑，因此判定存在实体层面的行为一致性冲突。'}
+2025-12-14 16:43:17 [INFO] web.py:24 - 完成检查实体一致性
