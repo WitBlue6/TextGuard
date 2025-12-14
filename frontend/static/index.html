@@ -1,20 +1,248 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>一致性检测</title>
-<style>
-#logs { width: 100%; height: 300px; }
-#message { width: 70%; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文本一致性检测</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .chat-container {
+            margin-bottom: 25px;
+        }
+
+        #logs {
+            width: 100%;
+            height: 350px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: none;
+            background-color: #fafafa;
+            color: #333;
+            overflow-y: auto;
+        }
+
+        #logs::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #logs::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        #logs::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        #logs::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #file {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-label {
+            display: inline-block;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .file-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .text-input-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        #message {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        #message:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        #send-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        #send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        #send-btn:active {
+            transform: translateY(0);
+        }
+
+        #send-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .file-info {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #666;
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            border-radius: 6px;
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            #logs {
+                height: 250px;
+            }
+
+            .text-input-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            #send-btn {
+                align-self: center;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>文本一致性检测</h1>
-<textarea id="logs" readonly></textarea><br>
-<input type="file" id="file">
-<input type="text" id="message" placeholder="输入文本">
-<button onclick="sendMessage()">发送</button>
+    <div class="container">
+        <div class="header">
+            <h1>文本一致性检测</h1>
+        </div>
+        <div class="content">
+            <div class="chat-container">
+                <textarea id="logs" readonly placeholder="等待检测结果..."></textarea>
+            </div>
+            <div class="input-section">
+                <div class="file-upload">
+                    <input type="file" id="file">
+                    <label for="file" class="file-label">选择文件</label>
+                    <div class="file-info" id="file-info"></div>
+                </div>
+                <div class="text-input-container">
+                    <input type="text" id="message" placeholder="输入要检测的文本">
+                    <button id="send-btn" onclick="sendMessage()">发送</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script src="chat.js"></script>
+    <script src="chat.js"></script>
 </body>
 </html>
