@@ -1,7 +1,7 @@
 [project]
-name = "Chinese_Grammar_Error_Correction"
+name = "TextGuard"
 version = "0.1.0"
-description = "Add your description here"
+description = "A Text Error Correction System for Chinese"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

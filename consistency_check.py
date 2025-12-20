@@ -1,4 +1,4 @@
-from llm.model import get_entity_extract_chain, get_entity_consistency_check_chain, get_memory_summary_chain
+from llm.model import get_entity_extract_chain, get_entity_consistency_check_chain, get_memory_summary_chain, get_consistency_correct_chain
 from llm.entity import extract_entities, check_entity_consistency, summarize_entity_memory
 from llm.entity import EntityStore
 from filereader.reader import extract_text_from_pdf, extract_text_from_docx, chunking
@@ -6,12 +6,13 @@ from filereader.reader import extract_text_from_pdf, extract_text_from_docx, chu
 import argparse
 import logging
 import os
+import json
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Chinese_Grammar_Error_Correction")
+    parser = argparse.ArgumentParser(description="Consistency Check Model")
     parser.add_argument("--model_name", type=str, default="qwen-plus", help="Model name")
     parser.add_argument("--base_url", type=str, default="https://dashscope.aliyuncs.com/compatible-mode/v1", help="Base URL")
-    parser.add_argument("--docx_data", type=str, default="./dataset/test_long.docx", help="Docs Dataset path")
+    parser.add_argument("--docx_data", type=str, default="./dataset/test.docx", help="Docs Dataset path")
     parser.add_argument("--pdf_data", type=str, default="./dataset/test.pdf", help="PDF Dataset path")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")
     args = parser.parse_args()
@@ -48,6 +49,10 @@ def logging_config(args):
     return logger
 
 def check_consistency(args, **kwargs):
+    '''
+    检查文档中的实体一致性
+    返回冲突检测结果列表
+    '''
     logger = kwargs.get("logger")
 
     # chain获取
@@ -92,10 +97,82 @@ def check_consistency(args, **kwargs):
         res = check_entity_consistency(entity_consistency_check_chain, ent)
         logger.info(f"对于实体 {ent.entity_id} 的冲突分析: {res}")
         consistency_results.append(res)
+
+    # 保存一致性检查结果
+    consistency_save_name = kwargs.get("save_name", "consistency_result.json")
+    log_dir = args.log_dir
+    os.makedirs(log_dir, exist_ok=True)
+    with open(os.path.join(log_dir, consistency_save_name), "w", encoding="utf-8") as f:
+        json.dump(consistency_results, f, ensure_ascii=False, indent=4)
+        logger.info(f"一致性检查结果已保存到: {os.path.join(log_dir, consistency_save_name)}")
+    # 保留全部实体列表
+    all_entities_save_name = "all_entities.json"
+    with open(os.path.join(log_dir, all_entities_save_name), "w", encoding="utf-8") as f:
+        json.dump([ent.model_dump() for ent in ent_store.all_entities()], f, ensure_ascii=False, indent=4)
+        logger.info(f"所有实体已保存到: {os.path.join(log_dir, all_entities_save_name)}")
+
+    return consistency_results
+
+def correct_based_on_consistency(args, **kwargs):
+    """
+    根据一致性检查结果，标记长文本中的实体冲突
+    返回标记后的长文本
+    """
+    consistency_results = kwargs.get("consistency_results")
+    logger = kwargs.get("logger")
+
+    # 对输入的实体进行剔除，只保留冲突实体
+    conflict_ents = [ent for ent in consistency_results if ent["has_conflict"] is True]
+    logger.info(f"冲突实体: {conflict_ents}")
+    consistency_correct_chain = get_consistency_correct_chain(args.model_name, args.base_url)
+
+    # 文档读取
+    logger.info(f"读取文档: {args.docx_data}")
+    text = extract_text_from_docx(args.docx_data)
+    chunks = chunking(text)
+    res_list = []
+
+    # 对每个chunk进行修正
+    for chunk in chunks:
+        chunk_input = f"原始文本:{chunk}\n实体冲突分析结果:{consistency_results}"
+        res = consistency_correct_chain.invoke(chunk_input).content
+        logger.info(f"段落修正结果: \n{res}")
+        res_list.append(res)
+
+    # 保存修正后的结果为txt文件
+    save_name = kwargs.get("save_name", "corrected_result.txt")
+    log_dir = args.log_dir
+    os.makedirs(log_dir, exist_ok=True)
+    with open(os.path.join(log_dir, save_name), "w", encoding="utf-8") as f:
+        f.write("\n".join(res_list))
+        logger.info(f"修正后的结果已保存到: {os.path.join(log_dir, save_name),}")
+    
+    return res_list
+
+def get_consistency_from_file(args, **kwargs):
+    """
+    从文件中读取一致性检查结果
+    返回一致性检查结果列表
+    """
+    consistency_save_name = kwargs.get("save_name", "consistency_result.json")
+    log_dir = args.log_dir
+    logger = kwargs.get("logger")
+    logger.info(f"从文件 {os.path.join(log_dir, consistency_save_name)} 读取一致性检查结果")
+    with open(os.path.join(log_dir, consistency_save_name), "r", encoding="utf-8") as f:
+        consistency_results = json.load(f)
     return consistency_results
 
 if __name__ == "__main__":
     args = parse_args()
     logger = logging_config(args)
-    logger.info(f"开始运行一致性检查，模型: {args.model_name}, 数据集: {args.docx_data}")
-    check_consistency(args, logger=logger)
+
+    # logger.info(f"开始运行一致性检查，模型: {args.model_name}, 数据集: {args.docx_data}")
+
+    # consistency = check_consistency(args, logger=logger)
+    # logger.info(f"一致性检查结果: {consistency}")
+
+    # 从文件中读取一致性检查结果
+    consistency = get_consistency_from_file(args, logger=logger)
+
+    corrected_chunks = correct_based_on_consistency(args, consistency_results=consistency, logger=logger)
+    logger.info(f"修正后的chunk结果: {corrected_chunks}")

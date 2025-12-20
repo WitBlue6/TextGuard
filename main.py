@@ -9,7 +9,7 @@ import os
 import logging
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Chinese_Grammar_Error_Correction")
+    parser = argparse.ArgumentParser(description="WebUI for Text Error Correction")
     parser.add_argument("--model_name", type=str, default="qwen-plus", help="Model name")
     parser.add_argument("--base_url", type=str, default="https://dashscope.aliyuncs.com/compatible-mode/v1", help="Base URL")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")

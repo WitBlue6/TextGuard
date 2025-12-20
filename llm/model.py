@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from .prompt import GRAMMAR_CHECK_PROMPT, ENTITY_EXTRACT_PROMPT, ENTITY_CONSISTENCY_CHECK_PROMPT, MEMORY_SUMMARY_PROMPT
+from .prompt import GRAMMAR_CHECK_PROMPT, ENTITY_EXTRACT_PROMPT, ENTITY_CONSISTENCY_CHECK_PROMPT, MEMORY_SUMMARY_PROMPT, CONSISTENCY_CORRECT_PROMPT
 from .memory import SimpleMemory
 
 memory_store = {}
@@ -104,9 +104,17 @@ def get_memory_summary_chain(model_name: str ="gpt-4o-mini-2024-07-18", base_url
     memory_summary_chain = memory_summary_prompt | memory_summary_model
     return memory_summary_chain
 
-
-
-
-
-
-
+def get_consistency_correct_chain(model_name: str ="gpt-4o-mini-2024-07-18", base_url: str ="https://free.v36.cm/v1"):
+    consistency_correct_prompt = ChatPromptTemplate.from_messages([
+        ("system", CONSISTENCY_CORRECT_PROMPT),
+        ("human", "{new_message}"),
+    ])
+    consistency_correct_model = ChatOpenAI(
+        model_name=model_name,
+        temperature=0.7,
+        max_tokens=1024,
+        base_url=base_url,
+        api_key=os.getenv("OPENAI_API_KEY"),
+    )
+    consistency_correct_chain = consistency_correct_prompt | consistency_correct_model
+    return consistency_correct_chain
