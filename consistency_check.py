@@ -12,8 +12,8 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Consistency Check Model")
     parser.add_argument("--model_name", type=str, default="qwen-plus", help="Model name")
     parser.add_argument("--base_url", type=str, default="https://dashscope.aliyuncs.com/compatible-mode/v1", help="Base URL")
-    parser.add_argument("--docx_data", type=str, default="./dataset/test.docx", help="Docs Dataset path")
-    parser.add_argument("--pdf_data", type=str, default="./dataset/test.pdf", help="PDF Dataset path")
+    parser.add_argument("--docx_data", type=str, default="./dataset/test_long.docx", help="Docs Dataset path")
+    #parser.add_argument("--pdf_data", type=str, default="./dataset/test.pdf", help="PDF Dataset path")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")
     args = parser.parse_args()
     return args
@@ -100,16 +100,16 @@ def check_consistency(args, **kwargs):
 
     # 保存一致性检查结果
     consistency_save_name = kwargs.get("save_name", "consistency_result.json")
-    log_dir = args.log_dir
-    os.makedirs(log_dir, exist_ok=True)
-    with open(os.path.join(log_dir, consistency_save_name), "w", encoding="utf-8") as f:
+    save_dir = os.path.join(args.log_dir, os.path.basename(args.docx_data).split(".")[0])
+    os.makedirs(save_dir, exist_ok=True)
+    with open(os.path.join(save_dir, consistency_save_name), "w", encoding="utf-8") as f:
         json.dump(consistency_results, f, ensure_ascii=False, indent=4)
-        logger.info(f"一致性检查结果已保存到: {os.path.join(log_dir, consistency_save_name)}")
+        logger.info(f"一致性检查结果已保存到: {os.path.join(save_dir, consistency_save_name)}")
     # 保留全部实体列表
     all_entities_save_name = "all_entities.json"
-    with open(os.path.join(log_dir, all_entities_save_name), "w", encoding="utf-8") as f:
+    with open(os.path.join(save_dir, all_entities_save_name), "w", encoding="utf-8") as f:
         json.dump([ent.model_dump() for ent in ent_store.all_entities()], f, ensure_ascii=False, indent=4)
-        logger.info(f"所有实体已保存到: {os.path.join(log_dir, all_entities_save_name)}")
+        logger.info(f"所有实体已保存到: {os.path.join(save_dir, all_entities_save_name)}")
 
     return consistency_results
 
@@ -141,11 +141,11 @@ def correct_based_on_consistency(args, **kwargs):
 
     # 保存修正后的结果为txt文件
     save_name = kwargs.get("save_name", "corrected_result.txt")
-    log_dir = args.log_dir
-    os.makedirs(log_dir, exist_ok=True)
-    with open(os.path.join(log_dir, save_name), "w", encoding="utf-8") as f:
+    save_dir = os.path.join(args.log_dir, os.path.basename(args.docx_data).split(".")[0])
+    os.makedirs(save_dir, exist_ok=True)
+    with open(os.path.join(save_dir, save_name), "w", encoding="utf-8") as f:
         f.write("\n".join(res_list))
-        logger.info(f"修正后的结果已保存到: {os.path.join(log_dir, save_name),}")
+        logger.info(f"修正后的结果已保存到: {os.path.join(save_dir, save_name)}")
     
     return res_list
 
@@ -155,10 +155,10 @@ def get_consistency_from_file(args, **kwargs):
     返回一致性检查结果列表
     """
     consistency_save_name = kwargs.get("save_name", "consistency_result.json")
-    log_dir = args.log_dir
+    save_dir = os.path.join(args.log_dir, os.path.basename(args.docx_data).split(".")[0])
     logger = kwargs.get("logger")
-    logger.info(f"从文件 {os.path.join(log_dir, consistency_save_name)} 读取一致性检查结果")
-    with open(os.path.join(log_dir, consistency_save_name), "r", encoding="utf-8") as f:
+    logger.info(f"从文件 {os.path.join(save_dir, consistency_save_name)} 读取一致性检查结果")
+    with open(os.path.join(save_dir, consistency_save_name), "r", encoding="utf-8") as f:
         consistency_results = json.load(f)
     return consistency_results
 
@@ -166,13 +166,13 @@ if __name__ == "__main__":
     args = parse_args()
     logger = logging_config(args)
 
-    # logger.info(f"开始运行一致性检查，模型: {args.model_name}, 数据集: {args.docx_data}")
+    logger.info(f"开始运行一致性检查，模型: {args.model_name}, 数据集: {args.docx_data}")
 
-    # consistency = check_consistency(args, logger=logger)
-    # logger.info(f"一致性检查结果: {consistency}")
+    consistency = check_consistency(args, logger=logger)
+    logger.info(f"一致性检查结果: {consistency}")
 
-    # 从文件中读取一致性检查结果
-    consistency = get_consistency_from_file(args, logger=logger)
+    # # 从文件中读取一致性检查结果
+    # consistency = get_consistency_from_file(args, logger=logger)
 
     corrected_chunks = correct_based_on_consistency(args, consistency_results=consistency, logger=logger)
     logger.info(f"修正后的chunk结果: {corrected_chunks}")

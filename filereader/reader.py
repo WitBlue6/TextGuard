@@ -44,8 +44,26 @@ def chunking(text, chunk_size=1024):
     将文本切分成指定大小的块
     """
     chunks = []
+    # 主要按字符数切分，在切分时寻找周围最近的标点符号，并将当前chunk切分剩余部分保留到下一个chunk
+    # 标点符号列表
+    punctuation = "。！？；.;?!"
+    last_chunk = ""
     for i in range(0, len(text), chunk_size):
-        chunks.append(text[i:i+chunk_size])
+        initial_chunk = last_chunk + text[i:i+chunk_size]
+        last_chunk = ""
+        # 检查是否包含标点符号
+        if any(p in initial_chunk for p in punctuation):
+            # 找到最近的标点符号位置
+            last_punct = max(initial_chunk.rfind(p) for p in punctuation)
+            if last_punct != -1:
+                # 切分在标点符号后面
+                chunk = initial_chunk[:last_punct+1]
+                # 保留未处理的部分到下一个chunk
+                last_chunk = initial_chunk[last_punct+1:]
+        else:
+            # 如果没有标点符号，直接添加到chunk
+            chunk = initial_chunk
+        chunks.append(chunk)
     return chunks
 
 def get_text_from_input(
