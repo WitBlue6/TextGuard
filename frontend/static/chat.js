@@ -201,12 +201,20 @@ function sendMessage(pipelineType) {
 
 // 显示结果函数
 function displayResult(pipelineType, results) {
-    console.log('显示结果，pipelineType:', pipelineType, 'results:', results);
+    // 添加更多调试信息
+    console.log('显示结果，pipelineType:', pipelineType);
+    console.log('结果类型:', typeof results);
+    console.log('结果是否为数组:', Array.isArray(results));
+    console.log('结果内容:', results);
+    
     const resultElement = safeGetElementById(`${pipelineType}-result`);
     if (!resultElement) {
         console.error(`结果显示元素 ${pipelineType}-result 不存在`);
         return;
     }
+    
+    // 清空之前的结果
+    resultElement.innerHTML = '';
     
     if (pipelineType === 'consistency') {
         // 显示一致性检测结果
@@ -222,7 +230,66 @@ function displayResult(pipelineType, results) {
         }
     } else {
         // 显示语法纠错结果
-        resultElement.innerHTML = results;
+        try {
+            if (Array.isArray(results)) {
+                let resultHtml = '<div class="grammar-results">';
+                
+                // 遍历每个结果
+                results.forEach((result, index) => {
+                    console.log(`第${index + 1}个结果:`, result);
+                    
+                    // 确保result是对象
+                    if (typeof result === 'object' && result !== null) {
+                        resultHtml += `
+                            <div class="grammar-result-item">
+                                <p><strong>索引:</strong> ${index + 1}</p>
+                        `;
+                        
+                        // 显示原始文本
+                        if (result.original_text) {
+                            resultHtml += `<p><strong>原文:</strong> ${result.original_text}</p>`;
+                        } else if (result.original) {
+                            resultHtml += `<p><strong>原文:</strong> ${result.original}</p>`;
+                        }
+                        
+                        // 显示纠错后文本
+                        if (result.content) {
+                            resultHtml += `<p><strong>纠错后:</strong> ${result.content}</p>`;
+                        } else if (result.correct) {
+                            resultHtml += `<p><strong>纠错后:</strong> ${result.correct}</p>`;
+                        }
+                        
+                        // 显示状态
+                        if (result.correct !== undefined) {
+                            resultHtml += `<p><strong>状态:</strong> ${result.correct ? '无语法错误' : '存在语法错误'}</p>`;
+                        }
+                        
+                        // 显示错误原因
+                        if (result.reason) {
+                            resultHtml += `<p><strong>错误原因:</strong> ${result.reason}</p>`;
+                        }
+                        
+                        resultHtml += '</div>';
+                    } else {
+                        // 如果result不是对象，直接显示
+                        resultHtml += `<div class="grammar-result-item">${JSON.stringify(result)}</div>`;
+                    }
+                });
+                
+                resultHtml += '</div>';
+                resultElement.innerHTML = resultHtml;
+            } else if (typeof results === 'object' && results !== null) {
+                // 如果results是单个对象，直接显示其内容
+                resultElement.innerHTML = JSON.stringify(results, null, 2);
+            } else {
+                // 其他情况，直接显示
+                resultElement.innerHTML = String(results);
+            }
+        } catch (error) {
+            console.error('显示语法纠错结果时出错:', error);
+            // 出错时显示原始结果
+            resultElement.innerHTML = JSON.stringify(results, null, 2);
+        }
     }
 }
 

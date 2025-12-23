@@ -67,6 +67,7 @@ def check_grammar(args, **kwargs):
     for chunk in chunks:
         result = grammar_check_chain.invoke({"new_message": chunk}).content
         result_dict = json.loads(result)
+        result_dict["original_text"] = chunk
         grammar_results.append(result_dict)
         logger.info(f"语法检查结果: {result_dict}")
     

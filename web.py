@@ -88,26 +88,40 @@ async def run_grammar_pipeline(text: str, args, log_callback, **kwargs):
     """新的语法纠错pipeline"""
     logger = kwargs.get("logger", logging.getLogger(__name__))
     cancellation_token = kwargs.get("cancellation_token", None)
+    # chain获取
+    grammar_check_chain = get_grammar_check_chain(args.model_name, args.base_url)
+    # chunking 文本
+    await log_callback(f"文本长度: {len(text)}")
+    logger.info(f"文本长度: {len(text)}")
+    chunks = chunking(text, chunk_size=128)
+     # 对每个chunk进行语法检查
+    await log_callback(f"开始对 {len(chunks)} 个chunk进行语法检查")
+    logger.info(f"开始对 {len(chunks)} 个chunk进行语法检查")
+    grammar_results = []
+    for chunk in chunks:
 
-    await log_callback(f"开始运行语法纠错pipeline")
-    logger.info(f"开始运行语法纠错pipeline")
-    
-    # 模拟处理过程
-    await asyncio.sleep(1)
-    await log_callback(f"正在处理文本...")
-    
-    # 检查是否需要终止
-    if cancellation_token and cancellation_token.is_set():
-        await log_callback(f"pipeline已终止", "error")
-        logger.info(f"pipeline已终止")
-        raise asyncio.CancelledError("Pipeline terminated by user")
-    
-    await asyncio.sleep(1)
+        # 检查是否需要终止
+        if cancellation_token and cancellation_token.is_set():
+            await log_callback(f"pipeline已终止", "error")
+            logger.info(f"pipeline已终止")
+            raise asyncio.CancelledError("Pipeline terminated by user") 
+        
+        result = grammar_check_chain.invoke({"new_message": chunk}).content
+        result_dict = json.loads(result)
+        result_dict["original_text"] = chunk
+        grammar_results.append(result_dict)
+        
+        await log_callback(f"语法检查结果: {result_dict}")
+        logger.info(f"语法检查结果: {result_dict}")
+
+    await log_callback(f"语法检查完成，共检查 {len(chunks)} 个chunk")
+    logger.info(f"语法检查完成，共检查 {len(chunks)} 个chunk")
+        
     await log_callback(f"语法纠错完成")
     logger.info(f"语法纠错完成")
     
     # 返回模拟结果
-    return "测试输出"
+    return grammar_results
 
 
 router = APIRouter()
