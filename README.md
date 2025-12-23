@@ -1,5 +1,7 @@
 # 面向长文本的语义一致性检测与中文语法纠错系统
 
+**[English](raw/docs/README_EN.md)** | **[中文](README.md)**
+
 一个基于大语言模型和LangChain开发的中文文本处理系统，提供长文本的语义一致性检测和中文语法纠错功能。
 
 ## 应用场景
@@ -21,6 +23,10 @@
 - **友好界面**：现代化的Web界面，操作简单直观
 
 ![alt text](raw/images/2.png)
+- **Human-In-The-Loop**：引入人工反馈机制，调整模型输出策略
+![alt text](raw/images/3.png)
+反馈结果示例
+![alt text](raw/images/4.png)
 ## 技术栈
 
 - **后端框架**：FastAPI
@@ -76,8 +82,9 @@ uv run run.py
 
 1. 打开浏览器访问`http://localhost:8000`
 2. 在文本框中输入要检测的文本，或点击"选择文件"上传docx/pdf文件
-3. 点击"发送"按钮开始检测
+3. 点击"一致性检测"或"语法纠错"按钮开始检测
 4. 在日志区域查看实时检测进度和结果
+5. 对生成的结果进行人工修正，点击"提交反馈"按钮
 
 ### API使用
 
@@ -114,6 +121,8 @@ ws://localhost:8000/ws/chat
 ``` plaintext
 ├── README.md
 ├── consistency_check.py   # 语义一致性检测
+├── feedback.py            # 人工反馈模块
+├── grammar_correction.py  # 中文语法纠错
 ├── dataset                # 数据集
 ├── filereader             # PDF/DOCX文件读取模块
 │   ├── __init__.py
@@ -155,8 +164,10 @@ ws://localhost:8000/ws/chat
 2. **语法纠错**：使用LangChain构建的语法纠错Chain检测并纠正文本中的语法错误
 3. **实体提取**：从每个文本块中提取实体信息
 4. **记忆管理**：利用LangChain的记忆机制维护实体的上下文信息
-5. **一致性检查**：使用LangChain Chain对每个实体进行跨文本的一致性检查
+5. **一致性检查**：使用LangChain的实体分析Chain对每个实体进行跨文本的一致性检查
 6. **结果输出**：返回检查结果和详细日志
+7. **人工反馈**：用户可以对模型生成的结果进行人工修正，LLM会根据用户反馈进行经验总结，将经验总结存储到文件中
+8. **RAG更新**：根据人工反馈，定期更新RAG知识库，以提高检测准确性
 
 ## 开发说明
 
@@ -167,7 +178,7 @@ ws://localhost:8000/ws/chat
 ### 后端开发
 
 - API路由定义在`web.py`
-- 核心逻辑位于`consistency_check.py`
+- 核心逻辑位于`consistency_check.py`和`grammar_correction.py`
 - 基于LangChain的模型调用相关代码在`llm/`目录下
   - `model.py`: 定义了各种LangChain Chain（语法纠错、实体提取、一致性检查等）
   - `entity.py`: 实体管理相关功能
