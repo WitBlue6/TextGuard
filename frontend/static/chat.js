@@ -1,5 +1,6 @@
 let ws;
 let isConnected = false;
+let currentFullscreenId = null;
 
 // 确保DOM加载完成后再执行DOM操作
 document.addEventListener('DOMContentLoaded', function() {
@@ -23,6 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('文件上传相关元素不存在');
     }
+    
+    // 为结果区域添加ID
+    const consistencySection = document.querySelector('.result-section:nth-child(1)');
+    const grammarSection = document.querySelector('.result-section:nth-child(2)');
+    if (consistencySection) consistencySection.id = 'consistency-section';
+    if (grammarSection) grammarSection.id = 'grammar-section';
 });
 
 // 格式化文件大小
@@ -333,3 +340,63 @@ function addLog(message, type = "info") {
     logs.value += `${timestamp} ${logPrefix} ${message}\n`;
     logs.scrollTop = logs.scrollHeight;
 }
+
+// 全屏切换功能
+function toggleFullscreen(elementId) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+        console.error(`元素 ${elementId} 不存在`);
+        return;
+    }
+    
+    // 检查是否点击的是同一个元素
+    const isSameElement = currentFullscreenId === elementId;
+    
+    // 如果已经有全屏元素，先退出
+    if (currentFullscreenId) {
+        const currentFullscreenElement = document.getElementById(currentFullscreenId);
+        if (currentFullscreenElement) {
+            currentFullscreenElement.classList.remove('fullscreen');
+            // 恢复全屏按钮状态
+            const fullscreenBtn = currentFullscreenElement.querySelector('.fullscreen-btn');
+            if (fullscreenBtn) {
+                fullscreenBtn.classList.remove('active');
+                fullscreenBtn.textContent = '↗';
+            }
+        }
+        currentFullscreenId = null;
+        
+        // 如果点击的是同一个元素，直接返回
+        if (isSameElement) {
+            return;
+        }
+    }
+    
+    // 进入全屏
+    element.classList.add('fullscreen');
+    currentFullscreenId = elementId;
+    
+    // 更新全屏按钮状态
+    const fullscreenBtn = element.querySelector('.fullscreen-btn');
+    if (fullscreenBtn) {
+        fullscreenBtn.classList.add('active');
+        fullscreenBtn.textContent = '↙';
+    }
+}
+
+// 监听ESC键退出全屏
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && currentFullscreenId) {
+        const element = document.getElementById(currentFullscreenId);
+        if (element) {
+            element.classList.remove('fullscreen');
+            // 恢复全屏按钮状态
+            const fullscreenBtn = element.querySelector('.fullscreen-btn');
+            if (fullscreenBtn) {
+                fullscreenBtn.classList.remove('active');
+                fullscreenBtn.textContent = '↗';
+            }
+            currentFullscreenId = null;
+        }
+    }
+});
