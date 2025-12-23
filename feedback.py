@@ -32,8 +32,56 @@ def logging_config(args):
     logger.addHandler(console_handler)
     logger.addHandler(file_handler)
     return logger
+def collect_consistency_feedback(consistency_results, save_dir, args, logger=None):
+    """
+    收集用户对一致性标注结果的反馈
+    """
+    if not consistency_results:
+        logger.info("未收到一致性标注结果，跳过反馈收集")
+        return None
+    if logger is None:
+        logger = logging.getLogger()
+    logger.info("开始收集用户反馈")
+    for i, result in enumerate(consistency_results):
+        logger.info(f"\nChunk {i+1}:")
+        logger.info(f"原始内容: {result.get('original_text', 'N/A')}")
+        logger.info(f"修正后: {result.get('corrected_text', 'N/A')}")
+    # 收集用户反馈
+    user_feedback = input("\n请输入您的修改意见或反馈（按Enter键确认）：")
+    if not user_feedback.strip():
+        logger.info("未收到用户反馈，跳过反馈总结")
+        return None
+    
+    # 调用LLM总结反馈
+    logger.info("调用LLM总结用户反馈")
+    feedback_chain = get_feedback_summary_chain(args.model_name, args.base_url)
+    
+    # 准备输入
+    input_data = {
+        "consistency_results": str(consistency_results),
+        "user_feedback": user_feedback
+    }
+    
+    # 获取总结结果
+    summary_result = feedback_chain.invoke(input_data).content
+    
+    # 保存反馈和总结
+    feedback_data = {
+        "user_feedback": user_feedback,
+        "feedback_summary": summary_result,
+        "consistency_results": consistency_results
+    }
+    
+    feedback_file = os.path.join(save_dir, "user_feedback.txt")
+    # 追加写入
+    with open(feedback_file, "a", encoding="utf-8") as f:
+        f.write(json.dumps(feedback_data, ensure_ascii=False, indent=4) + ",\n")
+    logger.info(f"用户反馈和总结已保存到: {feedback_file}")
 
-def collect_user_feedback(grammar_results, save_dir, args, logger=None):
+    return summary_result
+
+
+def collect_grammar_feedback(grammar_results, save_dir, args, logger=None):
     """
     收集用户对语法检查结果的反馈
     
@@ -87,9 +135,9 @@ def collect_user_feedback(grammar_results, save_dir, args, logger=None):
         "grammar_results": grammar_results
     }
     
-    feedback_file = os.path.join(save_dir, "user_feedback.json")
-    with open(feedback_file, "w", encoding="utf-8") as f:
-        json.dump(feedback_data, f, ensure_ascii=False, indent=4)
+    feedback_file = os.path.join(save_dir, "user_feedback.txt")
+    with open(feedback_file, "a", encoding="utf-8") as f:
+        f.write(json.dumps(feedback_data, ensure_ascii=False, indent=4) + ",\n")
     
     logger.info(f"用户反馈已保存到 {feedback_file}")
     logger.info(f"反馈总结: {summary_result}")
@@ -123,4 +171,4 @@ if __name__ == "__main__":
     # 配置日志记录
     logger = logging_config(args)
     
-    collect_user_feedback(mock_results, save_dir, args, logger)
+    collect_grammar_feedback(mock_results, save_dir, args, logger)

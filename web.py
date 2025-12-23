@@ -1,6 +1,8 @@
-from llm.model import get_grammar_check_chain_with_memory, get_grammar_check_chain, get_entity_extract_chain, get_entity_consistency_check_chain, get_memory_summary_chain
+from llm.model import get_grammar_check_chain_with_memory, get_grammar_check_chain, get_entity_extract_chain, get_entity_consistency_check_chain, get_memory_summary_chain, get_consistency_correct_chain, get_feedback_summary_chain
 from llm.entity import EntityStore, extract_entities, summarize_entity_memory, check_entity_consistency
 from filereader.reader import chunking, get_text_from_input
+from feedback import collect_consistency_feedback, collect_grammar_feedback
+
 import io
 from fastapi import APIRouter, UploadFile, File, Form, Request, WebSocket, WebSocketDisconnect
 from fastapi.websockets import WebSocketState
@@ -81,8 +83,29 @@ async def run_consistency_pipeline(text: str, args, log_callback, **kwargs):
         logger.info(f"检查实体 {ent.entity_id} 一致性: {res}")
 
     await log_callback(f"完成检查实体一致性")     
-    logger.info(f"完成检查实体一致性")     
-    return results
+    logger.info(f"完成检查实体一致性")   
+
+    # 根据检查结果进行修改
+    await log_callback(f"开始修正实体一致性")     
+    logger.info(f"开始修正实体一致性")     
+    res_list = []
+    # 对输入的实体进行剔除，只保留冲突实体
+    conflict_ents = [ent for ent in results if ent["has_conflict"] is True]
+    logger.info(f"冲突实体: {conflict_ents}")
+    consistency_correct_chain = get_consistency_correct_chain(args.model_name, args.base_url)  
+    # 对每个chunk进行修正
+    for chunk in chunks:
+        chunk_input = f"原始文本:{chunk}\n实体冲突分析结果:{results}"
+        res = consistency_correct_chain.invoke(chunk_input).content
+        logger.info(f"段落修正结果: \n{res}")
+        res_dict = {
+            "original_text": chunk,
+            "corrected_text": res
+        }
+        await log_callback(f"段落修正结果: \n{res}")
+        logger.info(f"段落修正结果: \n{res}")
+        res_list.append(res_dict)
+    return res_list
 
 async def run_grammar_pipeline(text: str, args, log_callback, **kwargs):
     """新的语法纠错pipeline"""
@@ -110,7 +133,7 @@ async def run_grammar_pipeline(text: str, args, log_callback, **kwargs):
         result_dict = json.loads(result)
         result_dict["original_text"] = chunk
         grammar_results.append(result_dict)
-        
+
         await log_callback(f"语法检查结果: {result_dict}")
         logger.info(f"语法检查结果: {result_dict}")
 
@@ -123,6 +146,58 @@ async def run_grammar_pipeline(text: str, args, log_callback, **kwargs):
     # 返回模拟结果
     return grammar_results
 
+# 处理反馈的函数
+def process_feedback(feedback_data, args, logger):
+    """处理用户反馈的同步函数"""
+    try:
+        pipeline = feedback_data.get("pipeline")
+        results = feedback_data.get("results")
+        rating = feedback_data.get("rating")
+        comment = feedback_data.get("comment", "")
+        
+        if not pipeline or not results:
+            logger.error("无效的反馈数据：缺少pipeline或results")
+            return "无效的反馈数据"
+        
+        # 构造用户反馈字符串
+        user_feedback = f"评分: {rating}/5"
+        if comment:
+            user_feedback += f"\n评论: {comment}"
+        
+        # 根据pipeline类型调用相应的反馈处理函数
+        if pipeline == "consistency":
+            # 替换原有函数中的input()调用，直接使用用户提交的反馈
+            import builtins
+            original_input = builtins.input
+            builtins.input = lambda _=None: user_feedback
+            
+            try:
+                summary = collect_consistency_feedback(results, args.log_dir, args, logger)
+            finally:
+                builtins.input = original_input
+            
+            return f"一致性检测反馈已提交。反馈总结: {summary}"
+        
+        elif pipeline == "grammar":
+            # 替换原有函数中的input()调用，直接使用用户提交的反馈
+            import builtins
+            original_input = builtins.input
+            builtins.input = lambda _=None: user_feedback
+            
+            try:
+                summary = collect_grammar_feedback(results, args.log_dir, args, logger)
+            finally:
+                builtins.input = original_input
+            
+            return f"语法纠错反馈已提交。反馈总结: {summary}"
+        
+        else:
+            logger.error(f"未知的pipeline类型：{pipeline}")
+            return "未知的pipeline类型"
+            
+    except Exception as e:
+        logger.exception("处理反馈时发生错误")
+        return f"处理反馈时发生错误：{str(e)}"
 
 router = APIRouter()
 
@@ -131,52 +206,68 @@ async def websocket_chat(websocket: WebSocket):
     await websocket.accept()
     cancellation_token = None
     try:
-        data = await websocket.receive_json()
-        message = data.get("message")
-        file_info = data.get("file")  # dict {filename, content}
-        pipeline = data.get("pipeline", "consistency")  # 默认使用一致性检测pipeline
-
-        # 将前端发来的 base64 文件转成 UploadFile
-        file = None
-        if file_info:
-            filename = file_info["filename"]
-            content_base64 = file_info["content"].split(",")[-1]  # 去掉 data:*/*;base64,
-            file_bytes = base64.b64decode(content_base64)
-            file = UploadFile(filename=filename, file=io.BytesIO(file_bytes))
-
-        args = websocket.app.state.args
-        logger = websocket.app.state.logger
-        
-        # 创建取消令牌
-        cancellation_token = asyncio.Event()
-
-        text = get_text_from_input(message, file)
-        if not text.strip():
-            await websocket.send_json({"error": "未提供消息或文件"})
-            return
-
-        async def log_callback(msg, msg_type="log"):
-            await websocket.send_json({"log": msg, "type": msg_type})
-
-        # 根据选择的pipeline执行相应的函数
-        if pipeline == "consistency":
-            results = await run_consistency_pipeline(
-                text, 
-                args, 
-                log_callback, 
-                logger=logger,
-                cancellation_token=cancellation_token
-            )
-        else:
-            results = await run_grammar_pipeline(
-                text, 
-                args, 
-                log_callback, 
-                logger=logger,
-                cancellation_token=cancellation_token
-            )
+        while True:
+            data = await websocket.receive_json()
+            logger = websocket.app.state.logger
             
-        await websocket.send_json({"results": results, "done": True, "pipeline": pipeline})
+            # 处理反馈请求
+            if data.get("action") == "feedback":
+                logger.info("收到用户反馈请求")
+                args = websocket.app.state.args
+                
+                # 调用同步反馈处理函数
+                feedback_result = process_feedback(data, args, logger)
+                
+                # 发送反馈结果
+                await websocket.send_json({"feedback_result": feedback_result})
+                continue
+            
+            # 处理正常的检测请求
+            message = data.get("message")
+            file_info = data.get("file")  # dict {filename, content}
+            pipeline = data.get("pipeline", "consistency")  # 默认使用一致性检测pipeline
+
+            # 将前端发来的 base64 文件转成 UploadFile
+            file = None
+            if file_info:
+                filename = file_info["filename"]
+                content_base64 = file_info["content"].split(",")[-1]  # 去掉 data:*/*;base64,
+                file_bytes = base64.b64decode(content_base64)
+                file = UploadFile(filename=filename, file=io.BytesIO(file_bytes))
+
+            args = websocket.app.state.args
+            logger = websocket.app.state.logger
+            
+            # 创建取消令牌
+            cancellation_token = asyncio.Event()
+
+            text = get_text_from_input(message, file)
+            if not text.strip():
+                await websocket.send_json({"error": "未提供消息或文件"})
+                continue
+
+            async def log_callback(msg, msg_type="log"):
+                await websocket.send_json({"log": msg, "type": msg_type})
+
+            # 根据选择的pipeline执行相应的函数
+            if pipeline == "consistency":
+                results = await run_consistency_pipeline(
+                    text, 
+                    args, 
+                    log_callback, 
+                    logger=logger,
+                    cancellation_token=cancellation_token
+                )
+            else:
+                results = await run_grammar_pipeline(
+                    text, 
+                    args, 
+                    log_callback, 
+                    logger=logger,
+                    cancellation_token=cancellation_token
+                )
+                
+            await websocket.send_json({"results": results, "done": True, "pipeline": pipeline})
 
     except WebSocketDisconnect:
         # WebSocket连接断开时，设置取消令牌

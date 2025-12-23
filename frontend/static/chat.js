@@ -1,6 +1,7 @@
 let ws;
 let isConnected = false;
 let currentFullscreenId = null;
+let currentResults = { consistency: null, grammar: null };
 
 // 确保DOM加载完成后再执行DOM操作
 document.addEventListener('DOMContentLoaded', function() {
@@ -30,6 +31,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const grammarSection = document.querySelector('.result-section:nth-child(2)');
     if (consistencySection) consistencySection.id = 'consistency-section';
     if (grammarSection) grammarSection.id = 'grammar-section';
+
+    // 绑定反馈表单提交事件
+    const feedbackForm = document.getElementById('feedback-form');
+    if (feedbackForm) {
+        feedbackForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitFeedback();
+        });
+    }
 });
 
 // 格式化文件大小
@@ -134,16 +144,21 @@ function sendMessage(pipelineType) {
                     
                     // 根据pipeline类型显示结果
                     if (data.pipeline === 'consistency') {
+                        currentResults.consistency = data.results;
                         displayResult('consistency', data.results);
                         consistencyBtn.disabled = false;
                         consistencyBtn.innerHTML = '一致性检测';
                     } else {
+                        currentResults.grammar = data.results;
                         displayResult('grammar', data.results);
                         grammarBtn.disabled = false;
                         grammarBtn.innerHTML = '语法纠错';
                     }
                     
                     console.log('处理结果:', data.results);
+                } else if (data.feedback_result) {
+                    addLog(`\n=== 反馈已提交 ===\n${data.feedback_result}`, "success");
+                    closeFeedbackModal();
                 } else if (data.error) {
                     addLog("错误: " + data.error, "error");
                     
@@ -400,3 +415,121 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
+
+// 打开反馈模态框
+function openFeedbackModal(pipelineType) {
+    // 检查是否有结果
+    if (!currentResults[pipelineType]) {
+        alert('请先运行对应的检测任务，获得结果后再提交反馈！');
+        return;
+    }
+    
+    const modal = document.getElementById('feedback-modal');
+    const modalTitle = document.getElementById('feedback-modal-title');
+    const pipelineTypeInput = document.getElementById('feedback-pipeline-type');
+    
+    if (modal && modalTitle && pipelineTypeInput) {
+        modalTitle.textContent = `${pipelineType === 'consistency' ? '一致性检测' : '语法纠错'} - 提交反馈`;
+        pipelineTypeInput.value = pipelineType;
+        modal.style.display = 'block';
+    }
+}
+
+// 关闭反馈模态框
+function closeFeedbackModal() {
+    const modal = document.getElementById('feedback-modal');
+    const feedbackForm = document.getElementById('feedback-form');
+    
+    if (modal) {
+        modal.style.display = 'none';
+    }
+    
+    if (feedbackForm) {
+        feedbackForm.reset();
+    }
+}
+
+// 提交反馈
+function submitFeedback() {
+    const pipelineTypeInput = document.getElementById('feedback-pipeline-type');
+    const ratingInputs = document.querySelectorAll('input[name="rating"]');
+    const commentInput = document.getElementById('feedback-comment');
+    const submitBtn = document.getElementById('feedback-submit-btn');
+    
+    if (!pipelineTypeInput || !ratingInputs || !commentInput || !submitBtn) {
+        console.error('反馈表单元素不存在');
+        return;
+    }
+    
+    // 获取选中的评分
+    let rating = null;
+    for (const input of ratingInputs) {
+        if (input.checked) {
+            rating = parseInt(input.value);
+            break;
+        }
+    }
+    
+    if (rating === null) {
+        alert('请选择评分！');
+        return;
+    }
+    
+    const pipelineType = pipelineTypeInput.value;
+    const comment = commentInput.value.trim();
+    const results = currentResults[pipelineType];
+    
+    if (!results) {
+        alert('无法获取检测结果，请重新运行检测任务！');
+        return;
+    }
+    
+    // 禁用提交按钮
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<div class="loading"></div> 提交中...';
+    
+    try {
+        // 构建反馈数据
+        const feedbackData = {
+            action: 'feedback',
+            pipeline: pipelineType,
+            results: results,
+            rating: rating,
+            comment: comment
+        };
+        
+        // 发送反馈数据
+        if (ws && isConnected) {
+            ws.send(JSON.stringify(feedbackData));
+            console.log('已发送反馈数据:', feedbackData);
+        } else {
+            // 如果WebSocket断开，重新连接并发送
+            ws = new WebSocket("ws://localhost:8000/ws/chat");
+            
+            ws.onopen = () => {
+                isConnected = true;
+                ws.send(JSON.stringify(feedbackData));
+                console.log('已重新连接并发送反馈数据:', feedbackData);
+            };
+            
+            ws.onerror = () => {
+                alert('无法连接到服务器，请稍后重试！');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '提交反馈';
+            };
+        }
+    } catch (error) {
+        console.error('提交反馈时出错:', error);
+        alert('提交反馈失败，请重试！');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '提交反馈';
+    }
+}
+
+// 点击模态框外部关闭模态框
+window.onclick = function(event) {
+    const modal = document.getElementById('feedback-modal');
+    if (event.target === modal) {
+        closeFeedbackModal();
+    }
+}

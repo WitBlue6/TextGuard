@@ -137,14 +137,18 @@ def correct_based_on_consistency(args, **kwargs):
         chunk_input = f"原始文本:{chunk}\n实体冲突分析结果:{consistency_results}"
         res = consistency_correct_chain.invoke(chunk_input).content
         logger.info(f"段落修正结果: \n{res}")
-        res_list.append(res)
+        res_dict = {
+            "original_text": chunk,
+            "corrected_text": res
+        }
+        res_list.append(res_dict)
 
     # 保存修正后的结果为txt文件
     save_name = kwargs.get("save_name", "corrected_result.txt")
     save_dir = os.path.join(args.log_dir, os.path.basename(args.docx_data).split(".")[0])
     os.makedirs(save_dir, exist_ok=True)
     with open(os.path.join(save_dir, save_name), "w", encoding="utf-8") as f:
-        f.write("\n".join(res_list))
+        json.dump(res_list, f, ensure_ascii=False, indent=4)
         logger.info(f"修正后的结果已保存到: {os.path.join(save_dir, save_name)}")
     
     return res_list
