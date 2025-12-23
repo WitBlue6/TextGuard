@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from .prompt import GRAMMAR_CHECK_PROMPT, ENTITY_EXTRACT_PROMPT, ENTITY_CONSISTENCY_CHECK_PROMPT, MEMORY_SUMMARY_PROMPT, CONSISTENCY_CORRECT_PROMPT
+from .prompt import GRAMMAR_CHECK_PROMPT, ENTITY_EXTRACT_PROMPT, ENTITY_CONSISTENCY_CHECK_PROMPT, MEMORY_SUMMARY_PROMPT, CONSISTENCY_CORRECT_PROMPT, FEEDBACK_SUMMARY_PROMPT
 from .memory import SimpleMemory
 
 memory_store = {}
@@ -118,3 +118,20 @@ def get_consistency_correct_chain(model_name: str ="gpt-4o-mini-2024-07-18", bas
     )
     consistency_correct_chain = consistency_correct_prompt | consistency_correct_model
     return consistency_correct_chain
+
+# 在文件末尾添加以下内容
+def get_feedback_summary_chain(model_name: str ="gpt-4o-mini-2024-07-18", base_url: str ="https://free.v36.cm/v1"):
+    
+    feedback_summary_prompt = ChatPromptTemplate.from_messages([
+        ("system", FEEDBACK_SUMMARY_PROMPT),
+        ("human", "语法检查结果：{grammar_results}\n用户反馈：{user_feedback}"),
+    ])
+    feedback_summary_model = ChatOpenAI(
+        model_name=model_name,
+        temperature=0.7,
+        max_tokens=512,
+        base_url=base_url,
+        api_key=os.getenv("OPENAI_API_KEY"),
+    )
+    feedback_summary_chain = feedback_summary_prompt | feedback_summary_model
+    return feedback_summary_chain
