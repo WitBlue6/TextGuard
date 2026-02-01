@@ -91,20 +91,29 @@ def extract_entities(chain, text: str) -> List[UIEntity]:
         entities = []
     return entities 
 
-def check_entity_consistency(chain, entity: UIEntity) -> Dict[str, Any]:
+def check_entity_consistency(chain, entity: UIEntity, enhanced_input: Optional[str] = None) -> Dict[str, Any]:
     """
     检查实体的一致性。
     :param chain: 实体一致性检查链
     :param entity: 待检查的实体
+    :param enhanced_input: 增强的输入信息，如检索到的相关内容
     :return: 检查结果
     """
     try:
-        input = entity.model_dump_json()
+        entity_json = entity.model_dump_json()
+        
+        # 如果有增强输入，则合并
+        if enhanced_input:
+            input = f"{enhanced_input}\n\n实体信息: {entity_json}"
+        else:
+            input = entity_json
+            
     except Exception as e:
         logger.error(f"实体序列化失败: {e}")
         logger.debug("entity类型:", type(entity))
         logger.debug("entity:", entity)
         return {}
+    
     result = chain.invoke({"new_message": input}).content
     return json.loads(result)
 

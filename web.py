@@ -3,6 +3,12 @@ from llm.entity import EntityStore, extract_entities, summarize_entity_memory, c
 from filereader.reader import chunking, get_text_from_input
 from feedback import collect_consistency_feedback, collect_grammar_feedback
 
+# Agentic RAG imports
+from agentic.router import get_agentic_router
+from agentic.indexer import AdvancedIndexer, get_query_transformer
+from agentic.retriever import IterativeRetriever
+from agentic.evaluator import SelfEvaluator
+
 import io
 from fastapi import APIRouter, UploadFile, File, Form, Request, WebSocket, WebSocketDisconnect
 from fastapi.websockets import WebSocketState
@@ -16,11 +22,18 @@ import logging
 TASKS = {}  # task_id -> {"logs": [], "result": None, "done": False}
 
 async def run_consistency_pipeline(text: str, args, log_callback, **kwargs):
-    # 初始化模型
+    # 初始化基础模型
     grammar_check_with_memory = get_grammar_check_chain_with_memory(args.model_name, args.base_url)
     entity_extract_chain = get_entity_extract_chain(args.model_name, args.base_url)
     entity_consistency_check_chain = get_entity_consistency_check_chain(args.model_name, args.base_url)
     memory_summary_chain = get_memory_summary_chain(args.model_name, args.base_url)
+    consistency_correct_chain = get_consistency_correct_chain(args.model_name, args.base_url)
+    
+    # 初始化Agentic RAG组件
+    agentic_router = get_agentic_router(args.model_name, args.base_url)
+    query_transformer = get_query_transformer(args.model_name, args.base_url)
+    advanced_indexer = AdvancedIndexer(args.model_name, args.base_url)
+    self_evaluator = SelfEvaluator(args.model_name, args.base_url)
     
     logger = kwargs.get("logger", logging.getLogger(__name__))
     cancellation_token = kwargs.get("cancellation_token", None)
@@ -32,6 +45,17 @@ async def run_consistency_pipeline(text: str, args, log_callback, **kwargs):
     logger.info(f"文本长度: {len(text)}")
     chunks = chunking(text)
     ent_store = EntityStore()
+    
+    # 创建Agentic RAG索引
+    await log_callback(f"读取Agentic RAG索引...")
+    logger.info(f"读取Agentic RAG索引...")
+    raptor_index = advanced_indexer.read_index(persist_directory=args.chroma_db_dir)
+    if not raptor_index:
+        await log_callback(f"Agentic RAG索引不存在，无法读取")
+        logger.warning(f"Agentic RAG索引不存在，无法读取")
+    
+    iterative_retriever = IterativeRetriever(raptor_index, args.model_name, args.base_url)
+    
     # 处理每个 chunk
     previous_memory = ""
     for i, chunk in enumerate(chunks):
@@ -59,7 +83,7 @@ async def run_consistency_pipeline(text: str, args, log_callback, **kwargs):
             previous_memory = summarize_entity_memory(
                 memory_summary_chain, chunk_input
             )
-    # 检查实体一致性
+    # 检查实体一致性 - 融合Agentic RAG
     await log_callback(f"实体总数: {len(ent_store.all_entities())}")
     logger.info(f"实体总数: {len(ent_store.all_entities())}")
     await log_callback(f"开始检查实体一致性")     
@@ -75,9 +99,32 @@ async def run_consistency_pipeline(text: str, args, log_callback, **kwargs):
             logger.info(f"pipeline已终止")
             raise asyncio.CancelledError("Pipeline terminated by user")
             
-        res = check_entity_consistency(
-            entity_consistency_check_chain, ent
-        )
+        # Agentic RAG增强的实体一致性检查
+        entity_description = f"实体名称: {ent.name}\n实体类型: {ent.type}\n实体属性: {ent.attributes}\n实体事件: {ent.events}\n实体关系: {ent.relations}"
+        
+        # 1. 路由决策
+        route_query = f"是否需要检索更多信息来检查以下实体的一致性？\n{entity_description}"
+        route_decision = agentic_router.invoke({"query": route_query}).content
+        
+        if "retrieve" in route_decision.lower():
+            # 2. 查询转换
+            transformed_queries = query_transformer["multi_query"].invoke({"query": route_query}).content
+            
+            # 3. 迭代检索
+            retrieval_results = iterative_retriever.retrieve(route_query)
+            
+            # 4. 使用检索结果增强一致性检查
+            enhanced_input = f"实体信息: {entity_description}\n\n检索到的相关信息: {retrieval_results[-1]}\n\n请检查该实体的一致性"
+            
+            res = check_entity_consistency(
+                entity_consistency_check_chain, ent, enhanced_input
+            )
+        else:
+            # 直接检查一致性
+            res = check_entity_consistency(
+                entity_consistency_check_chain, ent
+            )
+        
         results.append(res)
         await log_callback(f"检查实体 {ent.entity_id} 一致性: {res}")
         logger.info(f"检查实体 {ent.entity_id} 一致性: {res}")
@@ -85,26 +132,64 @@ async def run_consistency_pipeline(text: str, args, log_callback, **kwargs):
     await log_callback(f"完成检查实体一致性")     
     logger.info(f"完成检查实体一致性")   
 
-    # 根据检查结果进行修改
+    # 根据检查结果进行修改 - 融合Agentic RAG
     await log_callback(f"开始修正实体一致性")     
     logger.info(f"开始修正实体一致性")     
     res_list = []
+    
     # 对输入的实体进行剔除，只保留冲突实体
     conflict_ents = [ent for ent in results if ent["has_conflict"] is True]
     logger.info(f"冲突实体: {conflict_ents}")
-    consistency_correct_chain = get_consistency_correct_chain(args.model_name, args.base_url)  
+    
     # 对每个chunk进行修正
     for chunk in chunks:
         chunk_input = f"原始文本:{chunk}\n实体冲突分析结果:{results}"
-        res = consistency_correct_chain.invoke(chunk_input).content
+        
+        # 1. 路由决策
+        correction_query = f"是否需要检索更多信息来修正以下文本中的实体一致性问题？\n原始文本: {chunk}\n实体冲突: {conflict_ents}"
+        route_decision = agentic_router.invoke({"query": correction_query}).content
+        await log_callback(f"路由决策: {route_decision}")
+        logger.info(f"路由决策: {route_decision}")
+        
+        if "retrieve" in route_decision.lower():
+            # 2. 查询转换
+            transformed_queries = query_transformer["multi_query"].invoke({"query": correction_query}).content
+            
+            # 3. 迭代检索
+            retrieval_results = iterative_retriever.retrieve(correction_query)
+            
+            # 4. 使用检索结果增强修正
+            enhanced_correction_input = f"{chunk_input}\n\n检索到的相关信息: {retrieval_results[-1]}\n\n请基于这些信息进行更准确的修正"
+            res = consistency_correct_chain.invoke(enhanced_correction_input).content
+        else:
+            # 直接修正
+            res = consistency_correct_chain.invoke(chunk_input).content
+        
+        # 5. 自我评估修正结果
+        evaluator = SelfEvaluator(args.model_name, args.base_url)
+        evaluation_result = evaluator.evaluate_answer(
+            query=correction_query,
+            answer=res,
+            docs=chunk
+        )
+        
         logger.info(f"段落修正结果: \n{res}")
+        logger.info(f"修正结果评估: \n{evaluation_result}")
+        
         res_dict = {
             "original_text": chunk,
-            "corrected_text": res
+            "corrected_text": res,
+            "evaluation": evaluation_result
         }
+        
         await log_callback(f"段落修正结果: \n{res}")
+        await log_callback(f"修正结果评估: \n{evaluation_result}")
+        
         logger.info(f"段落修正结果: \n{res}")
+        logger.info(f"修正结果评估: \n{evaluation_result}")
+        
         res_list.append(res_dict)
+    
     return res_list
 
 async def run_grammar_pipeline(text: str, args, log_callback, **kwargs):

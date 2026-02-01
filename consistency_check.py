@@ -2,6 +2,12 @@ from llm.model import get_entity_extract_chain, get_entity_consistency_check_cha
 from llm.entity import extract_entities, check_entity_consistency, summarize_entity_memory
 from llm.entity import EntityStore
 from filereader.reader import extract_text_from_pdf, extract_text_from_docx, chunking
+# Agentic RAG imports
+from agentic.router import get_agentic_router
+from agentic.indexer import AdvancedIndexer, get_query_transformer
+from agentic.retriever import IterativeRetriever
+from agentic.evaluator import SelfEvaluator
+
 
 import argparse
 import logging
@@ -15,6 +21,7 @@ def parse_args():
     parser.add_argument("--docx_data", type=str, default="./dataset/test_long.docx", help="Docs Dataset path")
     #parser.add_argument("--pdf_data", type=str, default="./dataset/test.pdf", help="PDF Dataset path")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")
+    parser.add_argument("--chroma_db_dir", type=str, default="./chroma_db", help="ChromaDB Save Path")
     args = parser.parse_args()
     return args
 
@@ -60,6 +67,17 @@ def check_consistency(args, **kwargs):
     entity_consistency_check_chain = get_entity_consistency_check_chain(args.model_name, args.base_url)
     memory_summary_chain = get_memory_summary_chain(args.model_name, args.base_url)
 
+    # 初始化Agentic RAG组件
+    logger.info("初始化Agentic RAG组件...")
+    agentic_router = get_agentic_router(args.model_name, args.base_url)
+    query_transformer = get_query_transformer(args.model_name, args.base_url)
+    advanced_indexer = AdvancedIndexer(args.model_name, args.base_url)
+    self_evaluator = SelfEvaluator(args.model_name, args.base_url)
+    
+    raptor_index = advanced_indexer.read_index(persist_directory=args.chroma_db_dir)
+    
+    iterative_retriever = IterativeRetriever(raptor_index, args.model_name, args.base_url)
+ 
     # 文档读取
     logger.info(f"读取文档: {args.docx_data}")
     text = extract_text_from_docx(args.docx_data)
@@ -89,12 +107,33 @@ def check_consistency(args, **kwargs):
     #     ent_store.add_entity(ent)
     # logger.info(f"所有实体: {ents}")
 
-    # 冲突检测
+    # 冲突检测 - 融合RAG
     consistency_results = []
     logger.info(f"提取出的所有实体: {ent_store.all_entities()}")
     logger.info("开始检测实体冲突")
     for ent in ent_store.all_entities():
-        res = check_entity_consistency(entity_consistency_check_chain, ent)
+        entity_description = f"实体名称: {ent.name}\n实体类型: {ent.type}\n实体属性: {ent.attributes}\n实体事件: {ent.events}\n实体关系: {ent.relations}"
+        
+        # 智能路由决策
+        route_query = f"是否需要检索更多信息来检查以下实体的一致性？\n{entity_description}"
+        route_decision = agentic_router.invoke({"query": route_query}).content
+        logger.info(f"路由决策: {route_decision}")
+        if "retrieve" in route_decision.lower() and iterative_retriever:
+            # 使用RAG进行检索增强一致性检查
+            logger.info(f"使用RAG检索增强实体 {ent.entity_id} 的一致性检查")   
+            # 查询转换
+            transformed_queries = query_transformer["multi_query"].invoke({"query": route_query}).content  
+            logger.info(f"转换后的查询: {transformed_queries}")
+            # 迭代检索
+            retrieval_results = iterative_retriever.retrieve(transformed_queries) 
+            # 使用检索结果增强一致性检查
+            enhanced_input = f"实体信息: {entity_description}\n\n检索到的相关信息: {retrieval_results[-1]}\n\n请检查该实体的一致性"
+            
+            res = check_entity_consistency(entity_consistency_check_chain, ent, enhanced_input)
+        else:
+            # 直接检查一致性
+            res = check_entity_consistency(entity_consistency_check_chain, ent)
+        
         logger.info(f"对于实体 {ent.entity_id} 的冲突分析: {res}")
         consistency_results.append(res)
 
