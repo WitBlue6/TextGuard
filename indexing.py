@@ -10,9 +10,11 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Consistency Check Model")
     parser.add_argument("--model_name", type=str, default="qwen-plus", help="Model name")
     parser.add_argument("--base_url", type=str, default="https://dashscope.aliyuncs.com/compatible-mode/v1", help="Base URL")
+    parser.add_argument("--embedding_name", type=str, default="text-embedding-v4", help="Embedding model name")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")
     parser.add_argument("--chroma_db_dir", type=str, default="./chroma_db", help="Chroma DB path")
     parser.add_argument("--txt_data", type=str, default="./dataset/rag.txt", help="Dataset path")
+    parser.add_argument("--chunk_size", type=int, default=1000, help="Chunk size for text splitting")
     args = parser.parse_args()
     return args
 
@@ -100,7 +102,7 @@ def create_raptor_index(args, chunks, **kwargs):
     :return: Raptor索引
     """
     logger = kwargs.get("logger")
-    advanced_indexer = AdvancedIndexer(args.model_name, args.base_url)
+    advanced_indexer = AdvancedIndexer(args.embedding_name, args.base_url)
     # 创建多表示索引并构建Raptor索引
     logger.info("创建多表示索引...")
     all_texts = []

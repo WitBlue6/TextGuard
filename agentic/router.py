@@ -1,13 +1,16 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 router_prompt = ChatPromptTemplate.from_messages([
     ("system", "你是一个智能路由决策器，需要决定如何处理用户的查询请求。"),
     ("system", "判断标准："
-    "1. 如果查询可以通过常识或简单推理直接回答，选择'direct'"
-    "2. 如果查询需要外部知识或具体信息支持，选择'retrieve'"
-    "3. 如果查询复杂需要分解为多个子问题，选择'decompose'"),
+    "1. 如果查询可以通过你的已有知识或简单推理直接回答，选择'direct'，如'什么是Python？'、'地球离太阳有多远？'等"
+    "2. 如果查询需要外部知识或具体信息支持，选择'retrieve'，如'2023年北京天气如何？'、'最新的AI研究动态？'等"
+    "3. 如果查询复杂需要分解为多个子问题，选择'decompose'，如'比较不同排序算法的性能'、'如何解释量子计算在当前技术中的作用'等"),
     ("system", "注意：请只输出'direct'、'retrieve'或'decompose'中的一个，不要添加任何其他内容。"),
     ("human", "查询：{query}"),
 ])

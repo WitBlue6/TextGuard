@@ -2,6 +2,9 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 import os
 import logging
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +48,7 @@ class SelfEvaluator:
             ])
             
             # 构建文档字符串
-            docs_str = "\n".join([f"文档 {i+1}: {doc.page_content[:300]}..." for i, doc in enumerate(docs)])
+            docs_str = "\n".join([f"文档 {i+1}: {doc[:1000]}..." for i, doc in enumerate(docs)])
             
             result = self.model.invoke(eval_prompt.format(query=query, docs=docs_str)).content.strip()
             logger.debug(f"检索结果评估: {result}")
@@ -82,7 +85,7 @@ class SelfEvaluator:
             ])
             
             # 构建文档字符串
-            docs_str = "\n".join([f"文档 {i+1}: {doc.page_content[:300]}..." for i, doc in enumerate(docs)])
+            docs_str = "\n".join([f"文档 {i+1}: {doc[:1000]}..." for i, doc in enumerate(docs)])
             
             result = self.model.invoke(eval_prompt.format(query=query, docs=docs_str, answer=answer)).content.strip()
             logger.debug(f"回答质量评估: {result}")

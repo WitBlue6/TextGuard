@@ -10,8 +10,8 @@ from llm.model import get_grammar_check_chain_with_memory, get_grammar_check_cha
 def main():
     print("Test PE Model with Memory")
     grammar_check_with_memory = get_grammar_check_chain_with_memory(
-        model_name="gpt-5-mini",
-        base_url="https://api.chatanywhere.tech/v1",
+        model_name="qwen3-max",
+        base_url="https://apis.iflow.cn/v1",
     )
     ans1 = grammar_check_with_memory.invoke(
             {"new_message": "通过这个项目，使我受益匪浅"}, 

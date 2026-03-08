@@ -1,27 +1,44 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from openai import OpenAI
+import chromadb
 import numpy as np
 from sklearn.cluster import KMeans
 import os
 import logging
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
 class AdvancedIndexer:
-    def __init__(self, model_name: str = "gpt-4o-mini-2024-07-18", base_url: str = "https://free.v36.cm/v1"):
+    def __init__(self, embedding_name: str = "text-embedding-v4", base_url: str = None):
         """
         初始化Advanced Indexer组件
         
-        :param model_name: 使用的LLM模型名称
-        :param base_url: LLM API的基础URL
+        :param embedding_name: 使用的Embedding模型名称
+        :param base_url: Embedding API的基础URL
         """
-        self.embeddings = OpenAIEmbeddings(
-            model="text-embedding-3-small",
+        # 如果没有提供base_url，从环境变量获取
+        if base_url is None:
+            base_url = os.getenv("AI_MODEL_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
+        
+        # 确保base_url以正确的路径结尾
+        if not base_url.endswith("/v1"):
+            base_url = base_url.rstrip("/") + "/v1"
+            
+        # self.embeddings = OpenAIEmbeddings(
+        #     model=embedding_name,
+        #     base_url=base_url,
+        #     api_key=os.getenv("OPENAI_API_KEY"),
+        # )
+        self.embeddings = OpenAI(
             base_url=base_url,
             api_key=os.getenv("OPENAI_API_KEY"),
         )
+        self.embedding_model = embedding_name
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000,
             chunk_overlap=200
@@ -73,7 +90,12 @@ class AdvancedIndexer:
             logger.info(f"开始创建Raptor索引，文本数量: {len(texts)}")
             
             # 1. 生成文本嵌入
-            embeddings = self.embeddings.embed_documents(texts)
+            # 这里和langchain好像不兼容，所以用openai的api直接调用
+            resp = self.embeddings.embeddings.create(
+                model=self.embedding_model,
+                input=texts
+            )
+            embeddings = [np.array(item.embedding) for item in resp.data]
             logger.info(f"文本嵌入生成完成")
             
             # 2. 聚类 - 避免聚类数量为0
@@ -103,25 +125,29 @@ class AdvancedIndexer:
                 cluster_summaries.append(summary)
             
             logger.info(f"聚类总结生成完成")
-            
-            # 4. 创建向量存储
-            vectorstore = Chroma.from_texts(
-                cluster_summaries,
-                self.embeddings,
-                persist_directory=persist_directory
+            # 4. 对聚类总结embedding
+            resp = self.embeddings.embeddings.create(
+                model=self.embedding_model,
+                input=cluster_summaries
             )
+            cluster_embeddings = [np.array(item.embedding) for item in resp.data]
+            logger.info(f"聚类总结嵌入生成完成")
+            
+            # 5. 创建向量存储
+            chromadb_collection = self.save_embeddings(cluster_summaries, cluster_embeddings, persist_directory)
             
             logger.info(f"Raptor索引创建完成")
-            return vectorstore
+            return chromadb_collection
             
         except Exception as e:
-            logger.error(f"创建Raptor索引失败: {e}")
+            logger.error(f"创建Raptor索引失败: {e}，使用简单索引")
             # 失败时创建简单的向量存储
-            return Chroma.from_texts(
-                texts,
-                self.embeddings,
-                persist_directory=persist_directory
-            )
+            try:
+                simple_vectorstore = self.save_embeddings(texts, embeddings, persist_directory)
+                return simple_vectorstore
+            except Exception as e:
+                logger.error(f"简单索引也创建失败: {e}，无法创建索引")
+                raise e
     
     def _extract_keywords(self, text: str) -> list:
         """
@@ -167,15 +193,21 @@ class AdvancedIndexer:
         :return: 读取的向量存储
         """
         try:
-            vectorstore = Chroma(
-                persist_directory=persist_directory,
-                embedding_function=self.embeddings
-            )
+            chromadb_collection = chromadb.PersistentClient(path=persist_directory).get_or_create_collection(name="default")
             logger.info(f"Raptor索引读取完成")
-            return vectorstore
+            return chromadb_collection
         except Exception as e:
             logger.error(f"读取Raptor索引失败: {e}")
             return None
+    def save_embeddings(self, chunks: list, embeddings: list, persist_directory: str = "./chroma_db"):
+        chromadb_client = chromadb.PersistentClient(path=persist_directory)
+        chromadb_collection = chromadb_client.get_or_create_collection(name="default")
+        chromadb_collection.add(
+            documents=chunks,
+            embeddings=embeddings,
+            ids=[f"str{i}" for i in range(len(chunks))]
+        )
+        return chromadb_collection
 
 
 # Multi-Query Prompt - 生成多个相关查询
