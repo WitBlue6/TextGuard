@@ -8,6 +8,7 @@ wheels/
 
 # log files
 logs/
+dataset/
 
 # Virtual environments
 .venv

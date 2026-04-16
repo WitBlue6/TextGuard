@@ -80,6 +80,13 @@ def extract_entities(chain, text: str) -> List[UIEntity]:
                           config={"session_id": "lzh"}
                           ).content
     try:
+        if "</think>" in result:
+            result = result.split("</think>")[-1].strip()
+        import re
+        # 使用正则表达式提取JSON代码块
+        json_match = re.search(r'```json\s*\n(.*?)\n```', result, re.DOTALL)
+        if json_match:
+            result = json_match.group(1).strip()
         raw_entities = json.loads(result)
         #logger.info(f"原始实体提取结果: {raw_entities}")
 
@@ -115,6 +122,13 @@ def check_entity_consistency(chain, entity: UIEntity, enhanced_input: Optional[s
         return {}
     
     result = chain.invoke({"new_message": input}).content
+    if "</think>" in result:
+        result = result.split("</think>")[-1].strip()
+    import re
+    # 使用正则表达式提取JSON代码块
+    json_match = re.search(r'```json\s*\n(.*?)\n```', result, re.DOTALL)
+    if json_match:
+        result = json_match.group(1).strip()
     return json.loads(result)
 
 def summarize_entity_memory(chain, chunk: str) -> str:
@@ -125,4 +139,6 @@ def summarize_entity_memory(chain, chunk: str) -> str:
     :return: 总结文本
     """
     result = chain.invoke({"new_message": chunk}).content
+    if "</think>" in result:
+        result = result.split("</think>")[-1].strip()
     return result
