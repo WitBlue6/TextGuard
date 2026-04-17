@@ -1,0 +1,123 @@
+{
+  "total_cases": 13,
+  "fact_level": {
+    "pass_count": 12,
+    "pass_rate": 0.9230769230769231,
+    "avg_recall": 0.9230769230769231,
+    "avg_precision": 0.9230769230769231
+  },
+  "conflict_localization": {
+    "pass_count": 12,
+    "pass_rate": 0.9230769230769231
+  },
+  "document_level": {
+    "pass_count": 12,
+    "pass_rate": 0.9230769230769231
+  },
+  "detailed_results": [
+    {
+      "case_id": "num_001",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 0,
+      "expected_count": 0
+    },
+    {
+      "case_id": "num_002",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 1,
+      "expected_count": 1
+    },
+    {
+      "case_id": "num_003",
+      "fact_level_pass": false,
+      "localization_pass": false,
+      "final_verdict_correct": false,
+      "detected_count": 0,
+      "expected_count": 1
+    },
+    {
+      "case_id": "time_001",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 0,
+      "expected_count": 1
+    },
+    {
+      "case_id": "time_002",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 3,
+      "expected_count": 1
+    },
+    {
+      "case_id": "time_003",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 0,
+      "expected_count": 1
+    },
+    {
+      "case_id": "attr_001",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 0,
+      "expected_count": 0
+    },
+    {
+      "case_id": "attr_002",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 4,
+      "expected_count": 1
+    },
+    {
+      "case_id": "attr_003",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 0,
+      "expected_count": 1
+    },
+    {
+      "case_id": "multi_001",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 0,
+      "expected_count": 1
+    },
+    {
+      "case_id": "multi_002",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 6,
+      "expected_count": 3
+    },
+    {
+      "case_id": "no_conflict_001",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 0,
+      "expected_count": 0
+    },
+    {
+      "case_id": "no_conflict_002",
+      "fact_level_pass": true,
+      "localization_pass": true,
+      "final_verdict_correct": true,
+      "detected_count": 0,
+      "expected_count": 0
+    }
+  ]
+}

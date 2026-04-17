@@ -25,9 +25,9 @@ class AdvancedIndexer:
         if base_url is None:
             base_url = os.getenv("AI_MODEL_BASE_URL", "https://dashscope.aliyuncs.com/compatible-mode/v1")
         
-        # 确保base_url以正确的路径结尾
-        if not base_url.endswith("/v1"):
-            base_url = base_url.rstrip("/") + "/v1"
+        # # 确保base_url以正确的路径结尾
+        # if not base_url.endswith("/v1"):
+        #     base_url = base_url.rstrip("/") + "/v1"
             
         # self.embeddings = OpenAIEmbeddings(
         #     model=embedding_name,

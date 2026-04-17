@@ -2,6 +2,8 @@ let ws;
 let isConnected = false;
 let currentFullscreenId = null;
 let currentResults = { consistency: null, grammar: null };
+let ragEnabled = false;
+let ragMode = 'none';
 
 // 确保DOM加载完成后再执行DOM操作
 document.addEventListener('DOMContentLoaded', function() {
@@ -31,6 +33,42 @@ document.addEventListener('DOMContentLoaded', function() {
     const grammarSection = document.querySelector('.result-section:nth-child(2)');
     if (consistencySection) consistencySection.id = 'consistency-section';
     if (grammarSection) grammarSection.id = 'grammar-section';
+
+    // RAG控件绑定
+    const ragEnabledCheckbox = document.getElementById('rag-enabled');
+    const ragModeSelect = document.getElementById('rag-mode');
+
+    if (ragEnabledCheckbox && ragModeSelect) {
+        // 初始化RAG模式
+        ragModeSelect.addEventListener('change', function() {
+            ragMode = this.value;
+            ragEnabled = ragMode !== 'none';
+            ragEnabledCheckbox.checked = ragEnabled;
+            
+            const modeNames = {
+                'none': '无RAG',
+                'mandatory': '必须RAG',
+                'auto': 'Auto RAG'
+            };
+            addLog(`RAG模式已设置为: ${modeNames[ragMode]}`, "info");
+        });
+
+        ragEnabledCheckbox.addEventListener('change', function() {
+            ragEnabled = this.checked;
+            if (!ragEnabled) {
+                ragMode = 'none';
+                ragModeSelect.value = 'none';
+                addLog("RAG功能已禁用", "info");
+            } else {
+                // 如果启用RAG但当前模式是none，设置为auto
+                if (ragMode === 'none') {
+                    ragMode = 'auto';
+                    ragModeSelect.value = 'auto';
+                }
+                addLog("RAG功能已启用", "info");
+            }
+        });
+    }
 
     // 绑定反馈表单提交事件
     const feedbackForm = document.getElementById('feedback-form');
@@ -110,8 +148,9 @@ function sendMessage(pipelineType) {
         }
 
         // 建立新的WebSocket连接
-        ws = new WebSocket("ws://localhost:8000/ws/chat");
-        console.log('WebSocket连接已创建');
+        const wsUrl = `ws://${window.location.host}/ws/chat`;
+        ws = new WebSocket(wsUrl);
+        console.log('WebSocket连接已创建:', wsUrl);
 
         ws.onopen = () => {
             isConnected = true;
@@ -121,13 +160,24 @@ function sendMessage(pipelineType) {
             const reader = new FileReader();
             if (file) {
                 reader.onload = () => {
-                    const data = JSON.stringify({message: message, file: {filename: file.name, content: reader.result}, pipeline: pipelineType});
+                    // 提取base64内容，移除data:URL前缀
+                    const base64Content = reader.result.split(',')[1];
+                    const data = JSON.stringify({
+                        action: pipelineType,
+                        message: message,
+                        file: {filename: file.name, content: base64Content},
+                        rag_mode: ragMode
+                    });
                     ws.send(data);
-                    console.log('已发送包含文件的数据:', data);
+                    console.log('已发送包含文件的数据:', data.length, 'bytes');
                 }
                 reader.readAsDataURL(file);
             } else {
-                const data = JSON.stringify({message: message, pipeline: pipelineType});
+                const data = JSON.stringify({
+                    action: pipelineType,
+                    message: message,
+                    rag_mode: ragMode
+                });
                 ws.send(data);
                 console.log('已发送文本数据:', data);
             }
@@ -148,7 +198,7 @@ function sendMessage(pipelineType) {
                         displayResult('consistency', data.results);
                         consistencyBtn.disabled = false;
                         consistencyBtn.innerHTML = '一致性检测';
-                    } else {
+                    } else if (data.pipeline === 'grammar') {
                         currentResults.grammar = data.results;
                         displayResult('grammar', data.results);
                         grammarBtn.disabled = false;
@@ -193,7 +243,7 @@ function sendMessage(pipelineType) {
         }
 
         ws.onerror = (error) => {
-            addLog("WebSocket错误: " + error.message, "error");
+            addLog("WebSocket错误: " + (error.message || '未知错误'), "error");
             console.error('WebSocket错误:', error);
             isConnected = false;
             
@@ -504,7 +554,7 @@ function submitFeedback() {
             console.log('已发送反馈数据:', feedbackData);
         } else {
             // 如果WebSocket断开，重新连接并发送
-            ws = new WebSocket("ws://localhost:8000/ws/chat");
+            ws = new WebSocket(`ws://${window.location.host}/ws/chat`);
             
             ws.onopen = () => {
                 isConnected = true;

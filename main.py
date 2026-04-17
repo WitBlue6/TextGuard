@@ -10,7 +10,8 @@ import logging
 
 def parse_args():
     parser = argparse.ArgumentParser(description="WebUI for Text Error Correction")
-    parser.add_argument("--model_name", type=str, default="qwen-plus", help="Model name")
+    parser.add_argument("--model_name", type=str, default="qwen3.5-flash", help="Model name")
+    parser.add_argument("--embedding_name", type=str, default="text-embedding-v4", help="Embedding model name")
     parser.add_argument("--base_url", type=str, default="https://dashscope.aliyuncs.com/compatible-mode/v1", help="Base URL")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")
     args = parser.parse_args()
@@ -75,3 +76,8 @@ def create_app() -> FastAPI:
     return app
 
 app = create_app()
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=False)
+
