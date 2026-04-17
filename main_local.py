@@ -10,10 +10,11 @@ import logging
 
 def parse_args():
     parser = argparse.ArgumentParser(description="WebUI for TextGuard (Local Mode)")
-    parser.add_argument("--model_name", type=str, default="Qwen/Qwen2.5-7B-Instruct", help="LLM模型名称")
-    parser.add_argument("--model_path", type=str, default=None, help="本地模型路径")
-    parser.add_argument("--embedding_model", type=str, default="sentence-transformers/all-MiniLM-L6-v2", help="嵌入模型名称")
-    parser.add_argument("--device", type=str, default=None, help="设备 (cuda/cpu/mps)")
+    parser.add_argument("--model_name", type=str, default="Qwen/Qwen2.5-3B-Instruct", help="LLM模型名称")
+    parser.add_argument("--model_path", type=str, default="/home/lzh/models/qwen2.5-3b", help="本地模型路径")
+    parser.add_argument("--embedding_model", type=str, default="Qwen/Qwen3-Embedding-0.6B", help="嵌入模型名称")
+    parser.add_argument("--embedding_model_path", type=str, default="/home/lzh/models/qwen3-embedding-0.6b", help="本地嵌入模型路径")
+    parser.add_argument("--device", type=str, default="cuda", help="设备 (cuda/cpu/mps)")
     parser.add_argument("--llm_quantization", action="store_true", help="使用量化模型")
     parser.add_argument("--rag_mode", type=str, default="none", choices=["none", "mandatory", "auto"], help="RAG模式")
     parser.add_argument("--rag_enabled", action="store_true", help="启用RAG")

@@ -24,7 +24,18 @@ def get_local_device():
     """获取本地设备"""
     global _device
     if _device is None:
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        try:
+            # 尝试检查CUDA是否可用
+            if torch.cuda.is_available():
+                # 进一步检查CUDA设备是否可以使用
+                torch.cuda.get_device_name(0)
+                device = "cuda"
+            else:
+                device = "cpu"
+        except Exception as e:
+            # 如果CUDA检查失败，回退到CPU
+            logger.warning(f"CUDA检查失败: {e}，回退到CPU")
+            device = "cpu"
         _device = device
         logger.info(f"使用设备: {device}")
     return _device
@@ -64,6 +75,13 @@ def get_local_model(model_name: str, model_path: Optional[str] = None,
             tokenizer.pad_token = tokenizer.eos_token
 
         # 加载模型
+        # 检查CUDA是否可用
+        if torch.cuda.is_available():
+            logger.info("CUDA可用")
+        else:
+            device = "cpu" if device == "cuda" else device
+            logger.info("CUDA不可用")
+
         load_kwargs = {
             "trust_remote_code": True,
             "device_map": device or get_local_device()
@@ -85,6 +103,7 @@ def get_local_model(model_name: str, model_path: Optional[str] = None,
             tokenizer=tokenizer,
             device_map=device or get_local_device(),
             max_new_tokens=1024,
+            max_length=None,  # 显式设置max_length=None，避免与max_new_tokens冲突
             temperature=0.7,
             top_p=0.9,
             do_sample=True

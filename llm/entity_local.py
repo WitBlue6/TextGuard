@@ -44,10 +44,19 @@ def extract_entities_local(chain, text: str,
 
         # 调用chain提取实体
         result = chain.invoke({"new_message": text},
-                              config={"session_id": "local_entity_extraction"}
-                              ).content
+                              config={"session_id": "local_entity_extraction"})
 
-        logger.debug(f"原始LLM响应: {result}")
+        # 确保result是字符串
+        result_str = str(result)
+        
+        # 提取Assistant后面的内容
+        if "Assistant:" in result_str:
+            assistant_index = result_str.find("Assistant:")
+            if assistant_index != -1:
+                result_str = result_str[assistant_index + len("Assistant:"):].strip()
+
+        logger.debug(f"原始LLM响应: {result_str}")
+        result = result_str
 
         # 清理响应文本
         if "```" in result:
@@ -107,10 +116,19 @@ def check_entity_consistency_local(chain, entity: UIEntity,
 
         # 调用chain检查一致性
         result = chain.invoke({"new_message": input_text},
-                              config={"session_id": "local_consistency_check"}
-                              ).content
+                              config={"session_id": "local_consistency_check"})
 
-        logger.debug(f"原始LLM响应: {result}")
+        # 确保result是字符串
+        result_str = str(result)
+        
+        # 提取Assistant后面的内容
+        if "Assistant:" in result_str:
+            assistant_index = result_str.find("Assistant:")
+            if assistant_index != -1:
+                result_str = result_str[assistant_index + len("Assistant:"):].strip()
+
+        logger.debug(f"原始LLM响应: {result_str}")
+        result = result_str
 
         # 清理响应文本
         if "```" in result:
@@ -167,10 +185,19 @@ def summarize_entity_memory_local(chain, chunk: str,
 
         # 调用chain总结
         result = chain.invoke({"new_message": chunk},
-                              config={"session_id": "local_memory_summary"}
-                              ).content
+                              config={"session_id": "local_memory_summary"})
 
-        logger.debug(f"原始LLM响应: {result}")
+        # 确保result是字符串
+        result_str = str(result)
+        
+        # 提取Assistant后面的内容
+        if "Assistant:" in result_str:
+            assistant_index = result_str.find("Assistant:")
+            if assistant_index != -1:
+                result_str = result_str[assistant_index + len("Assistant:"):].strip()
+
+        logger.debug(f"原始LLM响应: {result_str}")
+        result = result_str
 
         # 清理响应文本
         if "```" in result:
@@ -217,10 +244,19 @@ def check_entity_consistency_with_enhancement_local(
 
         # 调用chain检查一致性
         result = chain.invoke({"new_message": enhanced_input},
-                              config={"session_id": "local_rag_consistency_check"}
-                              ).content
+                              config={"session_id": "local_rag_consistency_check"})
 
-        logger.debug(f"原始LLM响应: {result}")
+        # 确保result是字符串
+        result_str = str(result)
+        
+        # 提取Assistant后面的内容
+        if "Assistant:" in result_str:
+            assistant_index = result_str.find("Assistant:")
+            if assistant_index != -1:
+                result_str = result_str[assistant_index + len("Assistant:"):].strip()
+
+        logger.debug(f"原始LLM响应: {result_str}")
+        result = result_str
 
         # 清理响应文本
         if "```" in result:

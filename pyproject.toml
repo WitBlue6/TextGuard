@@ -20,6 +20,12 @@ dependencies = [
     "scikit-learn>=1.7.2",
     "uvicorn>=0.38.0",
     "websockets>=15.0.1",
+    # HuggingFace Transformers
+    "transformers>=4.35.0",
+    "torch>=2.0.0",
+    "sentence-transformers>=2.2.0",
+    "langchain-huggingface",
+    "accelerate",
 ]
 
 [[tool.uv.index]]

@@ -19,7 +19,7 @@ class LocalAdvancedIndexer:
     """
 
     def __init__(self, embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2",
-                 model_path: Optional[str] = None,
+                 embedding_model_path: Optional[str] = None,
                  device: Optional[str] = None):
         """
         初始化本地向量索引器
@@ -34,6 +34,8 @@ class LocalAdvancedIndexer:
         import torch
         if device is None:
             device = "cuda" if torch.cuda.is_available() else "cpu"
+        if not torch.cuda.is_available():
+            device = "cpu" if device == "cuda" else device
         self.device = device
 
         logger.info(f"使用设备: {device}")
@@ -41,9 +43,9 @@ class LocalAdvancedIndexer:
         # 加载嵌入模型
         try:
             from sentence_transformers import SentenceTransformer
-            if model_path:
-                self.encoder = SentenceTransformer(model_path, device=device)
-                logger.info(f"从本地路径加载嵌入模型: {model_path}")
+            if embedding_model_path:
+                self.encoder = SentenceTransformer(embedding_model_path, device=device)
+                logger.info(f"从本地路径加载嵌入模型: {embedding_model_path}")
             else:
                 self.encoder = SentenceTransformer(embedding_model, device=device)
                 logger.info(f"从HuggingFace加载嵌入模型: {embedding_model}")

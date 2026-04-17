@@ -42,13 +42,16 @@ class LocalIterativeRetriever:
         self.chromadb_collection = vectorstore
         self.max_iterations = max_iterations
         self.k = k
+        import torch
+        if not torch.cuda.is_available():
+            device = "cpu" if device == "cuda" else device
         self.device = device or ("cuda" if __import__('torch').cuda.is_available() else "cpu")
 
         # 加载LLM模型
         logger.info(f"加载本地LLM模型: {model_name}")
         try:
             from .indexer_local import LocalAdvancedIndexer
-            self.llm = LocalAdvancedIndexer(embedding_model=embedding_model, model_path=embedding_model_path, device=self.device)
+            self.llm = LocalAdvancedIndexer(embedding_model=embedding_model, embedding_model_path=embedding_model_path, device=self.device)
         except Exception as e:
             logger.error(f"加载LLM失败: {e}")
             self.llm = None

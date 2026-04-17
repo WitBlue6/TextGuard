@@ -3,7 +3,7 @@
 支持使用本地LLM进行质量评估
 """
 from langchain_core.prompts import ChatPromptTemplate
-from .model_local import get_local_model
+from llm.model_local import get_local_model
 import logging
 
 logger = logging.getLogger(__name__)
@@ -65,7 +65,15 @@ class LocalSelfEvaluator:
             # 构建文档字符串
             docs_str = "\n".join([f"文档 {i+1}: {doc[:1000]}..." for i, doc in enumerate(docs)])
 
-            result = self.model.invoke(eval_prompt.format(query=query, docs=docs_str)).content.strip()
+            result = self.model.invoke(eval_prompt.format(query=query, docs=docs_str))
+            # 确保result是字符串
+            result_str = str(result)
+            # 提取Assistant后面的内容
+            if "Assistant:" in result_str:
+                assistant_index = result_str.find("Assistant:")
+                if assistant_index != -1:
+                    result_str = result_str[assistant_index + len("Assistant:"):].strip()
+            result = result_str.strip()
             logger.debug(f"检索结果评估: {result}")
 
             return result
@@ -105,7 +113,15 @@ class LocalSelfEvaluator:
             # 构建文档字符串
             docs_str = "\n".join([f"文档 {i+1}: {doc[:1000]}..." for i, doc in enumerate(docs)])
 
-            result = self.model.invoke(eval_prompt.format(query=query, docs=docs_str, answer=answer)).content.strip()
+            result = self.model.invoke(eval_prompt.format(query=query, docs=docs_str, answer=answer))
+            # 确保result是字符串
+            result_str = str(result)
+            # 提取Assistant后面的内容
+            if "Assistant:" in result_str:
+                assistant_index = result_str.find("Assistant:")
+                if assistant_index != -1:
+                    result_str = result_str[assistant_index + len("Assistant:"):].strip()
+            result = result_str.strip()
             logger.debug(f"回答质量评估: {result}")
 
             return result
@@ -145,7 +161,15 @@ class LocalSelfEvaluator:
                 original_text=original_text[:500] + ("..." if len(original_text) > 500 else ""),
                 consistency_issues=str(consistency_issues),
                 corrected_text=corrected_text[:500] + ("..." if len(corrected_text) > 500 else "")
-            )).content.strip()
+            ))
+            # 确保result是字符串
+            result_str = str(result)
+            # 提取Assistant后面的内容
+            if "Assistant:" in result_str:
+                assistant_index = result_str.find("Assistant:")
+                if assistant_index != -1:
+                    result_str = result_str[assistant_index + len("Assistant:"):].strip()
+            result = result_str.strip()
 
             logger.debug(f"一致性修正评估: {result}")
             return result
@@ -179,7 +203,15 @@ class LocalSelfEvaluator:
                 ("human", "查询：{query}"),
             ])
 
-            result = self.model.invoke(eval_prompt.format(query=query)).content.strip()
+            result = self.model.invoke(eval_prompt.format(query=query))
+            # 确保result是字符串
+            result_str = str(result)
+            # 提取Assistant后面的内容
+            if "Assistant:" in result_str:
+                assistant_index = result_str.find("Assistant:")
+                if assistant_index != -1:
+                    result_str = result_str[assistant_index + len("Assistant:"):].strip()
+            result = result_str.strip()
             logger.debug(f"查询质量评估: {result}")
 
             return result
@@ -209,7 +241,15 @@ class LocalSelfEvaluator:
             result = self.model.invoke(eval_prompt.format(
                 entity=entity,
                 consistency_result=consistency_result
-            )).content.strip()
+            ))
+            # 确保result是字符串
+            result_str = str(result)
+            # 提取Assistant后面的内容
+            if "Assistant:" in result_str:
+                assistant_index = result_str.find("Assistant:")
+                if assistant_index != -1:
+                    result_str = result_str[assistant_index + len("Assistant:"):].strip()
+            result = result_str.strip()
 
             logger.debug(f"实体一致性评估: {result}")
             return result

@@ -3,7 +3,7 @@
 支持使用本地LLM进行智能路由决策
 """
 from langchain_core.prompts import ChatPromptTemplate
-from .model_local import get_local_model
+from llm.model_local import get_local_model
 import logging
 
 logger = logging.getLogger(__name__)

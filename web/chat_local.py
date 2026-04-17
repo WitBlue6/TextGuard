@@ -45,7 +45,7 @@ async def init_rag_components_local(args, rag_mode, log_callback):
     )
     advanced_indexer = LocalAdvancedIndexer(
         embedding_model=args.embedding_model,
-        model_path=args.model_path,
+        embedding_model_path=args.embedding_model_path,
         device=args.device
     )
     self_evaluator = LocalSelfEvaluator(
@@ -63,7 +63,7 @@ async def init_rag_components_local(args, rag_mode, log_callback):
         model_path=args.model_path,
         device=args.device,
         embedding_model=args.embedding_model,
-        embedding_model_path=args.model_path,
+        embedding_model_path=args.embedding_model_path,
         max_iterations=3,
         k=3
     )
@@ -242,7 +242,15 @@ async def run_consistency_pipeline_local(text: str, args, log_callback, **kwargs
     # 对每个chunk进行修正（简化版：直接返回原文本）
     for chunk in chunks:
         chunk_input = f"原始文本:{chunk}\n实体冲突分析结果:{results}"
-        res = consistency_correct_chain.invoke(chunk_input).content
+        res = consistency_correct_chain.invoke(chunk_input)
+        # 确保res是字符串
+        res_str = str(res)
+        # 提取Assistant后面的内容
+        if "Assistant:" in res_str:
+            assistant_index = res_str.find("Assistant:")
+            if assistant_index != -1:
+                res_str = res_str[assistant_index + len("Assistant:"):].strip()
+        res = res_str
         logger.info(f"段落修正结果: \n{res}")
         res_dict = {
             "original_text": chunk,
@@ -274,7 +282,15 @@ async def extract_entities_with_rag_local(chain, text, log_callback, args):
         retriever = rag_components_local['retriever']
 
         # 2. 路由决策
-        decision = router.invoke({"query": text}).content.strip()
+        decision = router.invoke({"query": text})
+        # 确保decision是字符串
+        decision_str = str(decision)
+        # 提取Assistant后面的内容
+        if "Assistant:" in decision_str:
+            assistant_index = decision_str.find("Assistant:")
+            if assistant_index != -1:
+                decision_str = decision_str[assistant_index + len("Assistant:"):].strip()
+        decision = decision_str.strip()
         await log_callback(f"RAG路由决策: {decision}")
 
         if "retrieve" in decision.lower():
@@ -368,7 +384,14 @@ async def run_grammar_pipeline_local(text: str, args, log_callback, **kwargs):
         if use_rag:
             result = await run_grammar_check_with_rag_local(grammar_check_chain, chunk, log_callback, args)
         else:
-            result = grammar_check_chain.invoke({"new_message": chunk}).content
+            result = grammar_check_chain.invoke({"new_message": chunk})
+            result_str = str(result)
+            # 提取Assistant后面的内容
+            if "Assistant:" in result_str:
+                assistant_index = result_str.find("Assistant:")
+                if assistant_index != -1:
+                    result_str = result_str[assistant_index + len("Assistant:"):].strip()
+            result = result_str.strip()
 
         result_dict = json.loads(result)
         result_dict["original_text"] = chunk
@@ -391,13 +414,29 @@ async def run_grammar_check_with_rag_local(chain, text, log_callback, args):
 
     # 检查是否有RAG组件
     if 'router' not in rag_components_local:
-        return chain.invoke({"new_message": text}).content
+        result = chain.invoke({"new_message": text})
+        result_str = str(result)
+        # 提取Assistant后面的内容
+        if "Assistant:" in result_str:
+            assistant_index = result_str.find("Assistant:")
+            if assistant_index != -1:
+                result_str = result_str[assistant_index + len("Assistant:"):].strip()
+        result = result_str.strip()
+        return result
 
     router = rag_components_local['router']
     retriever = rag_components_local['retriever']
 
     # 路由决策
-    decision = router.invoke({"query": text}).content.strip()
+    decision = router.invoke({"query": text})
+    # 确保decision是字符串
+    decision_str = str(decision)
+    # 提取Assistant后面的内容
+    if "Assistant:" in decision_str:
+        assistant_index = decision_str.find("Assistant:")
+        if assistant_index != -1:
+            decision_str = decision_str[assistant_index + len("Assistant:"):].strip()
+    decision = decision_str.strip()
     await log_callback(f"RAG路由决策: {decision}")
 
     if "retrieve" in decision.lower():
@@ -423,11 +462,26 @@ async def run_grammar_check_with_rag_local(chain, text, log_callback, args):
 
 请基于以上信息进行语法纠错，保持原意不变。
 """
-
-        return chain.invoke({"new_message": enhanced_text}).content
+        result = chain.invoke({"new_message": enhanced_text})
+        result_str = str(result)
+        # 提取Assistant后面的内容
+        if "Assistant:" in result_str:
+            assistant_index = result_str.find("Assistant:")
+            if assistant_index != -1:
+                result_str = result_str[assistant_index + len("Assistant:"):].strip()
+        result = result_str.strip()
+        return result
 
     # 直接纠错
-    return chain.invoke({"new_message": text}).content
+    result = chain.invoke({"new_message": text})
+    result_str = str(result)
+    # 提取Assistant后面的内容
+    if "Assistant:" in result_str:
+        assistant_index = result_str.find("Assistant:")
+        if assistant_index != -1:
+            result_str = result_str[assistant_index + len("Assistant:"):].strip()
+    result = result_str.strip()
+    return result
 
 # 处理反馈的函数（保持不变）
 def process_feedback_local(feedback_data, args, logger):

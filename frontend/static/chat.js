@@ -148,7 +148,9 @@ function sendMessage(pipelineType) {
         }
 
         // 建立新的WebSocket连接
-        const wsUrl = `ws://${window.location.host}/ws/chat`;
+        // 根据端口号检测本地模式，本地模式使用8001端口
+        const wsPath = window.location.port === '8001' ? '/ws/chat_local' : '/ws/chat';
+        const wsUrl = `ws://${window.location.host}${wsPath}`;
         ws = new WebSocket(wsUrl);
         console.log('WebSocket连接已创建:', wsUrl);
 
@@ -554,7 +556,9 @@ function submitFeedback() {
             console.log('已发送反馈数据:', feedbackData);
         } else {
             // 如果WebSocket断开，重新连接并发送
-            ws = new WebSocket(`ws://${window.location.host}/ws/chat`);
+            // 根据端口号检测本地模式，本地模式使用8001端口
+            const wsPath = window.location.port === '8001' ? '/ws/chat_local' : '/ws/chat';
+            ws = new WebSocket(`ws://${window.location.host}${wsPath}`);
             
             ws.onopen = () => {
                 isConnected = true;
