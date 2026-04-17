@@ -68,19 +68,32 @@ def chunking(text, chunk_size=1024):
 
 def get_text_from_input(
         message: str | None,
-        file: UploadFile | None = None,
+        file: UploadFile | str | None = None,
 ) -> str:
     if message:
         return message
     elif file:
-        file_ext = file.filename.split(".")[-1]
-        if file_ext == "pdf":
-            return extract_text_from_pdf(file.file)
-        elif file_ext == "docx":
-            return extract_text_from_docx(file.file)
+        if isinstance(file, str):
+            file_ext = file.split(".")[-1]
+            if file_ext == "pdf":
+                return extract_text_from_pdf(file)
+            elif file_ext == "docx":
+                return extract_text_from_docx(file)
+            elif file_ext in ["txt", "md"]:
+                with open(file, "r", encoding="utf-8") as f:
+                    return f.read()
+            else:
+                logger.error(f"不支持的文件格式: {file_ext}")
+                return ""
         else:
-            logger.error(f"不支持的文件格式: {file_ext}")
-            return ""
+            file_ext = file.filename.split(".")[-1]
+            if file_ext == "pdf":
+                return extract_text_from_pdf(file.file)
+            elif file_ext == "docx":
+                return extract_text_from_docx(file.file)
+            else:
+                logger.error(f"不支持的文件格式: {file_ext}")
+                return ""
     else:
         logger.error("未提供消息或文件")
         return ""

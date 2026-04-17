@@ -81,6 +81,7 @@ class AdvancedIndexer:
     def create_raptor_index(self, texts: list, persist_directory: str = "./chroma_db"):
         """
         创建Raptor索引（分层摘要+聚类）
+        支持批处理，每个批次不超过10个文本表示
         
         :param texts: 要索引的文本列表
         :param persist_directory: 向量存储的持久化目录
@@ -89,13 +90,31 @@ class AdvancedIndexer:
         try:
             logger.info(f"开始创建Raptor索引，文本数量: {len(texts)}")
             
-            # 1. 生成文本嵌入
-            # 这里和langchain好像不兼容，所以用openai的api直接调用
-            resp = self.embeddings.embeddings.create(
-                model=self.embedding_model,
-                input=texts
-            )
-            embeddings = [np.array(item.embedding) for item in resp.data]
+            # 1. 生成文本嵌入（批处理）
+            batch_size = 10
+            embeddings = []
+            total_texts = len(texts)
+            
+            if total_texts <= batch_size:
+                # 文本数量小于等于批处理大小，直接生成嵌入
+                resp = self.embeddings.embeddings.create(
+                    model=self.embedding_model,
+                    input=texts
+                )
+                embeddings = [np.array(item.embedding) for item in resp.data]
+            else:
+                # 分批处理
+                logger.info(f"文本数量 {total_texts} 超过批处理大小 {batch_size}，开始分批处理")
+                for i in range(0, total_texts, batch_size):
+                    batch = texts[i:i+batch_size]
+                    logger.info(f"处理批次 {i//batch_size + 1}/{(total_texts + batch_size - 1)//batch_size}")
+                    resp = self.embeddings.embeddings.create(
+                        model=self.embedding_model,
+                        input=batch
+                    )
+                    batch_embeddings = [np.array(item.embedding) for item in resp.data]
+                    embeddings.extend(batch_embeddings)
+            
             logger.info(f"文本嵌入生成完成")
             
             # 2. 聚类 - 避免聚类数量为0
@@ -143,6 +162,21 @@ class AdvancedIndexer:
             logger.error(f"创建Raptor索引失败: {e}，使用简单索引")
             # 失败时创建简单的向量存储
             try:
+                # 确保embeddings变量已初始化
+                if not embeddings:
+                    # 重新生成嵌入（批处理）
+                    batch_size = 10
+                    embeddings = []
+                    total_texts = len(texts)
+                    for i in range(0, total_texts, batch_size):
+                        batch = texts[i:i+batch_size]
+                        resp = self.embeddings.embeddings.create(
+                            model=self.embedding_model,
+                            input=batch
+                        )
+                        batch_embeddings = [np.array(item.embedding) for item in resp.data]
+                        embeddings.extend(batch_embeddings)
+                
                 simple_vectorstore = self.save_embeddings(texts, embeddings, persist_directory)
                 return simple_vectorstore
             except Exception as e:
