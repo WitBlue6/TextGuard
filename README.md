@@ -73,7 +73,7 @@ OPENAI_API_KEY=sk-xxxx
 
 ```bash
 # 使用uv运行
-uv run run.py
+uv run main.py
 ```
 
 服务将在`http://localhost:8000`启动
@@ -116,34 +116,104 @@ ws://localhost:8000/ws/chat
 }
 ```
 
+## 本地部署
+TextGuard支持使用本地模型进行推理，主要优势包括：
+
+- **隐私保护**：所有数据在本地处理，不发送到外部API
+- **成本降低**：避免API调用费用
+- **离线运行**：可以在没有网络连接的环境中运行
+- **自定义模型**：支持使用自定义或微调的模型
+
+### 方法1：使用本地运行脚本
+
+```bash
+# 运行本地脚本
+./run_local.sh
+```
+
+该脚本会自动执行以下步骤：
+1. 安装依赖管理工具uv
+2. 配置Hugging Face镜像
+3. 同步项目依赖
+4. 下载必要的模型
+5. 运行本地推理
+
+### 方法2：手动配置
+
+1. **安装uv**：
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+
+2. **同步依赖**：
+   ```bash
+   uv sync -r requirements_local.txt
+   ```
+
+3. **下载模型**：
+   ```bash
+   uvx hf download meta-llama/Llama-2-7b-chat-hf --local-dir ./models/llama-2-7b-chat-hf
+   ```
+
+4. **运行本地推理**：
+   ```bash
+   uv run main_local.py
+   ```
+
+## Agentic RAG 技术
+
+TextGuard使用Agentic RAG技术来提高内容检测的准确性。该技术结合了：
+
+- **智能检索**：根据检测任务动态检索相关信息
+- **代理推理**：使用专门的代理进行深度分析
+- **上下文增强**：利用检索到的信息增强模型理解
+- **多步骤推理**：通过多步骤分析提高检测精度
+
+
 ## 项目结构
 
-``` plaintext
+```plaintext
 ├── README.md
 ├── consistency_check.py   # 语义一致性检测
+├── consistency_check_local.py # 本地语义一致性检测
 ├── feedback.py            # 人工反馈模块
 ├── grammar_correction.py  # 中文语法纠错
+├── main_local.py          # 本地推理主脚本
+├── run_local.sh           # 本地运行脚本
 ├── dataset                # 数据集
 ├── filereader             # PDF/DOCX文件读取模块
-│   ├── __init__.py
-│   └── reader.py
+│   ├── __init__.py
+│   └── reader.py
 ├── frontend               # Web前端界面
-│   └── static
-│       ├── chat.js
-│       └── index.html
+│   └── static
+│       ├── chat.js
+│       └── index.html
 ├── llm                    # Langchain相关模块
-│   ├── __init__.py
-│   ├── entity.py          # 实体抽取模块
-│   ├── memory.py          # 记忆管理模块
-│   ├── model.py           # Chain定义
-│   └── prompt.py          # SP模版定义
+│   ├── __init__.py
+│   ├── entity.py          # 实体抽取模块
+│   ├── entity_local.py    # 本地实体抽取模块
+│   ├── memory.py          # 记忆管理模块
+│   ├── memory_local.py    # 本地记忆管理模块
+│   ├── model.py           # Chain定义
+│   ├── model_local.py     # 本地Chain定义
+│   └── prompt.py          # SP模版定义
+├── agentic                # Agentic RAG组件
+│   ├── __init__.py
+│   ├── indexer.py         # 索引器
+│   ├── indexer_local.py   # 本地索引器
+│   ├── retriever.py       # 检索器
+│   ├── retriever_local.py # 本地检索器
+│   ├── evaluator.py       # 评估器
+│   ├── evaluator_local.py # 本地评估器
+│   └── router.py          # 路由器
 ├── logs
 ├── main.py                # 主应用入口
 ├── pyproject.toml
+├── requirements_local.txt # 本地模式依赖
 ├── run.py                 # 启动脚本
 ├── test                   # 测试脚本
-│   ├── test_model.py
-│   └── test_reader.py
+│   ├── test_model.py
+│   └── test_reader.py
 ├── uv.lock
 └── web.py                 # FastAPI应用入口
 ```
@@ -191,7 +261,7 @@ ws://localhost:8000/ws/chat
 
 ## 日志
 
-系统日志保存在`logs/consistency_check.log`文件中，可以通过配置调整日志级别和格式。
+系统日志保存在`logs/`文件中，可以通过配置调整日志级别和格式。
 
 ## 许可证
 
