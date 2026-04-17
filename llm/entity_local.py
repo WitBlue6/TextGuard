@@ -7,7 +7,7 @@ import uuid
 import logging
 from typing import Dict, Any, List, Optional
 
-from .model_local import get_entity_extract_chain_local
+from .model_local import get_entity_extract_chain_local, get_memory_summary_chain_local
 from .entity import UIEntity, EntityStore
 from .prompt import ENTITY_EXTRACT_PROMPT
 
