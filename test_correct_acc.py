@@ -4,14 +4,18 @@ import json
 import logging
 import os
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Test Grammar Correction Accuracy")
-    parser.add_argument("--model_name", type=str, default="MiniMax-M2.7", help="Model name")
-    parser.add_argument("--base_url", type=str, default="https://api.minimaxi.com/v1", help="Base URL")
+    parser.add_argument("--model_name", type=str, default="gpt-5-mini", help="Model name")
+    parser.add_argument("--base_url", type=str, default="https://api.chatanywhere.tech/v1", help="Base URL")
     parser.add_argument("--test_file", type=str, default="./dataset/grammar/sighan2015_test.tsv", help="Test file path")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")
     parser.add_argument("--sample_size", type=int, default=100, help="Sample size for testing")
+    parser.add_argument("--num_workers", type=int, default=4, help="Number of parallel workers")
+    parser.add_argument("--batch_size", type=int, default=10, help="Batch size for processing")
     args = parser.parse_args()
     return args
 
@@ -59,7 +63,7 @@ def read_test_file(test_file):
             if not line:
                 continue
             parts = line.split('\t')
-            
+
             # 检查文件格式
             if len(parts) >= 3 and '→' in parts[0]:
                 # train.txt格式
@@ -71,7 +75,7 @@ def read_test_file(test_file):
                 id_str = str(i+1)
                 original = parts[0]
                 golds = [parts[1]] if len(parts) > 1 else []
-            
+
             # 过滤空的gold
             golds = [gold for gold in golds if gold]
             data.append({
@@ -81,13 +85,84 @@ def read_test_file(test_file):
             })
     return data
 
+def process_single_item(args, logger, item, grammar_check_chain, judge_chain):
+    """
+    处理单个样本
+    返回: (is_correct, result_dict, item)
+    """
+    id_str = item['id']
+    original = item['original']
+    golds = item['golds']
+
+    logger.info(f"[{id_str}] 开始处理")
+
+    # 如果没有gold句子，跳过
+    if not golds:
+        logger.info(f"[{id_str}] 跳过无gold句子的样本")
+        return "SKIPPED", None, item
+
+    result_dict = {}
+    corrected = ""
+    is_correct = None
+
+    # 语法检查
+    retry_count = 0
+    while retry_count < 3:
+        try:
+            user_input = f"【要求】仅修改原始句子中可能存在的错别字/音近字/形近字，保持其他内容不变。\n【原始句子】{original}"
+            result = grammar_check_chain.invoke({"new_message": user_input}).content
+            if "【" in result:
+                result = result.split("【")[-1].strip()
+            try:
+                result_dict = json.loads(result)
+            except json.JSONDecodeError:
+                result_dict = {"content": result, "reason": "无法解析结果"}
+            corrected = result_dict.get("content", "")
+            break
+        except Exception as e:
+            logger.error(f"[{id_str}] 语法检查失败: {e}，重试次数 {retry_count}")
+            retry_count += 1
+            time.sleep(3)
+            continue
+
+    # 判断是否与gold相近
+    for gold in golds:
+        retry_count = 0
+        while retry_count < 3:
+            try:
+                judge_result = judge_chain.invoke({
+                    "original": original,
+                    "corrected": corrected,
+                    "gold": gold
+                }).content
+                if "【" in judge_result:
+                    judge_result = judge_result.split("【")[-1].strip()
+                if "YES" in judge_result.upper():
+                    is_correct = "YES"
+                elif "NO" in judge_result.upper():
+                    is_correct = "NO"
+                else:
+                    logger.warning(f"[{id_str}] 未知判断结果: {judge_result}")
+                break
+            except Exception as e:
+                logger.error(f"[{id_str}] 判断失败: {e}")
+                retry_count += 1
+                time.sleep(3)
+                continue
+        # 如果找到YES，就不需要继续判断其他gold
+        if is_correct == "YES":
+            break
+
+    logger.info(f"[{id_str}] 判断结果: {is_correct}")
+    return is_correct, result_dict, item
+
 def get_judge_chain(model_name, base_url):
     """
     获取判断链，用于判断修正后的句子是否与gold相近
     """
     from langchain_openai import ChatOpenAI
     from langchain_core.prompts import ChatPromptTemplate
-    
+
     judge_prompt = ChatPromptTemplate.from_messages([
         ("system", "你是一个语言判断专家。给定原始句子、修正后的句子和参考正确句子，判断修正后的句子是否与参考正确句子语义相近。\n\n输出格式：\n判断：YES 或 NO\n原因：简短说明"),
         ("human", "原始句子：{original}\n修正后的句子：{corrected}\n参考正确句子：{gold}"),
@@ -107,124 +182,110 @@ def test_correct_accuracy(args, logger):
     logger.info(f"读取测试文件 {args.test_file}")
     data = read_test_file(args.test_file)
     logger.info(f"共读取 {len(data)} 条数据")
-    
+
     # 限制样本数量
     if args.sample_size > 0:
-        data = data[:args.sample_size]
-        logger.info(f"使用 {len(data)} 条样本进行测试")
-    
+        len_data = min(len(data), args.sample_size)
+        data = data[:len_data]
+        logger.info(f"使用 {len_data} 条样本进行测试")
+
     # 获取语法检查链和判断链
     logger.info("初始化模型链")
     grammar_check_chain = get_grammar_check_chain(args.model_name, args.base_url)
     judge_chain = get_judge_chain(args.model_name, args.base_url)
-    
-    # 统计结果
-    total = len(data)
+
+    # 使用线程安全的计数器
     correct_count = 0
     results = []
-    
-    # 对每个样本进行测试
-    for i, item in enumerate(data):
-        logger.info(f"处理第 {i+1}/{total} 条数据: {item['id']}")
-        
-        # 原始句子
-        original = item['original']
-        golds = item['golds']
-        
-        # 如果没有gold句子，跳过
-        if not golds:
-            logger.info(f"跳过无gold句子的样本: {item['id']}")
-            continue
-        
-        retry_count = 0
-        corrected = ""
-        while retry_count < 3:
-            # 进行语法检查
-            try:
-                # 针对数据集场景，只修改错别字
-                user_input = f"【要求】仅修改原始句子中可能存在的错别字/音近字/形近字，保持其他内容不变。\n【原始句子】{original}"
-                result = grammar_check_chain.invoke({"new_message": user_input}).content
-                if "</think>" in result:
-                    result = result.split("</think>")[-1].strip()
-                result_dict = json.loads(result)
-                corrected = result_dict.get("content", "")
-                break
-            except Exception as e:
-                logger.error(f"语法检查失败: {e}，重试次数 {retry_count}, 返回内容: {result}")
-                retry_count += 1
-                time.sleep(3)  # 等待一段时间后重试
-                continue
-                
-        
-        # 判断是否与gold相近
-        is_correct = None
-        for gold in golds:
-            retry_count = 0
-            while retry_count < 3:
-                # 进行判断
-                try:
-                    judge_result = judge_chain.invoke({
-                        "original": original,
-                        "corrected": corrected,
-                        "gold": gold
-                    }).content
-                    if "</think>" in judge_result:
-                        judge_result = judge_result.split("</think>")[-1].strip()
-                    if "YES" in judge_result.upper():
-                        is_correct = "YES"
-                    elif "NO" in judge_result.upper():
-                        is_correct = "NO"
-                    else:
-                        logger.warning(f"未知判断结果: {judge_result}")
-                    break
-                except Exception as e:
-                    logger.error(f"判断失败: {e}")
-                    retry_count += 1
-                    time.sleep(3)  # 等待一段时间后重试
-                    continue
+    lock = threading.Lock()
 
-        # 统计结果
-        if is_correct == "YES":
-            correct_count += 1
-        
-        # 保存结果
-        results.append({
-            'id': item['id'],
-            'original': original,
-            'corrected': corrected,
-            'reason': result_dict.get("reason", ""),
-            'golds': golds,
-            'is_correct': is_correct
-        })
-        
-        logger.info(f"判断结果: {is_correct}")
-        logger.info(f"原始: {original}")
-        logger.info(f"修正: {corrected}")
-        logger.info(f"原因: {result_dict.get('reason', '')}")
-        logger.info(f"参考: {golds[0]}")
-    
+    # 分批处理，每批指定数量
+    total = len(data)
+    batch_count = (total + args.batch_size - 1) // args.batch_size
+
+    logger.info(f"使用 {args.num_workers} 个工作线程进行并发处理")
+
+    for batch_idx in range(batch_count):
+        start_idx = batch_idx * args.batch_size
+        end_idx = min((batch_idx + 1) * args.batch_size, total)
+        batch_data = data[start_idx:end_idx]
+
+        logger.info(f"处理第 {batch_idx + 1}/{batch_count} 批，样本 {start_idx + 1}-{end_idx}")
+
+        # 使用线程池并发处理
+        with ThreadPoolExecutor(max_workers=args.num_workers) as executor:
+            # 提交所有任务
+            future_to_item = {
+                executor.submit(
+                    process_single_item,
+                    args,
+                    logger,
+                    item,
+                    grammar_check_chain,
+                    judge_chain
+                ): item for item in batch_data
+            }
+
+            # 收集结果
+            for future in as_completed(future_to_item):
+                item = future_to_item[future]
+                try:
+                    is_correct, result_dict, processed_item = future.result()
+                    if is_correct == "SKIPPED":
+                        continue
+
+                    # 线程安全地更新计数
+                    with lock:
+                        if is_correct == "YES":
+                            correct_count += 1
+
+                    # 添加到结果
+                    with lock:
+                        results.append({
+                            'id': processed_item['id'],
+                            'original': processed_item['original'],
+                            'corrected': result_dict.get("content", ""),
+                            'reason': result_dict.get("reason", ""),
+                            'golds': processed_item['golds'],
+                            'is_correct': is_correct
+                        })
+
+                except Exception as e:
+                    logger.error(f"处理样本 {item['id']} 时出错: {e}")
+                    with lock:
+                        results.append({
+                            'id': item['id'],
+                            'original': item['original'],
+                            'corrected': "",
+                            'reason': "",
+                            'golds': item['golds'],
+                            'is_correct': "ERROR"
+                        })
+
     # 计算准确率
     accuracy = correct_count / total if total > 0 else 0
     logger.info(f"测试完成，准确率: {accuracy:.4f} ({correct_count}/{total})")
-    
+
     # 保存结果
     save_dir = os.path.join(args.log_dir, "test_correct_acc")
     os.makedirs(save_dir, exist_ok=True)
-    
+
     # 根据测试文件名生成结果文件名
     test_filename = os.path.basename(args.test_file)
     result_filename = f"results_{os.path.splitext(test_filename)[0]}.json"
     accuracy_filename = f"accuracy_{os.path.splitext(test_filename)[0]}.txt"
-    
+
     with open(os.path.join(save_dir, result_filename), "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=4)
-    
+
     with open(os.path.join(save_dir, accuracy_filename), "w", encoding="utf-8") as f:
         f.write(f"Test file: {args.test_file}\n")
         f.write(f"Accuracy: {accuracy:.4f}\n")
         f.write(f"Correct: {correct_count}\n")
         f.write(f"Total: {total}\n")
-    
+        f.write(f"Workers: {args.num_workers}\n")
+        f.write(f"Batch size: {args.batch_size}\n")
+
     return accuracy
 
 if __name__ == "__main__":
