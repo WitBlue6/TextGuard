@@ -42,7 +42,8 @@ def get_local_device():
 
 def get_local_model(model_name: str, model_path: Optional[str] = None,
                     device: Optional[str] = None,
-                    quantization: bool = False):
+                    quantization: bool = False,
+                    gpus: Optional[list] = None):
     """
     获取本地LLM模型
 
@@ -75,17 +76,36 @@ def get_local_model(model_name: str, model_path: Optional[str] = None,
             tokenizer.pad_token = tokenizer.eos_token
 
         # 加载模型
-        # 检查CUDA是否可用
-        if torch.cuda.is_available():
-            logger.info("CUDA可用")
+        if gpus:
+            logger.info(f"指定GPU: {gpus}")
+            if isinstance(gpus, str):
+                os.environ["CUDA_VISIBLE_DEVICES"] = gpus
+                # gpus:"0,1,2,3", 转为list
+                gpus = gpus.split(",")
+            elif isinstance(gpus, list):
+                os.environ["CUDA_VISIBLE_DEVICES"] = ",".join(map(str, gpus))
+            else:
+                logger.error(f"Invalid gpus format: {gpus}, Support Type: str or list")
+            load_kwargs = {
+                "trust_remote_code": True,
+                "device_map": "auto"
+            }
         else:
-            device = "cpu" if device == "cuda" else device
-            logger.info("CUDA不可用")
+            # 检查CUDA是否可用
+            if torch.cuda.is_available():
+                logger.info("CUDA可用")
+                load_kwargs = {
+                    "trust_remote_code": True,
+                    "device_map": "auto"
+                }
+            else:
+                device = "cpu" if device == "cuda" else device
+                logger.info(f"CUDA不可用, 使用: {device or get_local_device()}")
 
-        load_kwargs = {
-            "trust_remote_code": True,
-            "device_map": device or get_local_device()
-        }
+                load_kwargs = {
+                    "trust_remote_code": True,
+                    "device_map": device or get_local_device()
+                }
 
         if quantization:
             load_kwargs["quantization_config"] = {
@@ -93,26 +113,30 @@ def get_local_model(model_name: str, model_path: Optional[str] = None,
                 "llm_int8_threshold": 6.0,
             }
             load_kwargs["device_map"] = "auto"
-
+        
+        # 加载模型
         model_obj = AutoModelForCausalLM.from_pretrained(model, **load_kwargs)
+        # 使用compile优化加速
+        # model_obj = torch.compile(model_obj, mode="max-autotune", dynamic=True)
 
         # 创建生成pipeline
         pipe = pipeline(
             "text-generation",
             model=model_obj,
             tokenizer=tokenizer,
-            device_map=device or get_local_device(),
+            device_map=load_kwargs["device_map"],
             max_new_tokens=1024,
             max_length=None,  # 显式设置max_length=None，避免与max_new_tokens冲突
-            temperature=0.7,
-            top_p=0.9,
-            do_sample=True
+            temperature=0.0,
+            top_p=1,
+            do_sample=False,
+            batch_size=32,
         )
 
         # 包装为LangChain可用的HuggingFacePipeline
         hf_pipeline = HuggingFacePipeline(
             pipeline=pipe,
-            model_kwargs={"temperature": 0.7, "max_new_tokens": 1024}
+            #model_kwargs={"temperature": 0.7, "max_new_tokens": 1024}
         )
 
         # 缓存模型
@@ -151,7 +175,8 @@ def clear_local_memory(session_id: str):
 def get_grammar_check_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
                                    model_path: str = None,
                                    device: str = None,
-                                   quantization: bool = False):
+                                   quantization: bool = False,
+                                   gpus: Optional[list] = None):
     """
     获取本地语法检查Chain
 
@@ -164,7 +189,7 @@ def get_grammar_check_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
     from .memory_local import LocalSimpleMemory
 
     # 获取本地模型
-    hf_model = get_local_model(model_name, model_path, device, quantization)
+    hf_model = get_local_model(model_name, model_path, device, quantization, gpus)
 
     # 获取prompt
     from .prompt import GRAMMAR_CHECK_PROMPT
@@ -182,7 +207,8 @@ def get_grammar_check_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
 def get_grammar_check_chain_with_memory_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
                                                model_path: str = None,
                                                device: str = None,
-                                               quantization: bool = False):
+                                               quantization: bool = False,
+                                               gpus: Optional[list] = None):
     """
     获取带记忆的本地语法检查Chain
 
@@ -193,7 +219,7 @@ def get_grammar_check_chain_with_memory_local(model_name: str = "Qwen/Qwen2.5-7B
     :return: 语法检查Chain
     """
     # 获取本地模型
-    hf_model = get_local_model(model_name, model_path, device, quantization)
+    hf_model = get_local_model(model_name, model_path, device, quantization, gpus)
 
     # 获取prompt
     from .prompt import GRAMMAR_CHECK_PROMPT
@@ -217,7 +243,8 @@ def get_grammar_check_chain_with_memory_local(model_name: str = "Qwen/Qwen2.5-7B
 def get_entity_extract_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
                                     model_path: str = None,
                                     device: str = None,
-                                    quantization: bool = False):
+                                    quantization: bool = False,
+                                    gpus: Optional[list] = None):
     """
     获取本地实体提取Chain
 
@@ -228,7 +255,7 @@ def get_entity_extract_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
     :return: 实体提取Chain
     """
     # 获取本地模型
-    hf_model = get_local_model(model_name, model_path, device, quantization)
+    hf_model = get_local_model(model_name, model_path, device, quantization, gpus)
 
     # 获取prompt
     from .prompt import ENTITY_EXTRACT_PROMPT
@@ -252,7 +279,8 @@ def get_entity_extract_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
 def get_entity_consistency_check_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
                                               model_path: str = None,
                                               device: str = None,
-                                              quantization: bool = False):
+                                              quantization: bool = False,
+                                              gpus: Optional[list] = None):
     """
     获取本地实体一致性检查Chain
 
@@ -263,7 +291,7 @@ def get_entity_consistency_check_chain_local(model_name: str = "Qwen/Qwen2.5-7B-
     :return: 实体一致性检查Chain
     """
     # 获取本地模型
-    hf_model = get_local_model(model_name, model_path, device, quantization)
+    hf_model = get_local_model(model_name, model_path, device, quantization, gpus)
 
     # 获取prompt
     from .prompt import ENTITY_CONSISTENCY_CHECK_PROMPT
@@ -281,7 +309,8 @@ def get_entity_consistency_check_chain_local(model_name: str = "Qwen/Qwen2.5-7B-
 def get_memory_summary_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
                                     model_path: str = None,
                                     device: str = None,
-                                    quantization: bool = False):
+                                    quantization: bool = False,
+                                    gpus: Optional[list] = None):
     """
     获取本地内存总结Chain
 
@@ -292,7 +321,7 @@ def get_memory_summary_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
     :return: 内存总结Chain
     """
     # 获取本地模型
-    hf_model = get_local_model(model_name, model_path, device, quantization)
+    hf_model = get_local_model(model_name, model_path, device, quantization, gpus)
 
     # 获取prompt
     from .prompt import MEMORY_SUMMARY_PROMPT
@@ -310,7 +339,8 @@ def get_memory_summary_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
 def get_consistency_correct_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
                                          model_path: str = None,
                                          device: str = None,
-                                         quantization: bool = False):
+                                         quantization: bool = False,
+                                         gpus: Optional[list] = None):
     """
     获取本地一致性修正Chain
 
@@ -321,7 +351,7 @@ def get_consistency_correct_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instr
     :return: 一致性修正Chain
     """
     # 获取本地模型
-    hf_model = get_local_model(model_name, model_path, device, quantization)
+    hf_model = get_local_model(model_name, model_path, device, quantization, gpus)
 
     # 获取prompt
     from .prompt import CONSISTENCY_CORRECT_PROMPT
@@ -339,7 +369,8 @@ def get_consistency_correct_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instr
 def get_feedback_summary_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct",
                                       model_path: str = None,
                                       device: str = None,
-                                      quantization: bool = False):
+                                      quantization: bool = False,
+                                      gpus: Optional[list] = None):
     """
     获取本地反馈总结Chain
 
@@ -350,7 +381,7 @@ def get_feedback_summary_chain_local(model_name: str = "Qwen/Qwen2.5-7B-Instruct
     :return: 反馈总结Chain
     """
     # 获取本地模型
-    hf_model = get_local_model(model_name, model_path, device, quantization)
+    hf_model = get_local_model(model_name, model_path, device, quantization, gpus)
 
     # 获取prompt
     from .prompt import FEEDBACK_SUMMARY_PROMPT

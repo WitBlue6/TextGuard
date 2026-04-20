@@ -1,8 +1,13 @@
+import sys
+import os
+
+# 添加项目根目录到 sys.path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from llm.model import get_grammar_check_chain, get_consistency_correct_chain
 import argparse
 import json
 import logging
-import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading

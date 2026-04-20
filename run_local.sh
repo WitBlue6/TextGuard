@@ -24,15 +24,23 @@ echo "同步依赖..."
 uv sync
 
 # 创建模型目录
-mkdir -p ./models
+mkdir -p ~/models
 
 # 检查模型是否存在
-MODEL_PATH="./models/llama-2-7b-chat-hf"
+MODEL_PATH="~/models/Qwen2.5-3B-Instruct"
 if [ ! -d "$MODEL_PATH" ]; then
-    echo "下载模型..."
-    uvx hf download meta-llama/Llama-2-7b-chat-hf --local-dir "$MODEL_PATH"
+    echo "下载模型Qwen/Qwen2.5-3B-Instruct..."
+    uvx hf download Qwen/Qwen2.5-3B-Instruct --local-dir "$MODEL_PATH"
 else
-    echo "模型已存在，跳过下载"
+    echo "Qwen/Qwen2.5-3B-Instruct模型已存在，跳过下载"
+fi
+
+MODEL_PATH="~/models/Qwen3-Embedding-0.6B"
+if [ ! -d "$MODEL_PATH" ]; then
+    echo "下载模型Qwen/Qwen3-Embedding-0.6B..."
+    uvx hf download Qwen/Qwen3-Embedding-0.6B --local-dir "$MODEL_PATH"
+else
+    echo "Qwen/Qwen3-Embedding-0.6B模型已存在，跳过下载"
 fi
 
 # 检查main_local.py是否存在

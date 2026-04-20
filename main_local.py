@@ -11,7 +11,7 @@ import logging
 def parse_args():
     parser = argparse.ArgumentParser(description="WebUI for TextGuard (Local Mode)")
     parser.add_argument("--model_name", type=str, default="Qwen/Qwen2.5-3B-Instruct", help="LLM模型名称")
-    parser.add_argument("--model_path", type=str, default="/home/lzh/models/qwen2.5-3b", help="本地模型路径")
+    parser.add_argument("--model_path", type=str, default="/home/lzh/models/qwen2.5-7b", help="本地模型路径")
     parser.add_argument("--embedding_model", type=str, default="Qwen/Qwen3-Embedding-0.6B", help="嵌入模型名称")
     parser.add_argument("--embedding_model_path", type=str, default="/home/lzh/models/qwen3-embedding-0.6b", help="本地嵌入模型路径")
     parser.add_argument("--device", type=str, default="cuda", help="设备 (cuda/cpu/mps)")
