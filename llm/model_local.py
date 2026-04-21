@@ -127,10 +127,11 @@ def get_local_model(model_name: str, model_path: Optional[str] = None,
             device_map=load_kwargs["device_map"],
             max_new_tokens=1024,
             max_length=None,  # 显式设置max_length=None，避免与max_new_tokens冲突
-            temperature=0.0,
-            top_p=1,
-            do_sample=False,
-            batch_size=32,
+            temperature=0.1,
+            top_p=0.9,
+            do_sample=True,
+            return_full_text=False,  
+            batch_size=10,
         )
 
         # 包装为LangChain可用的HuggingFacePipeline

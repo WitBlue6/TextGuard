@@ -15,15 +15,15 @@ import threading
 def parse_args():
     parser = argparse.ArgumentParser(description="Test Grammar Correction Accuracy")
     parser.add_argument("--model_name", type=str, default="gpt-5-mini", help="Model name")
-    parser.add_argument("--model_path", type=str, default="/home/lzh/models/qwen2.5-7b", help="Model path")
+    parser.add_argument("--model_path", type=str, default="/home/lzh/models/qwen3.5-27b", help="Model path")
     parser.add_argument("--device", type=str, default="cuda", help="Device (cuda/cpu/mps)")
-    parser.add_argument("--gpus", type=str, default="0,1", help="GPU indices to use (comma-separated)")
+    parser.add_argument("--gpus", type=str, default="0,1,2,3", help="GPU indices to use (comma-separated)")
     parser.add_argument("--quantization", action="store_true", help="Use quantized model")
     parser.add_argument("--test_file", type=str, default="./dataset/grammar/sighan2015_test.tsv", help="Test file path")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")
     parser.add_argument("--sample_size", type=int, default=100, help="Sample size for testing")
-    parser.add_argument("--num_workers", type=int, default=4, help="Number of parallel workers")
-    parser.add_argument("--batch_size", type=int, default=16, help="Batch size for processing")
+    parser.add_argument("--num_workers", type=int, default=10, help="Number of parallel workers")
+    parser.add_argument("--batch_size", type=int, default=10, help="Batch size for processing")
     args = parser.parse_args()
     return args
 
@@ -36,6 +36,16 @@ def parse_local_llm_result(result: str):
         assistant_index = result_str.find("Assistant:")
         if assistant_index != -1:
             result_str = result_str[assistant_index + len("Assistant:"):].strip()
+    # 提取最后一个System后面的内容
+    if "System:" in result_str:
+        system_index = result_str.rfind("System:")
+        if system_index != -1:
+            result_str = result_str[system_index + len("System:"):].strip()
+    if "<think>" in result_str:
+        # 移除<think>标签及其内容
+        import re
+        result_str = re.sub(r'<think>.*?</think>', '', result_str, flags=re.DOTALL)
+        result_str = result_str.strip()
     # 尝试直接解析整个字符串
     try:
         result_json = json.loads(result_str)  
@@ -288,7 +298,7 @@ def get_judge_chain_local(model_name, model_path, device, quantization, gpus):
     judge_chain = judge_prompt | hf_model
     return judge_chain
 
-def test_correct_accuracy(args, logger):
+def test_correct_accuracy_batch(args, logger):
     # 读取测试文件
     logger.info(f"读取测试文件 {args.test_file}")
     data = read_test_file(args.test_file)
@@ -377,7 +387,123 @@ def test_correct_accuracy(args, logger):
 
     return accuracy
 
+def test_correct_accuracy(args, logger):
+    # 读取测试文件
+    logger.info(f"读取测试文件 {args.test_file}")
+    data = read_test_file(args.test_file)
+    logger.info(f"共读取 {len(data)} 条数据")
+
+    # 限制样本数量
+    if args.sample_size > 0:
+        len_data = min(len(data), args.sample_size)
+        data = data[:len_data]
+        logger.info(f"使用 {len_data} 条样本进行测试")
+
+    # 获取语法检查链和判断链
+    logger.info("初始化模型链")
+    grammar_check_chain = get_grammar_check_chain_local(args.model_name, args.model_path, args.device, args.quantization, args.gpus)
+    judge_chain = get_judge_chain_local(args.model_name, args.model_path, args.device, args.quantization, args.gpus)
+
+    # 使用线程安全的计数器
+    correct_count = 0
+    results = []
+    lock = threading.Lock()
+
+    # 分批处理，每批指定数量
+    total = len(data)
+    batch_count = (total + args.batch_size - 1) // args.batch_size
+
+    logger.info(f"使用 {args.num_workers} 个工作线程进行并发处理")
+
+    for batch_idx in range(batch_count):
+        start_idx = batch_idx * args.batch_size
+        end_idx = min((batch_idx + 1) * args.batch_size, total)
+        batch_data = data[start_idx:end_idx]
+
+        logger.info(f"处理第 {batch_idx + 1}/{batch_count} 批，样本 {start_idx + 1}-{end_idx}")
+
+        # 使用线程池并发处理
+        with ThreadPoolExecutor(max_workers=args.num_workers) as executor:
+            # 提交所有任务
+            future_to_item = {
+                executor.submit(
+                    process_single_item,
+                    args,
+                    logger,
+                    item,
+                    grammar_check_chain,
+                    judge_chain
+                ): item for item in batch_data
+            }
+
+            # 收集结果
+            for future in as_completed(future_to_item):
+                item = future_to_item[future]
+                try:
+                    is_correct, result_dict, processed_item = future.result()
+                    if is_correct == "SKIPPED":
+                        continue
+
+                    # 线程安全地更新计数
+                    with lock:
+                        if is_correct == "YES":
+                            correct_count += 1
+
+                    # 添加到结果
+                    with lock:
+                        results.append({
+                            'id': processed_item['id'],
+                            'original': processed_item['original'],
+                            'corrected': result_dict.get("content", ""),
+                            'reason': result_dict.get("reason", ""),
+                            'golds': processed_item['golds'],
+                            'is_correct': is_correct
+                        })
+
+                except Exception as e:
+                    logger.error(f"处理样本 {item['id']} 时出错: {e}")
+                    with lock:
+                        results.append({
+                            'id': item['id'],
+                            'original': item['original'],
+                            'corrected': "",
+                            'reason': "",
+                            'golds': item['golds'],
+                            'is_correct': "ERROR"
+                        })
+
+    # 计算准确率
+    accuracy = correct_count / total if total > 0 else 0
+    logger.info(f"测试完成，准确率: {accuracy:.4f} ({correct_count}/{total})")
+
+    # 保存结果
+    save_dir = os.path.join(args.log_dir, "test_correct_acc")
+    os.makedirs(save_dir, exist_ok=True)
+
+    # 根据测试文件名生成结果文件名
+    test_filename = os.path.basename(args.test_file)
+    result_filename = f"results_{os.path.splitext(test_filename)[0]}.json"
+    accuracy_filename = f"accuracy_{os.path.splitext(test_filename)[0]}.txt"
+
+    with open(os.path.join(save_dir, result_filename), "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=4)
+
+    with open(os.path.join(save_dir, accuracy_filename), "w", encoding="utf-8") as f:
+        f.write(f"Test file: {args.test_file}\n")
+        f.write(f"Accuracy: {accuracy:.4f}\n")
+        f.write(f"Correct: {correct_count}\n")
+        f.write(f"Total: {total}\n")
+        f.write(f"Workers: {args.num_workers}\n")
+        f.write(f"Batch size: {args.batch_size}\n")
+
+    return accuracy
+
 if __name__ == "__main__":
+    import time
+    start_time = time.time()
     args = parse_args()
     logger = logging_config(args)
-    test_correct_accuracy(args, logger)
+    #test_correct_accuracy(args, logger)
+    test_correct_accuracy_batch(args, logger)
+    end_time = time.time()
+    logger.info(f"Batch processing time: {end_time - start_time:.2f} seconds")
