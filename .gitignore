@@ -9,6 +9,7 @@ wheels/
 # log files
 logs/
 dataset/
+sft/output/
 
 # Virtual environments
 .venv

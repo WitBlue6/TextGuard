@@ -1,0 +1,221 @@
+2026-04-22 03:35:03 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:35:03 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:35:03 - INFO - root -   数据集总行数: 707
+2026-04-22 03:35:03 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:35:03 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:35:03 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:35:03 - INFO - root -   格式化数据...
+2026-04-22 03:35:03 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:35:03 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:35:12 - INFO - root -   设置LoRA...
+2026-04-22 03:35:12 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:35:12 - INFO - root -   数据分词中...
+2026-04-22 03:35:14 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:35:16 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:37:29 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:37:29 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:37:29 - INFO - root -   数据集总行数: 707
+2026-04-22 03:37:29 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:37:29 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:37:29 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:37:29 - INFO - root -   格式化数据...
+2026-04-22 03:37:29 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:37:29 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:37:38 - INFO - root -   设置LoRA...
+2026-04-22 03:37:39 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:37:39 - INFO - root -   数据分词中...
+2026-04-22 03:37:40 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:37:42 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:37:58 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:37:58 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:37:58 - INFO - root -   数据集总行数: 707
+2026-04-22 03:37:58 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:37:58 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:37:58 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:37:58 - INFO - root -   格式化数据...
+2026-04-22 03:37:58 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:37:58 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:38:07 - INFO - root -   设置LoRA...
+2026-04-22 03:38:07 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:38:07 - INFO - root -   数据分词中...
+2026-04-22 03:38:09 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:38:11 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:38:11 - INFO - root -   开始训练...
+2026-04-22 03:40:43 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:40:43 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:40:43 - INFO - root -   数据集总行数: 707
+2026-04-22 03:40:43 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:40:43 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:40:43 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:40:43 - INFO - root -   格式化数据...
+2026-04-22 03:40:43 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:40:43 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:40:52 - INFO - root -   设置LoRA...
+2026-04-22 03:40:52 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:40:52 - INFO - root -   数据分词中...
+2026-04-22 03:40:54 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:40:56 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:40:56 - INFO - root -   开始训练...
+2026-04-22 03:43:35 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:43:35 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:43:35 - INFO - root -   数据集总行数: 707
+2026-04-22 03:43:35 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:43:35 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:43:35 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:43:35 - INFO - root -   格式化数据...
+2026-04-22 03:43:35 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:43:35 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:43:45 - INFO - root -   设置LoRA...
+2026-04-22 03:43:45 - INFO - root -   数据分词中...
+2026-04-22 03:43:47 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:43:49 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:43:49 - INFO - root -   开始训练...
+2026-04-22 03:44:10 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:44:10 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:44:10 - INFO - root -   数据集总行数: 707
+2026-04-22 03:44:10 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:44:10 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:44:10 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:44:10 - INFO - root -   格式化数据...
+2026-04-22 03:44:10 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:44:10 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:44:20 - INFO - root -   设置LoRA...
+2026-04-22 03:44:20 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:44:20 - INFO - root -   数据分词中...
+2026-04-22 03:44:22 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:44:24 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:44:25 - INFO - root -   开始训练...
+2026-04-22 03:48:16 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:48:16 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:48:16 - INFO - root -   数据集总行数: 707
+2026-04-22 03:48:16 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:48:16 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:48:16 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:48:16 - INFO - root -   格式化数据...
+2026-04-22 03:48:16 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:48:16 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:48:25 - INFO - root -   设置LoRA...
+2026-04-22 03:48:27 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:48:27 - INFO - root -   数据分词中...
+2026-04-22 03:48:29 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:48:30 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:49:34 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:49:34 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:49:34 - INFO - root -   数据集总行数: 707
+2026-04-22 03:49:34 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:49:34 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:49:34 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:49:34 - INFO - root -   格式化数据...
+2026-04-22 03:49:34 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:49:34 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:49:42 - INFO - root -   设置LoRA...
+2026-04-22 03:49:44 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:49:44 - INFO - root -   数据分词中...
+2026-04-22 03:49:46 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:49:48 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:52:29 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:52:29 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:52:29 - INFO - root -   数据集总行数: 707
+2026-04-22 03:52:29 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:52:29 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:52:29 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:52:29 - INFO - root -   格式化数据...
+2026-04-22 03:52:29 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:52:29 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:52:38 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:52:38 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:52:38 - INFO - root -   数据集总行数: 707
+2026-04-22 03:52:38 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:52:38 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:52:38 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:52:38 - INFO - root -   格式化数据...
+2026-04-22 03:52:38 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:52:38 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:52:49 - INFO - root -   设置LoRA...
+2026-04-22 03:52:51 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:52:51 - INFO - root -   数据分词中...
+2026-04-22 03:52:53 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:52:54 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:53:20 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:53:20 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:53:20 - INFO - root -   数据集总行数: 707
+2026-04-22 03:53:20 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:53:20 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:53:20 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:53:20 - INFO - root -   格式化数据...
+2026-04-22 03:53:20 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:53:20 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:53:30 - INFO - root -   设置LoRA...
+2026-04-22 03:53:32 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:53:32 - INFO - root -   数据分词中...
+2026-04-22 03:53:33 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:53:35 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:53:37 - INFO - root -   开始训练...
+2026-04-22 03:56:41 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:56:41 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:56:41 - INFO - root -   数据集总行数: 707
+2026-04-22 03:56:41 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:56:41 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:56:41 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:56:41 - INFO - root -   格式化数据...
+2026-04-22 03:56:41 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:56:41 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:56:49 - INFO - root -   设置LoRA...
+2026-04-22 03:56:51 - INFO - root -   使用 6 个GPU进行训练
+2026-04-22 03:56:51 - INFO - root -   数据分词中...
+2026-04-22 03:56:53 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:56:55 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:56:56 - INFO - root -   开始训练...
+2026-04-22 03:58:49 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 03:58:49 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 03:58:49 - INFO - root -   数据集总行数: 707
+2026-04-22 03:58:49 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 03:58:49 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 03:58:49 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 03:58:49 - INFO - root -   格式化数据...
+2026-04-22 03:58:49 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 03:58:49 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 03:59:00 - INFO - root -   设置LoRA...
+2026-04-22 03:59:01 - INFO - root -   数据分词中...
+2026-04-22 03:59:03 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:59:05 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 03:59:05 - INFO - root -   开始训练...
+2026-04-22 13:07:00 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 13:07:00 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 13:07:00 - INFO - root -   数据集总行数: 707
+2026-04-22 13:07:00 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 13:07:00 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 13:07:00 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 13:07:00 - INFO - root -   格式化数据...
+2026-04-22 13:07:00 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 13:07:00 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 13:07:09 - INFO - root -   设置LoRA...
+2026-04-22 13:07:10 - INFO - root -   数据分词中...
+2026-04-22 13:07:12 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 13:07:14 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 13:07:15 - INFO - root -   开始训练...
+2026-04-22 14:37:33 - INFO - root -   
+Loss图表已保存至: ./sft/output/loss_plot.png
+2026-04-22 14:37:33 - INFO - root -   Loss数据已保存至: ./sft/output/loss_data.json
+2026-04-22 14:37:33 - INFO - root -   保存模型...
+2026-04-22 14:37:34 - INFO - root -   训练完成！模型保存至: ./sft/output
+2026-04-22 14:48:06 - INFO - root -   使用GPU: [0, 1, 2, 3, 4, 5]
+2026-04-22 14:48:06 - INFO - root -   加载数据集: /home/lzh/TextGuard/dataset/grammar/sighan2015_test.tsv
+2026-04-22 14:48:06 - INFO - root -   数据集总行数: 707
+2026-04-22 14:48:06 - INFO - root -   测试数据: 107条 (前107条)
+2026-04-22 14:48:06 - INFO - root -   训练数据: 500条 (最后500条)
+2026-04-22 14:48:06 - INFO - root -   验证数据: 100条 (倒数100条)
+2026-04-22 14:48:06 - INFO - root -   格式化数据...
+2026-04-22 14:48:06 - INFO - root -   训练数据样例: {'source': '印尼的菜也很好吃，可是有一点儿辣。', 'target': '印尼的菜也很好吃，可是有一点儿辣。', 'text': '<|im_start|>system\n你是一个专业的拼写检查器，你的任务是修正句子中的错别字。<|im_end|>\nuser\n请修正这个句子的错别字：印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\nassistant\n印尼的菜也很好吃，可是有一点儿辣。<|im_end|>\n<|im_start|>assistant\n'}
+2026-04-22 14:48:06 - INFO - root -   加载模型: /home/lzh/models/qwen2.5-7b
+2026-04-22 14:48:18 - INFO - root -   设置LoRA...
+2026-04-22 14:48:19 - INFO - root -   数据分词中...
+2026-04-22 14:48:21 - INFO - root -   分词后训练数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 14:48:23 - INFO - root -   分词后验证数据列: ['input_ids', 'attention_mask', 'labels']
+2026-04-22 14:48:23 - INFO - root -   开始训练...
+2026-04-22 14:57:07 - INFO - root -   
+Loss图表已保存至: ./sft/output/loss_plot.png
+2026-04-22 14:57:07 - INFO - root -   Loss数据已保存至: ./sft/output/loss_data.json
+2026-04-22 14:57:07 - INFO - root -   保存模型...
+2026-04-22 14:57:07 - INFO - root -   Best model 已单独保存至: ./sft/output/best
+2026-04-22 14:57:07 - INFO - root -   训练完成！模型保存至: ./sft/output
