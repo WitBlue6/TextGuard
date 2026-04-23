@@ -21,7 +21,7 @@ def parse_args():
     parser.add_argument("--model_name", type=str, default="glm-4-flash")
     parser.add_argument("--base_url", type=str, default="https://open.bigmodel.cn/api/paas/v4")
     parser.add_argument("--log_dir", type=str, default="./logs", help="Output path")
-    parser.add_argument("--output", type=str, default="benchmark_result.json", help="Output result file path")
+    parser.add_argument("--output", type=str, default="./logs/benchmark_result.json", help="Output result file path")
     args = parser.parse_args()
     return args
 
@@ -276,6 +276,148 @@ BENCHMARK_CASES = [
         expected_conflicts=[],
         expected_has_conflict=False,
     ),
+
+    # ===== 短文本案例 =====
+    ConflictCase(
+        case_id="num_001",
+        text="该公司2022年营收为500万元，2023年营收增长至800万元。",
+        expected_conflicts=[],
+        expected_has_conflict=False,
+    ),
+    ConflictCase(
+        case_id="num_002",
+        text="该设备功率为5kW，但手册标注功率为10kW。",
+        expected_conflicts=[{
+            "conflict_type": "数值冲突",
+            "entities_involved": ["功率"],
+            "severity": "high"
+        }],
+        expected_has_conflict=True,
+    ),
+    ConflictCase(
+        case_id="num_003",
+        text="产品单价原为100元，发现实际单价为200元。",
+        expected_conflicts=[{
+            "conflict_type": "数值冲突",
+            "entities_involved": ["单价"],
+            "severity": "high"
+        }],
+        expected_has_conflict=True,
+    ),
+
+    # ===== 时间冲突 =====
+    ConflictCase(
+        case_id="time_001",
+        text="项目于2020年1月启动，同年12月顺利启动。",
+        expected_conflicts=[{
+            "conflict_type": "时间冲突",
+            "entities_involved": ["项目启动时间"],
+            "severity": "high"
+        }],
+        expected_has_conflict=False,
+    ),
+    ConflictCase(
+        case_id="time_002",
+        text="张晓2006年毕业于清华大学，2010年获得研究生学位。但简历显示他2008年才本科毕业。",
+        expected_conflicts=[{
+            "conflict_type": "时间冲突",
+            "entities_involved": ["张晓", "毕业时间"],
+            "severity": "high"
+        }],
+        expected_has_conflict=True,
+    ),
+    ConflictCase(
+        case_id="time_003",
+        text="根据早期报道，飞机于2021年完成首飞。然而最新官方文件显示，首飞实际发生在2020年12月。",
+        expected_conflicts=[{
+            "conflict_type": "时间冲突",
+            "entities_involved": ["首飞时间"],
+            "severity": "high",
+        }],
+        expected_has_conflict=False,
+    ),
+
+    # ===== 属性冲突 =====
+    ConflictCase(
+        case_id="attr_001",
+        text="该设备产自日本，规格符合日本工业标准。",
+        expected_conflicts=[],
+        expected_has_conflict=False,
+    ),
+    ConflictCase(
+        case_id="attr_002",
+        text="产品A是黑色高性能版本，同时标注为白色轻量版。",
+        expected_conflicts=[{
+            "conflict_type": "属性冲突",
+            "entities_involved": ["产品A", "颜色"],
+            "severity": "high"
+        }],
+        expected_has_conflict=True,
+    ),
+    ConflictCase(
+        case_id="attr_003",
+        text="据报道该芯片采用7nm工艺制造。但厂商声明实际采用14nm工艺。",
+        expected_conflicts=[{
+            "conflict_type": "属性冲突",
+            "entities_involved": ["芯片", "工艺"],
+            "severity": "high",
+            "rule_applied": "quoted_statement"
+        }],
+        expected_has_conflict=False,
+    ),
+
+    # ===== 多重冲突 =====
+    ConflictCase(
+        case_id="multi_001",
+        text="""该型号发动机于2019年首次发布，额定功率为1000kW。
+        随后在2020年的更新文档中，功率被调整为1200kW。
+        根据2021年的检测报告，该发动机实际运行功率为1000kW。""",
+        expected_conflicts=[{
+            "conflict_type": "时间冲突",
+            "entities_involved": ["功率调整时间"],
+            "severity": "medium",
+            "rule_applied": "time_progression"
+        }],
+        expected_has_conflict=False,
+    ),
+    ConflictCase(
+        case_id="multi_002",
+        text="""张三的简历显示他于2018年加入公司，2020年晋升为经理。
+        但公司内部系统记录显示，张三于2019年才入职，2021年才晋升。
+        此外，简历写他曾获得"2020年优秀员工"，而系统记录显示该奖项2019年已颁发。""",
+        expected_conflicts=[
+            {
+                "conflict_type": "时间冲突",
+                "entities_involved": ["入职时间"],
+                "severity": "high"
+            },
+            {
+                "conflict_type": "时间冲突",
+                "entities_involved": ["晋升时间"],
+                "severity": "high"
+            },
+            {
+                "conflict_type": "时间冲突",
+                "entities_involved": ["获奖时间"],
+                "severity": "medium"
+            }
+        ],
+        expected_has_conflict=True,
+    ),
+
+    # ===== 无冲突案例 =====
+    ConflictCase(
+        case_id="no_conflict_001",
+        text="该项目分三个阶段实施：第一阶段需求分析，第二阶段开发，第三阶段测试与部署。",
+        expected_conflicts=[],
+        expected_has_conflict=False,
+    ),
+    ConflictCase(
+        case_id="no_conflict_002",
+        text="产品在A渠道定价199元，在B渠道促销价149元，这是正常的渠道差异。",
+        expected_conflicts=[],
+        expected_has_conflict=False,
+    ),
 ]
 
 
@@ -293,7 +435,7 @@ class EvaluationResult:
     entities_correct: bool = False
     localization_pass: bool = False
     final_verdict_correct: bool = False
-    raw_result: dict = field(default_factory=dict)
+    raw_result: list = field(default_factory=list)
     expected_conflicts: list = field(default_factory=list)
     detected_conflict_count: int = 0
     expected_conflict_count: int = 0
@@ -323,7 +465,7 @@ def evaluate_single_case(
         result.fact_recall = 0.0 if result.detected_conflict_count > 0 else 1.0
         result.fact_precision = 0.0 if result.detected_conflict_count > 0 else 1.0
         result.fact_level_pass = result.detected_conflict_count == 0
-
+    
     logging.info(f"Fact-level:\nexpected_conflict_count: {result.expected_conflict_count}\ndetected_conflict_count: {result.detected_conflict_count}\n")
     # ========== 第二层：Conflict-localization ==========
     if case.expected_has_conflict and result.detected_conflict_count > 0:
@@ -364,7 +506,7 @@ def evaluate_single_case(
         detected_conflicts = detected_result.get("conflicts", [])
         detected_types = {c.get("conflict_type") for c in detected_conflicts if c.get("conflict_type")}
         logging.info(f"Conflict-localization:\nexpected_conflicts_type: Empty\ndetected_conflicts_type: {detected_types}\n")
-
+    
     # ========== 第三层：Document-level ==========
     detected_has_conflict = detected_result.get("has_conflict", None)
     result.final_verdict_correct = (detected_has_conflict == case.expected_has_conflict)
@@ -379,6 +521,7 @@ def run_consistency_check(text: str, entity_extract_chain, entity_consistency_ch
     all_conflicts = []
     any_has_conflict = False
     all_explanations = []
+    merged_conflicts = []
 
     for ent in entities:
         res = check_entity_consistency(entity_consistency_check_chain, ent)
@@ -390,6 +533,7 @@ def run_consistency_check(text: str, entity_extract_chain, entity_consistency_ch
         })
         if "explanation" in res:
             all_explanations.append(res["explanation"])
+        #merged_result.append(res)
 
     if not entities:
         dummy_entity = UIEntity(
@@ -397,10 +541,9 @@ def run_consistency_check(text: str, entity_extract_chain, entity_consistency_ch
             name="文本实体",
             type="复合文本"
         )
-        res = {'entity_name': '无实体', 'has_conflict': False, 'conflicts': [], 'explanation': '未提取到实体，触发手动跳过'}
+        res = [{'entity_name': '无实体', 'has_conflict': False, 'conflicts': [], 'explanation': '未提取到实体，触发手动跳过'}]
         return res
 
-    merged_conflicts = []
     for r in all_conflicts:
         if "conflicts" in r:
             merged_conflicts.extend(r["conflicts"])
